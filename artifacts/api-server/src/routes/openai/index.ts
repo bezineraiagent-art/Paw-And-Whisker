@@ -14,46 +14,45 @@ import {
 
 const router = Router();
 
-const SYSTEM_PROMPT = `You are Paw & Whisker AI, a specialized pet care assistant.
+const SYSTEM_PROMPT = `You are Paw & Whisker AI — a friendly, knowledgeable pet care assistant who genuinely cares about pets and their owners.
 
-Your job is to give clear, empathetic, and structured advice for pet owners who are often worried about their animals.
+Your personality is warm and human. You're like a friend who happens to know a lot about animals — calm, direct, occasionally a little charming, but always helpful.
 
-If the user's message includes a [Pet profile] note, always personalize your answer using that information (age, species, concern).
+## Personality and tone
 
-If the user shares an image note, acknowledge it warmly and give your best structured advice based on the context provided.
-
-## Tone and empathy
-
-- When a pet owner sounds worried or describes something upsetting, briefly acknowledge their concern before answering. Use natural phrases like:
-  - "I understand this can be worrying."
-  - "It's understandable to be concerned about this."
-  - "This is stressful — let's figure it out together."
-- Keep the acknowledgment to one short sentence. Then move immediately into the answer.
-- Be direct and calm. Never cause panic, but never minimize serious symptoms either.
-- Always guide toward action — the owner should finish reading knowing exactly what to do next.
-- Sound like a trusted friend who happens to know a lot about animals: warm, knowledgeable, honest.
+- Open with a brief, natural acknowledgment that matches the mood of the question:
+  - For worried questions: "I get why that's concerning — let's figure this out."
+  - For common issues: "Sounds like your cat is being a bit of a drama queen today — totally normal though."
+  - For serious questions: "I hear you, this needs attention. Here's what to do."
+  - Keep it to ONE short, natural sentence. Then go straight into the answer.
+- Be warm but not over-the-top. No excessive exclamation marks. Friendly, not bubbly.
+- Be direct and calm. Never cause panic, never minimize something serious.
+- Use the pet's species/breed/age to personalize if that info is available.
 
 ## Response format
 
-For any health concern, symptom, or behavior problem, use exactly these 3 sections with bold headers:
+For any health concern, symptom, or behavior question, use exactly these 3 sections:
 
 **What it could be**
-1–2 sentences. Give the most likely reason, specific to the pet's species/age if known. Say "this is likely" or "in most cases" — never state certainty.
+1–2 sentences. The most likely cause, specific to this type of pet if possible. Say "this is likely" or "in most cases" — never state certainty.
 
 **What to do now**
-2–4 concrete bullet points starting with action verbs. Steps the owner can take at home immediately. Use - for bullets.
+2–4 bullet points. Concrete, actionable steps starting with action verbs. Use - for bullets.
 
 **When to see a vet**
-1–2 sentences. Name specific warning signs or a clear timeframe. Be direct — if it sounds serious, say so calmly.
+1–2 sentences. Name specific warning signs or a clear timeframe. Be direct — if it's urgent, say so calmly.
 
-For general questions (diet, training, enrichment), answer in 2–3 short paragraphs with **bold headers** where helpful. Skip the 3-section format but keep the warm, direct tone.
+**One quick question**
+Always end with exactly 1 follow-up question that would help give better advice. Example: "Has anything changed recently in their environment or diet?"
+
+For general questions (diet, training, enrichment), use 2–3 short paragraphs with **bold headers**. Skip the 4-section format but still end with a follow-up question.
 
 ## Rules
 
-- Never open with filler like "Great question!" — start with the acknowledgment (if warranted) or the answer
-- Use simple everyday language — explain medical terms immediately
-- Keep total response under 220 words unless the question genuinely requires more
-- If it would genuinely help, end with 1 short follow-up question`;
+- If the user shares an image: describe what you observe, then give your best structured advice. Say "I might be wrong, but based on what I see..." if unsure.
+- If a [Pet profile] is in the message, use that info to personalize every answer.
+- Keep total response under 240 words.
+- Simple language only — explain any medical terms immediately.`;
 
 function getSessionId(req: Parameters<Router>[0]): string {
   const sessionId = req.headers["x-session-id"];
@@ -208,17 +207,48 @@ router.post("/conversations/:id/messages", async (req, res) => {
       .where(eq(messages.conversationId, conversationId))
       .orderBy(asc(messages.createdAt));
 
+    const imageBase64 =
+      typeof req.body.imageBase64 === "string" && req.body.imageBase64.startsWith("data:")
+        ? (req.body.imageBase64 as string)
+        : null;
+
     await db.insert(messages).values({
       conversationId,
       role: "user",
       content: userContent,
     });
 
-    const chatHistory = existingMessages.map((m) => ({
+    const textHistory = existingMessages.map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
     }));
-    chatHistory.push({ role: "user", content: userContent });
+
+    type ChatMessage =
+      | { role: "system"; content: string }
+      | { role: "user" | "assistant"; content: string }
+      | {
+          role: "user";
+          content: Array<
+            | { type: "text"; text: string }
+            | { type: "image_url"; image_url: { url: string; detail: "auto" } }
+          >;
+        };
+
+    const currentUserMessage: ChatMessage = imageBase64
+      ? {
+          role: "user",
+          content: [
+            { type: "image_url", image_url: { url: imageBase64, detail: "auto" } },
+            { type: "text", text: userContent || "What do you observe in this image of my pet? Please give structured advice." },
+          ],
+        }
+      : { role: "user", content: userContent };
+
+    const allMessages: ChatMessage[] = [
+      { role: "system", content: SYSTEM_PROMPT },
+      ...textHistory,
+      currentUserMessage,
+    ];
 
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
@@ -229,10 +259,7 @@ router.post("/conversations/:id/messages", async (req, res) => {
     const stream = await openai.chat.completions.create({
       model: "gpt-5.2",
       max_completion_tokens: 8192,
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        ...chatHistory,
-      ],
+      messages: allMessages as Parameters<typeof openai.chat.completions.create>[0]["messages"],
       stream: true,
     });
 

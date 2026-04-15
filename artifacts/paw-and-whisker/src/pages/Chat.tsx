@@ -218,7 +218,7 @@ export default function Chat() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [imageToSend, setImageToSend] = useState<{
-    url: string;
+    dataUrl: string;
     name: string;
   } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -323,8 +323,13 @@ export default function Chat() {
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setImageToSend({ url, name: file.name });
+    const name = file.name;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target?.result as string;
+      if (dataUrl) setImageToSend({ dataUrl, name });
+    };
+    reader.readAsDataURL(file);
     e.target.value = "";
   };
 
@@ -350,9 +355,6 @@ export default function Chat() {
       }
 
       let apiContent = trimmedContent;
-      if (hasImage) {
-        apiContent = `[Image of pet shared: ${imageToSend!.name}]\n\n${trimmedContent || "Please analyze this image and give me your best advice about my pet."}`;
-      }
       if (
         isFirstMsg &&
         petProfile &&
@@ -371,7 +373,7 @@ export default function Chat() {
       const userMessage: Message = {
         role: "user",
         content: displayContent,
-        imageUrl: hasImage ? imageToSend!.url : undefined,
+        imageUrl: hasImage ? imageToSend!.dataUrl : undefined,
       };
       setLocalMessages((prev) => [...prev, userMessage]);
       setInputValue("");
@@ -389,12 +391,16 @@ export default function Chat() {
       }
 
       try {
+        const imageBase64 = hasImage ? imageToSend?.dataUrl : undefined;
         const response = await fetch(
           `/api/openai/conversations/${convId}/messages`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ content: apiContent }),
+            body: JSON.stringify({
+              content: apiContent,
+              ...(imageBase64 ? { imageBase64 } : {}),
+            }),
           }
         );
 
@@ -800,7 +806,7 @@ export default function Chat() {
           <div className="px-4 pt-3 max-w-3xl mx-auto w-full">
             <div className="relative inline-block">
               <img
-                src={imageToSend.url}
+                src={imageToSend.dataUrl}
                 alt="Preview"
                 className="h-20 w-auto rounded-xl object-cover border border-purple-200 shadow-sm"
               />
