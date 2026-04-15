@@ -15,11 +15,8 @@ export default function Landing() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-800" style={{ fontFamily: "'Inter', 'Nunito', sans-serif" }}>
 
-      {/* ── Nav ─────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
-
-          {/* Logo: clip the lavender border, show only the inner icon */}
           <div className="flex items-center gap-2.5">
             <div className="w-10 h-10 rounded-2xl overflow-hidden flex-shrink-0">
               <img
@@ -33,14 +30,12 @@ export default function Landing() {
               Paw And Whisker
             </span>
           </div>
-
           <CtaButton className="text-sm py-2.5 px-5 rounded-xl" />
         </div>
       </header>
 
       <main className="flex-1">
 
-        {/* ── Hero ────────────────────────────────────────── */}
         <section className="max-w-5xl mx-auto px-5 pt-16 pb-14 text-center">
           <div className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-8 border border-purple-100">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
@@ -65,7 +60,6 @@ export default function Landing() {
           </p>
         </section>
 
-        {/* ── Demo Chat ───────────────────────────────────── */}
         <section className="bg-slate-50 py-16 border-y border-slate-100">
           <div className="max-w-2xl mx-auto px-5">
             <h2 className="text-2xl sm:text-3xl font-black text-center mb-10 tracking-tight">
@@ -73,7 +67,6 @@ export default function Landing() {
             </h2>
 
             <div className="bg-white rounded-3xl shadow-md border border-slate-100 overflow-hidden">
-              {/* Chat header */}
               <div className="bg-gradient-to-r from-purple-600 to-pink-500 px-5 py-3.5 flex items-center gap-3">
                 <div className="w-7 h-7 rounded-lg overflow-hidden">
                   <img
@@ -90,9 +83,7 @@ export default function Landing() {
                 </span>
               </div>
 
-              {/* Messages */}
               <div className="p-5 space-y-4">
-                {/* User */}
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-sm flex-shrink-0">
                     😊
@@ -102,7 +93,6 @@ export default function Landing() {
                   </div>
                 </div>
 
-                {/* AI */}
                 <div className="flex gap-3 flex-row-reverse">
                   <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
                     <img
@@ -117,7 +107,6 @@ export default function Landing() {
                   </div>
                 </div>
 
-                {/* User */}
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-sm flex-shrink-0">
                     😊
@@ -127,7 +116,6 @@ export default function Landing() {
                   </div>
                 </div>
 
-                {/* AI */}
                 <div className="flex gap-3 flex-row-reverse">
                   <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
                     <img
@@ -146,7 +134,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── Benefits ────────────────────────────────────── */}
         <section className="max-w-5xl mx-auto px-5 py-16">
           <h2 className="text-2xl sm:text-3xl font-black text-center mb-12 tracking-tight">
             Everything your pet needs
@@ -173,7 +160,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── Meet the Cats ────────────────────────────────── */}
         <section className="bg-gradient-to-br from-purple-50 to-pink-50 border-y border-purple-100 py-16">
           <div className="max-w-4xl mx-auto px-5">
             <h2 className="text-2xl sm:text-3xl font-black text-center mb-12 tracking-tight">
@@ -181,7 +167,6 @@ export default function Landing() {
             </h2>
 
             <div className="flex flex-col md:flex-row items-center gap-8">
-              {/* Photo */}
               <div className="w-full md:w-1/2 flex-shrink-0">
                 <div className="rounded-3xl overflow-hidden shadow-lg border-4 border-white">
                   <img
@@ -192,7 +177,6 @@ export default function Landing() {
                 </div>
               </div>
 
-              {/* Bios */}
               <div className="flex-1 space-y-4 w-full">
                 <div className="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm">
                   <div className="flex items-center gap-2.5 mb-2">
@@ -224,7 +208,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── Pricing ─────────────────────────────────────── */}
         <section className="max-w-lg mx-auto px-5 py-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-black mb-2 tracking-tight">
             Simple pricing
@@ -263,7 +246,6 @@ export default function Landing() {
 
       </main>
 
-      {/* ── Footer ──────────────────────────────────────── */}
       <footer className="bg-slate-900 text-slate-400 py-8 px-5">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
