@@ -208,7 +208,7 @@ export default function Chat() {
         <div className="p-4 border-b border-sidebar-border">
           <Link href="/" className="flex items-center gap-2 mb-4">
             <span className="text-xl">🐾</span>
-            <span className="font-semibold tracking-tight">Paw & Whisker AI</span>
+            <span className="font-semibold tracking-tight">pawandwhisker.com</span>
           </Link>
           <button
             onClick={() => { setActiveConversationId(null); setLocalMessages([]); setSidebarOpen(false); }}
@@ -267,7 +267,7 @@ export default function Chat() {
           </button>
           <div className="sm:hidden flex items-center gap-2">
             <span className="text-lg">🐾</span>
-            <span className="font-semibold text-sm">Paw & Whisker AI</span>
+            <span className="font-semibold text-sm">pawandwhisker.com</span>
           </div>
           <div className="hidden sm:block text-sm text-muted-foreground">
             {activeConversation?.title ?? "New conversation"}

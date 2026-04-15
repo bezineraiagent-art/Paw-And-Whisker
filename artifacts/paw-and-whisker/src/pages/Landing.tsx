@@ -29,7 +29,7 @@ export default function Landing() {
       <header className="px-6 py-4 flex items-center justify-between border-b border-border/50">
         <div className="flex items-center gap-2">
           <span className="text-2xl">🐾</span>
-          <span className="font-semibold text-lg tracking-tight">Paw & Whisker AI</span>
+          <span className="font-semibold text-lg tracking-tight">pawandwhisker.com</span>
         </div>
         <a
           href={STRIPE_PAYMENT_LINK}
@@ -113,7 +113,7 @@ export default function Landing() {
             <div className="bg-background rounded-2xl border border-border shadow-sm overflow-hidden max-w-2xl mx-auto">
               <div className="border-b border-border px-4 py-3 flex items-center gap-2">
                 <span className="text-lg">🐾</span>
-                <span className="text-sm font-medium">Paw & Whisker AI</span>
+                <span className="text-sm font-medium">pawandwhisker.com</span>
                 <span className="ml-auto text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">Live demo</span>
               </div>
               <div className="p-4 space-y-4">
@@ -172,7 +172,7 @@ export default function Landing() {
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <span className="text-xl">🐾</span>
-            <span className="font-medium">Paw & Whisker AI</span>
+            <span className="font-medium">pawandwhisker.com</span>
           </div>
           <p>Always consult a licensed veterinarian for medical emergencies.</p>
         </div>

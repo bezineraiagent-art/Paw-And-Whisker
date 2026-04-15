@@ -14,7 +14,7 @@ import {
 
 const router = Router();
 
-const SYSTEM_PROMPT = `You are Paw and Whisker AI, a warm, knowledgeable, and friendly pet health and behavior assistant. You help pet owners with questions about their animals — including dogs, cats, birds, rabbits, fish, reptiles, and any other pets.
+const SYSTEM_PROMPT = `You are the AI assistant for pawandwhisker.com, a warm, knowledgeable, and friendly pet health and behavior assistant. You help pet owners with questions about their animals — including dogs, cats, birds, rabbits, fish, reptiles, and any other pets.
 
 You provide helpful, accurate, and compassionate guidance on:
 - Pet health symptoms and when to see a vet

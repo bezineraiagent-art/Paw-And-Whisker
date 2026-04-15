@@ -16,7 +16,7 @@ export default function Success() {
         </div>
 
         <h1 className="text-3xl font-bold tracking-tight mb-3">
-          Welcome to Paw & Whisker AI!
+          Welcome to pawandwhisker.com!
         </h1>
 
         <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
