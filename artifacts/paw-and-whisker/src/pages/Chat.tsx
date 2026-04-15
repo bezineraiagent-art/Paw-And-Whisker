@@ -206,13 +206,15 @@ export default function Chat() {
         }`}
       >
         <div className="p-4 border-b border-sidebar-border">
-          <Link href="/" className="flex items-center gap-2 mb-4">
-            <span className="text-xl">🐾</span>
-            <span className="font-semibold tracking-tight">pawandwhisker.com</span>
+          <Link href="/" className="flex items-center gap-2.5 mb-4">
+            <img src="/logo.svg" alt="" className="w-8 h-8" />
+            <div className="leading-tight">
+              <span className="font-black text-sm tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Paw And Whisker</span>
+            </div>
           </Link>
           <button
             onClick={() => { setActiveConversationId(null); setLocalMessages([]); setSidebarOpen(false); }}
-            className="w-full flex items-center gap-2 bg-primary text-primary-foreground text-sm font-medium px-3 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
+            className="w-full flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-sm font-bold px-3 py-2.5 rounded-xl hover:opacity-90 transition-opacity"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -266,8 +268,8 @@ export default function Chat() {
             </svg>
           </button>
           <div className="sm:hidden flex items-center gap-2">
-            <span className="text-lg">🐾</span>
-            <span className="font-semibold text-sm">pawandwhisker.com</span>
+            <img src="/logo.svg" alt="" className="w-7 h-7" />
+            <span className="font-black text-sm text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Paw And Whisker</span>
           </div>
           <div className="hidden sm:block text-sm text-muted-foreground">
             {activeConversation?.title ?? "New conversation"}
@@ -278,11 +280,9 @@ export default function Chat() {
         <div className="flex-1 overflow-y-auto">
           {localMessages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center px-6 py-12">
-              <div className="w-16 h-16 rounded-2xl bg-primary/15 flex items-center justify-center mb-5 border border-primary/25">
-                <span className="text-3xl">🐾</span>
-              </div>
-              <h2 className="text-xl font-bold mb-2 text-center">How can I help your pet today?</h2>
-              <p className="text-muted-foreground text-center mb-8 max-w-sm">
+              <img src="/logo.svg" alt="Paw And Whisker" className="w-20 h-20 mb-5" />
+              <h2 className="text-xl font-black mb-2 text-center text-slate-800">How can I help your pet today? 🐾</h2>
+              <p className="text-muted-foreground text-center mb-8 max-w-sm font-medium">
                 Ask me anything about your pet's health, behavior, diet, or daily care.
               </p>
               <div className="grid sm:grid-cols-2 gap-2 max-w-xl w-full">
@@ -290,7 +290,7 @@ export default function Chat() {
                   <button
                     key={q}
                     onClick={() => sendMessage(q)}
-                    className="text-left text-sm px-4 py-3 rounded-xl border border-border bg-card hover:bg-secondary/60 hover:border-primary/30 transition-all text-foreground"
+                    className="text-left text-sm px-4 py-3 rounded-2xl border border-purple-100 bg-white hover:bg-purple-50 hover:border-purple-300 transition-all text-slate-700 font-medium shadow-sm"
                   >
                     {q}
                   </button>

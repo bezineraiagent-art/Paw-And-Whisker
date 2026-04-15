@@ -66,7 +66,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LIGHT MODE — warm amber/teal palette for Paw and Whisker AI */
+/* LIGHT MODE — fun purple/pink palette for Paw And Whisker */
 :root {
   --button-outline: rgba(0,0,0, .10);
   --badge-outline: rgba(0,0,0, .05);
@@ -76,58 +76,58 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  /* Warm cream background */
-  --background: 38 60% 97%;
-  --foreground: 220 25% 15%;
+  /* Soft lavender background */
+  --background: 270 40% 98%;
+  --foreground: 270 30% 12%;
 
-  --border: 38 30% 85%;
+  --border: 270 20% 88%;
 
-  --card: 38 50% 99%;
-  --card-foreground: 220 25% 15%;
-  --card-border: 38 30% 88%;
+  --card: 0 0% 100%;
+  --card-foreground: 270 30% 12%;
+  --card-border: 270 20% 90%;
 
-  --sidebar: 38 45% 95%;
-  --sidebar-foreground: 220 25% 15%;
-  --sidebar-border: 38 30% 85%;
-  --sidebar-primary: 176 55% 38%;
+  --sidebar: 270 30% 96%;
+  --sidebar-foreground: 270 30% 12%;
+  --sidebar-border: 270 20% 88%;
+  --sidebar-primary: 280 70% 58%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 38 55% 90%;
-  --sidebar-accent-foreground: 220 25% 15%;
-  --sidebar-ring: 176 55% 38%;
+  --sidebar-accent: 270 40% 92%;
+  --sidebar-accent-foreground: 270 30% 15%;
+  --sidebar-ring: 280 70% 58%;
 
-  --popover: 38 50% 99%;
-  --popover-foreground: 220 25% 15%;
-  --popover-border: 38 30% 85%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 270 30% 12%;
+  --popover-border: 270 20% 88%;
 
-  /* Teal primary */
-  --primary: 176 55% 38%;
+  /* Vibrant purple primary */
+  --primary: 280 70% 58%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 38 55% 90%;
-  --secondary-foreground: 220 25% 20%;
+  --secondary: 270 35% 93%;
+  --secondary-foreground: 270 30% 18%;
 
-  --muted: 38 40% 92%;
-  --muted-foreground: 220 15% 45%;
+  --muted: 270 25% 93%;
+  --muted-foreground: 270 15% 48%;
 
-  --accent: 176 45% 90%;
-  --accent-foreground: 176 55% 20%;
+  --accent: 330 70% 92%;
+  --accent-foreground: 330 70% 30%;
 
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
 
-  --input: 38 30% 82%;
-  --ring: 176 55% 38%;
+  --input: 270 20% 86%;
+  --ring: 280 70% 58%;
 
-  --chart-1: 176 55% 38%;
-  --chart-2: 38 70% 55%;
-  --chart-3: 280 50% 60%;
-  --chart-4: 0 72% 51%;
-  --chart-5: 200 65% 50%;
+  --chart-1: 280 70% 58%;
+  --chart-2: 330 70% 60%;
+  --chart-3: 200 70% 55%;
+  --chart-4: 45 90% 55%;
+  --chart-5: 150 60% 45%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --app-font-sans: 'Nunito', 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
-  --radius: .75rem;
+  --radius: 1rem;
   --shadow-2xs: 0px 1px 2px 0px rgba(0,0,0,0.06);
   --shadow-xs: 0px 1px 3px 0px rgba(0,0,0,0.08);
   --shadow-sm: 0px 2px 4px 0px rgba(0,0,0,0.08), 0px 1px 2px -1px rgba(0,0,0,0.06);
