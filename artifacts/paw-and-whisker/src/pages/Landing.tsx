@@ -4,6 +4,8 @@ function CtaButton({ className = "" }: { className?: string }) {
   return (
     <a
       href={STRIPE_PAYMENT_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-base px-7 py-4 rounded-2xl shadow-md hover:shadow-lg hover:opacity-95 transition-all duration-150 ${className}`}
     >
       Start for $4.99/month
