@@ -55,7 +55,7 @@ export default function Chat() {
   const { data: conversations = [] } = useListOpenaiConversations();
   const { data: activeConversation } = useGetOpenaiConversation(
     activeConversationId ?? 0,
-    { query: { enabled: !!activeConversationId } }
+    { query: { enabled: !!activeConversationId, queryKey: getGetOpenaiConversationQueryKey(activeConversationId ?? 0) } }
   );
   const createConversation = useCreateOpenaiConversation();
   const deleteConversation = useDeleteOpenaiConversation();
@@ -81,7 +81,7 @@ export default function Chat() {
       ? firstMessage.slice(0, 60) + (firstMessage.length > 60 ? "..." : "")
       : "New conversation";
 
-    const newConv = await createConversation.mutateAsync({ title });
+    const newConv = await createConversation.mutateAsync({ data: { title } });
     setActiveConversationId(newConv.id);
     setLocalMessages([]);
     queryClient.invalidateQueries({ queryKey: getListOpenaiConversationsQueryKey() });
