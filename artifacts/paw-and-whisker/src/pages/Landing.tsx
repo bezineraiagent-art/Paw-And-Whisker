@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import ReactMarkdown from "react-markdown";
 
 const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002";
 const MAX_FREE_QUESTIONS = 2;
@@ -146,7 +147,31 @@ function FreePreviewChat() {
               </div>
             )}
             <div className={`px-3 py-2 rounded-2xl text-sm max-w-[80%] leading-relaxed ${m.role === "user" ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-tr-sm" : "bg-white border border-slate-200 text-slate-700 rounded-tl-sm"}`}>
-              {m.content || (isStreaming && i === messages.length - 1 ? <span className="inline-flex gap-1 items-center"><span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} /><span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} /><span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} /></span> : "")}
+              {m.role === "user" ? (
+                m.content || ""
+              ) : m.content ? (
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
+                    strong: ({ children }) => <strong className="font-bold text-slate-800">{children}</strong>,
+                    ul: ({ children }) => <ul className="mt-1 mb-1.5 space-y-0.5">{children}</ul>,
+                    li: ({ children }) => (
+                      <li className="flex gap-1.5">
+                        <span className="text-purple-500 flex-shrink-0">•</span>
+                        <span>{children}</span>
+                      </li>
+                    ),
+                  }}
+                >
+                  {m.content}
+                </ReactMarkdown>
+              ) : isStreaming && i === messages.length - 1 ? (
+                <span className="inline-flex gap-1 items-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                </span>
+              ) : ""}
             </div>
           </div>
         ))}

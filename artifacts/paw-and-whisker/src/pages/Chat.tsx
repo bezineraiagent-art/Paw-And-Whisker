@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import ReactMarkdown from "react-markdown";
 import { Link } from "wouter";
 import {
   useListOpenaiConversations,
@@ -314,13 +315,33 @@ export default function Chat() {
                     {msg.role === "assistant" ? "🐾" : "😊"}
                   </div>
                   <div
-                    className={`max-w-[80%] sm:max-w-[70%] px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
+                    className={`max-w-[80%] sm:max-w-[70%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-tr-sm"
+                        ? "bg-primary text-primary-foreground rounded-tr-sm whitespace-pre-wrap"
                         : "bg-card border border-card-border text-foreground rounded-tl-sm"
                     }`}
                   >
-                    {msg.content}
+                    {msg.role === "user" ? (
+                      msg.content
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                          strong: ({ children }) => <strong className="font-bold text-slate-800">{children}</strong>,
+                          ul: ({ children }) => <ul className="mt-1 mb-2 space-y-1">{children}</ul>,
+                          li: ({ children }) => (
+                            <li className="flex gap-2">
+                              <span className="mt-0.5 text-purple-500 flex-shrink-0">•</span>
+                              <span>{children}</span>
+                            </li>
+                          ),
+                          h2: ({ children }) => <h2 className="font-bold text-sm text-slate-800 mt-3 mb-1 first:mt-0">{children}</h2>,
+                          h3: ({ children }) => <h3 className="font-bold text-sm text-slate-800 mt-2 mb-1 first:mt-0">{children}</h3>,
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               ))}
