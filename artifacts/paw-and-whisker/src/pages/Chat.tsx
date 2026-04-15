@@ -282,6 +282,7 @@ export default function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const photoSendRef = useRef<HTMLInputElement>(null);
 
   const [petProfile, setPetProfile] = useState<PetProfile | null>(() => {
     try {
@@ -388,8 +389,9 @@ export default function Chat() {
   };
 
   const sendMessage = useCallback(
-    async (content: string) => {
-      const hasImage = !!imageToSend;
+    async (content: string, immediateImage?: { dataUrl: string; name: string }) => {
+      const imageData = immediateImage ?? imageToSend;
+      const hasImage = !!imageData;
       const trimmedContent = content.trim();
       if (!trimmedContent && !hasImage) return;
       if (isStreaming) return;
@@ -417,10 +419,10 @@ export default function Chat() {
       const userMessage: Message = {
         role: "user",
         content: displayContent,
-        imageUrl: hasImage ? imageToSend!.dataUrl : undefined,
+        imageUrl: hasImage ? imageData!.dataUrl : undefined,
       };
 
-      const capturedImage = imageToSend;
+      const capturedImage = imageData;
       setLocalMessages((prev) => [...prev, userMessage]);
       setInputValue("");
       if (hasImage) setImageToSend(null);
@@ -516,6 +518,21 @@ export default function Chat() {
       freeCount,
       localMessages,
     ]
+  );
+
+  const handleImageSelectAndSend = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const dataUrl = ev.target?.result as string;
+        if (dataUrl) sendMessage("What do you think about this?", { dataUrl, name: file.name });
+      };
+      reader.readAsDataURL(file);
+      e.target.value = "";
+    },
+    [sendMessage]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -760,7 +777,7 @@ export default function Chat() {
                       {msg.imageUrl && (
                         <div className="px-4 pt-3 pb-1">
                           <span className="text-xs font-bold text-white/80 tracking-wide uppercase flex items-center gap-1">
-                            📸 Photo received
+                            📸 Photo sent
                           </span>
                         </div>
                       )}
@@ -833,42 +850,28 @@ export default function Chat() {
           )}
         </div>
 
-        {/* Image preview */}
-        {imageToSend && (
-          <div className="px-4 pt-3 max-w-3xl mx-auto w-full">
-            <div className="relative inline-block">
-              <img
-                src={imageToSend.dataUrl}
-                alt="Preview"
-                className="h-24 w-auto rounded-2xl object-cover border-2 border-purple-200 shadow-sm"
-              />
-              <div className="absolute -top-1.5 -left-1 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                📸 Ready to send
-              </div>
-              <button
-                onClick={() => setImageToSend(null)}
-                className="absolute -top-2 -right-2 w-5 h-5 bg-slate-700 text-white rounded-full flex items-center justify-center text-xs font-bold hover:bg-slate-900 transition-colors leading-none"
-              >
-                ×
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Input area */}
         <div className="border-t border-border p-4 bg-card/50 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto">
-            <div className="flex items-end gap-2 bg-background border border-border rounded-2xl shadow-sm focus-within:border-purple-300 focus-within:ring-2 focus-within:ring-purple-100 transition-all p-2">
+            {/* Photo upload button — prominent, one-click */}
+            <div className="flex gap-2 mb-2">
               <button
-                onClick={() => fileInputRef.current?.click()}
+                onClick={() => photoSendRef.current?.click()}
                 disabled={isStreaming}
-                title="Upload pet photo"
-                className="flex-shrink-0 w-9 h-9 rounded-xl text-muted-foreground hover:bg-purple-50 hover:text-purple-600 flex items-center justify-center transition-all disabled:opacity-40"
+                className="flex items-center gap-1.5 bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 text-purple-700 font-bold text-xs px-3.5 py-2 rounded-xl hover:from-purple-200 hover:to-pink-200 transition-all disabled:opacity-40 shadow-sm"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+                📸 <span>Upload photo</span>
               </button>
+              <input
+                type="file"
+                ref={photoSendRef}
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageSelectAndSend}
+              />
+            </div>
+
+            <div className="flex items-end gap-2 bg-background border border-border rounded-2xl shadow-sm focus-within:border-purple-300 focus-within:ring-2 focus-within:ring-purple-100 transition-all p-2">
               <input
                 type="file"
                 ref={fileInputRef}
