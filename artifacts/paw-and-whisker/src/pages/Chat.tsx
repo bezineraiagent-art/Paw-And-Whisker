@@ -113,6 +113,7 @@ export default function Chat() {
         body: JSON.stringify({ content }),
       });
 
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
       if (!response.body) throw new Error("No response body");
 
       const reader = response.body.getReader();
