@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { db } from "@workspace/db";
 import { conversations, messages } from "@workspace/db";
-import { eq, asc } from "drizzle-orm";
+import { eq, asc, and } from "drizzle-orm";
 import { openai } from "@workspace/integrations-openai-ai-server";
 import {
   CreateOpenaiConversationBody,
@@ -26,11 +26,22 @@ You provide helpful, accurate, and compassionate guidance on:
 
 Always remind users to consult a licensed veterinarian for medical diagnoses or emergencies. Be conversational, warm, and supportive. Never dismiss a concern — every pet matters.`;
 
+function getSessionId(req: Parameters<Router>[0]): string {
+  const sessionId = req.headers["x-session-id"];
+  return typeof sessionId === "string" && sessionId.length > 0 ? sessionId : "";
+}
+
 router.get("/conversations", async (req, res) => {
   try {
+    const sessionId = getSessionId(req);
+    if (!sessionId) {
+      res.json([]);
+      return;
+    }
     const allConversations = await db
       .select()
       .from(conversations)
+      .where(eq(conversations.sessionId, sessionId))
       .orderBy(asc(conversations.createdAt));
     res.json(allConversations);
   } catch (err) {
@@ -41,6 +52,11 @@ router.get("/conversations", async (req, res) => {
 
 router.post("/conversations", async (req, res) => {
   try {
+    const sessionId = getSessionId(req);
+    if (!sessionId) {
+      res.status(400).json({ error: "Missing session ID" });
+      return;
+    }
     const parsed = CreateOpenaiConversationBody.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ error: "Invalid request body" });
@@ -48,7 +64,7 @@ router.post("/conversations", async (req, res) => {
     }
     const [conversation] = await db
       .insert(conversations)
-      .values({ title: parsed.data.title })
+      .values({ title: parsed.data.title, sessionId })
       .returning();
     res.status(201).json(conversation);
   } catch (err) {
@@ -59,6 +75,7 @@ router.post("/conversations", async (req, res) => {
 
 router.get("/conversations/:id", async (req, res) => {
   try {
+    const sessionId = getSessionId(req);
     const parsed = GetOpenaiConversationParams.safeParse({ id: Number(req.params.id) });
     if (!parsed.success) {
       res.status(400).json({ error: "Invalid id" });
@@ -67,7 +84,11 @@ router.get("/conversations/:id", async (req, res) => {
     const [conversation] = await db
       .select()
       .from(conversations)
-      .where(eq(conversations.id, parsed.data.id));
+      .where(
+        sessionId
+          ? and(eq(conversations.id, parsed.data.id), eq(conversations.sessionId, sessionId))
+          : eq(conversations.id, parsed.data.id)
+      );
     if (!conversation) {
       res.status(404).json({ error: "Conversation not found" });
       return;
@@ -86,6 +107,7 @@ router.get("/conversations/:id", async (req, res) => {
 
 router.delete("/conversations/:id", async (req, res) => {
   try {
+    const sessionId = getSessionId(req);
     const parsed = DeleteOpenaiConversationParams.safeParse({ id: Number(req.params.id) });
     if (!parsed.success) {
       res.status(400).json({ error: "Invalid id" });
@@ -93,7 +115,11 @@ router.delete("/conversations/:id", async (req, res) => {
     }
     const [deleted] = await db
       .delete(conversations)
-      .where(eq(conversations.id, parsed.data.id))
+      .where(
+        sessionId
+          ? and(eq(conversations.id, parsed.data.id), eq(conversations.sessionId, sessionId))
+          : eq(conversations.id, parsed.data.id)
+      )
       .returning();
     if (!deleted) {
       res.status(404).json({ error: "Conversation not found" });
