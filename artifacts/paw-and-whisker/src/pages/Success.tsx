@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 
 export default function Success() {
@@ -6,6 +6,11 @@ export default function Success() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("paw_subscribed", "true");
+    localStorage.removeItem("paw_free_count");
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
