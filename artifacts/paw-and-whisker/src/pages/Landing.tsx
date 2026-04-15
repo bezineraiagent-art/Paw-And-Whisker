@@ -17,7 +17,7 @@ function CtaButton({ className = "", label = "Start for $4.99/month" }: { classN
   );
 }
 
-type PreviewMessage = { role: "user" | "assistant"; content: string };
+type PreviewMessage = { role: "user" | "assistant"; content: string; imageUrl?: string; isImageResponse?: boolean };
 
 function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void) => void }) {
   const [messages, setMessages] = useState<PreviewMessage[]>([]);
@@ -26,9 +26,11 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [isStreaming, setIsStreaming] = useState(false);
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
+  const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
   const sessionRef = useRef<string>("preview-" + crypto.randomUUID());
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,10 +38,13 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
 
   const send = useCallback(async (text?: string) => {
     const content = (text ?? input).trim();
-    if (!content || isStreaming || locked) return;
+    const capturedImage = imageToSend;
+    if ((!content && !capturedImage) || isStreaming || locked) return;
     setInput("");
+    setImageToSend(null);
 
-    setMessages((prev) => [...prev, { role: "user", content }]);
+    const displayContent = content || (capturedImage ? "What do you think about this?" : "");
+    setMessages((prev) => [...prev, { role: "user", content: displayContent, imageUrl: capturedImage?.dataUrl }]);
     setIsStreaming(true);
     setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
@@ -49,7 +54,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
         const res = await fetch("/api/openai/conversations", {
           method: "POST",
           headers: { "Content-Type": "application/json", "X-Session-Id": sessionRef.current },
-          body: JSON.stringify({ title: content.slice(0, 60) }),
+          body: JSON.stringify({ title: displayContent.slice(0, 60) }),
         });
         const data = await res.json();
         convId = data.id;
@@ -59,7 +64,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
       const res = await fetch(`/api/openai/conversations/${convId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Session-Id": sessionRef.current },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ content: displayContent, ...(capturedImage ? { imageBase64: capturedImage.dataUrl } : {}) }),
       });
 
       if (!res.body) throw new Error("No body");
@@ -107,7 +112,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
     } finally {
       setIsStreaming(false);
     }
-  }, [input, isStreaming, locked, conversationId, questionCount]);
+  }, [input, isStreaming, locked, conversationId, questionCount, imageToSend]);
 
   useEffect(() => {
     onReady?.(send);
@@ -154,45 +159,47 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                 <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
               </div>
             )}
-            <div className={`px-4 py-3 rounded-2xl text-sm max-w-[82%] leading-relaxed shadow-sm ${m.role === "user" ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-tr-sm" : "bg-white border border-slate-200 text-slate-700 rounded-tl-sm"}`}>
+            <div className={`rounded-2xl text-sm max-w-[82%] shadow-sm overflow-hidden ${m.role === "user" ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-tr-sm" : "bg-white border border-slate-200 text-slate-700 rounded-tl-sm"}`}>
               {m.role === "user" ? (
-                m.content || ""
-              ) : m.content ? (
-                <ReactMarkdown
-                  components={{
-                    p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
-                    strong: ({ children }) => <strong className="font-bold text-slate-800">{children}</strong>,
-                    ul: ({ children }) => <ul className="mt-1 mb-1.5 space-y-0.5">{children}</ul>,
-                    li: ({ children }) => (
-                      <li className="flex gap-1.5">
-                        <span className="text-purple-500 flex-shrink-0">•</span>
-                        <span>{children}</span>
-                      </li>
-                    ),
-                  }}
-                >
-                  {m.content}
-                </ReactMarkdown>
-              ) : isStreaming && i === messages.length - 1 ? (
-                <span className="inline-flex gap-1 items-center">
-                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "300ms" }} />
-                </span>
-              ) : ""}
+                <>
+                  {m.imageUrl && (
+                    <img src={m.imageUrl} alt="Pet photo" className="w-full max-h-40 object-cover rounded-t-2xl" />
+                  )}
+                  {m.imageUrl && <p className="text-xs text-white/70 px-4 pt-2">📸 Photo sent</p>}
+                  <p className="px-4 py-3">{m.content}</p>
+                </>
+              ) : (
+                <div className="px-4 py-3 leading-relaxed">
+                  {m.content ? (
+                    <ReactMarkdown
+                      components={{
+                        p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
+                        strong: ({ children }) => <strong className="font-bold text-slate-800">{children}</strong>,
+                        ul: ({ children }) => <ul className="mt-1 mb-1.5 space-y-0.5">{children}</ul>,
+                        li: ({ children }) => (
+                          <li className="flex gap-1.5">
+                            <span className="text-purple-500 flex-shrink-0">•</span>
+                            <span>{children}</span>
+                          </li>
+                        ),
+                      }}
+                    >
+                      {m.content}
+                    </ReactMarkdown>
+                  ) : isStreaming && i === messages.length - 1 ? (
+                    <span className="inline-flex gap-1 items-center">
+                      <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </span>
+                  ) : null}
+                </div>
+              )}
             </div>
           </div>
         ))}
         <div ref={bottomRef} />
       </div>
-
-      {!locked && (
-        <div className="px-4 pt-3 pb-0 bg-white">
-          <p className="text-xs font-bold text-purple-600 flex items-center gap-1.5">
-            📸 <span>Send a photo of your pet and get instant feedback</span>
-          </p>
-        </div>
-      )}
 
       {locked ? (
         <div className="p-5 border-t border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50 text-center">
@@ -202,24 +209,66 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
           <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
         </div>
       ) : (
-        <div className="p-3 border-t border-slate-100 bg-white flex gap-2">
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Ask about your pet..."
-            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all"
-            disabled={isStreaming}
-          />
-          <button
-            onClick={() => send()}
-            disabled={isStreaming || !input.trim()}
-            className="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold disabled:opacity-50 transition-opacity hover:opacity-90"
-          >
-            Send
-          </button>
+        <div className="border-t border-slate-100 bg-white">
+          {/* Image preview strip */}
+          {imageToSend && (
+            <div className="px-3 pt-2 flex items-center gap-2">
+              <div className="relative w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-200 flex-shrink-0">
+                <img src={imageToSend.dataUrl} alt="preview" className="w-full h-full object-cover" />
+                <button
+                  onClick={() => setImageToSend(null)}
+                  className="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-slate-800/70 text-white text-xs flex items-center justify-center leading-none"
+                >
+                  ×
+                </button>
+              </div>
+              <p className="text-xs text-purple-600 font-medium">📸 Photo ready to send</p>
+            </div>
+          )}
+          {/* Upload + input row */}
+          <div className="p-3 flex gap-2 items-center">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isStreaming}
+              className="flex items-center gap-1.5 text-xs font-bold text-purple-600 bg-purple-50 border border-purple-200 px-3 py-2.5 rounded-xl hover:bg-purple-100 transition-colors disabled:opacity-50 flex-shrink-0"
+            >
+              📸 <span>Photo</span>
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                e.target.value = "";
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                  const dataUrl = ev.target?.result as string;
+                  if (dataUrl) setImageToSend({ dataUrl, name: file.name });
+                };
+                reader.readAsDataURL(file);
+              }}
+            />
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && send()}
+              placeholder="Ask about your pet..."
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all"
+              disabled={isStreaming}
+            />
+            <button
+              onClick={() => send()}
+              disabled={isStreaming || (!input.trim() && !imageToSend)}
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold disabled:opacity-50 transition-opacity hover:opacity-90 flex-shrink-0"
+            >
+              Send
+            </button>
+          </div>
         </div>
       )}
     </div>
