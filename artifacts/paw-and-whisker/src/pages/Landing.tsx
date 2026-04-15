@@ -1,4 +1,4 @@
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/YOUR_STRIPE_LINK_HERE";
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002";
 
 const features = [
   {
