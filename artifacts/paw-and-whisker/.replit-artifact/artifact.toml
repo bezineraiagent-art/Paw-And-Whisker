@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Paw and Whisker AI"
+version = "1.0.0"
+id = "artifacts/paw-and-whisker"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21283
+
+[services.development]
+run = "pnpm --filter @workspace/paw-and-whisker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/paw-and-whisker", "run", "build" ]
+publicDir = "artifacts/paw-and-whisker/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21283"
+BASE_PATH = "/"

@@ -15,6 +15,15 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
+- **AI**: OpenAI via Replit AI Integrations (gpt-5.2 for chat)
+
+## Applications
+
+### Paw and Whisker AI (`artifacts/paw-and-whisker`)
+Landing page + chatbot for a pet health and behavior AI subscription service.
+- **Routes**: `/` (landing), `/success` (post-payment), `/chat` (AI chatbot)
+- **Stripe**: "Start for $4.99/month" button — replace `STRIPE_PAYMENT_LINK` in `Landing.tsx`
+- **After payment**: Stripe redirects to `/success`, which links to `/chat`
 
 ## Key Commands
 
