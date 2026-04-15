@@ -19,8 +19,8 @@ export default function Landing() {
 
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
         <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
               <img
                 src="/app-logo.png"
                 alt="Paw And Whisker"
