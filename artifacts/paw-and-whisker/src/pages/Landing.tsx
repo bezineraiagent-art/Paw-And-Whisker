@@ -377,7 +377,7 @@ export default function Landing() {
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="w-full md:w-1/2 flex-shrink-0">
                 <div className="rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                  <img src="/cats.jpg" alt="Lucky and her sister" className="w-full h-64 md:h-72 object-cover object-center" />
+                  <img src="/cats.jpg" alt="Lucky and her sister" className="w-full h-auto" />
                 </div>
               </div>
 
