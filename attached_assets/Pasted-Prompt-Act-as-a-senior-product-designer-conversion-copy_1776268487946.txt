@@ -1,0 +1,144 @@
+Prompt:
+
+Act as a senior product designer, conversion copywriter, and frontend developer.
+
+You are upgrading a SaaS landing page for a product called PawAndWhisker.com.
+
+Brand:
+
+Business name: PawAndWhisker.com
+Product name: Paw & Whisker AI
+Positioning: A focused AI assistant for pet owners
+Goal: Make users understand why they should pay instead of using general AI
+
+Main objective:
+
+Increase conversions and clearly communicate value.
+
+Core message to communicate:
+
+This is NOT general AI.
+
+This is a specialized pet assistant trained for:
+
+Pet health guidance
+Behavior issues
+Daily care
+Travel with pets
+
+It gives clear, simple, practical answers for real pet owners.
+
+Landing page structure:
+
+HERO SECTION
+
+Headline:
+Your pet’s personal AI health expert
+
+Subtext:
+Get clear, reliable answers for your pet’s behavior, health, and daily care in seconds
+
+Trust line under:
+Built for pet owners. Not general AI.
+
+Primary button:
+Start for $4.99/month
+
+Button link:
+https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002
+
+WHY THIS VS CHATGPT
+
+Title:
+Why not just use ChatGPT?
+
+Content (bullet points):
+
+General AI gives generic answers
+Paw & Whisker AI is focused only on pets
+Simpler, clearer responses you can act on
+Designed for real-life pet situations
+HOW IT WORKS
+
+3 steps:
+
+Ask any question about your pet
+Get a clear, practical answer instantly
+Take action with confidence
+DEMO CHAT
+
+Show a clean chat example:
+
+User:
+“My cat is hiding and not eating. Should I worry?”
+
+AI:
+“This can be stress-related. Check for recent changes in environment. If it lasts more than 24 hours or includes vomiting or lethargy, contact a vet.”
+
+Keep tone simple and helpful.
+
+BENEFITS
+Instant answers 24/7
+Built for all pets
+No confusing medical jargon
+Always available when you need it
+MEET THE CATS
+
+Use real images
+
+Lucky (1 yr old)
+Energetic, curious, playful
+
+Lucky’s sister (7 yrs old)
+Calm, experienced, observant
+
+Short friendly text only
+
+PRICING
+
+$4.99/month
+
+Add:
+
+Cancel anytime
+Unlimited questions
+Instant access
+
+Button again:
+Start for $4.99/month
+
+TRUST DISCLAIMER
+
+Add small text:
+
+Paw & Whisker AI provides guidance, not veterinary diagnosis. Always consult a licensed vet for serious issues.
+
+Design rules:
+
+Clean modern layout
+One gradient only (purple to pink)
+Large readable text
+Mobile-first design
+Minimal sections
+Remove clutter
+
+Technical:
+
+Keep current Stripe link
+Do not break existing buttons
+Keep performance fast
+Clean HTML, CSS, JS
+
+Extra feature:
+
+Add a simple free preview:
+
+Allow user to type 1–2 questions before showing:
+
+“Unlock unlimited answers for $4.99/month”
+
+Output:
+
+Update existing landing page code
+Do not overdesign
+Focus on clarity and conversion
