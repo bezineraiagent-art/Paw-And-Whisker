@@ -33,6 +33,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (messages.length === 0) return;
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isStreaming]);
 
