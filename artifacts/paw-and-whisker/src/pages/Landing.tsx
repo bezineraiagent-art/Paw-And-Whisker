@@ -3,6 +3,47 @@ import ReactMarkdown from "react-markdown";
 
 const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002";
 const MAX_FREE_QUESTIONS = 2;
+const PREVIEW_CHAT_STORAGE_KEY = "pw-preview-chat-v1";
+const PREVIEW_CHAT_TTL_MS = 24 * 60 * 60 * 1000;
+
+type PreviewMessage = { role: "user" | "assistant"; content: string; imageUrl?: string; isImageResponse?: boolean };
+
+type PreviewChatPersistedState = {
+  sessionRef: string;
+  messages: PreviewMessage[];
+  questionCount: number;
+  locked: boolean;
+  conversationId: number | null;
+  savedAt: number;
+};
+
+function loadPreviewChatState(): PreviewChatPersistedState | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(PREVIEW_CHAT_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PreviewChatPersistedState;
+    if (!parsed || typeof parsed.savedAt !== "number") return null;
+    if (Date.now() - parsed.savedAt > PREVIEW_CHAT_TTL_MS) {
+      window.localStorage.removeItem(PREVIEW_CHAT_STORAGE_KEY);
+      return null;
+    }
+    if (typeof parsed.sessionRef !== "string" || !Array.isArray(parsed.messages)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function savePreviewChatState(state: Omit<PreviewChatPersistedState, "savedAt">) {
+  if (typeof window === "undefined") return;
+  try {
+    const payload: PreviewChatPersistedState = { ...state, savedAt: Date.now() };
+    window.localStorage.setItem(PREVIEW_CHAT_STORAGE_KEY, JSON.stringify(payload));
+  } catch {
+    // ignore quota / serialization errors
+  }
+}
 
 function CtaButton({ className = "", label = "Start for $4.99/month" }: { className?: string; label?: string }) {
   return (
@@ -17,20 +58,38 @@ function CtaButton({ className = "", label = "Start for $4.99/month" }: { classN
   );
 }
 
-type PreviewMessage = { role: "user" | "assistant"; content: string; imageUrl?: string; isImageResponse?: boolean };
-
 function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void) => void }) {
-  const [messages, setMessages] = useState<PreviewMessage[]>([]);
+  const restoredRef = useRef<PreviewChatPersistedState | null>(null);
+  if (restoredRef.current === null && typeof window !== "undefined") {
+    restoredRef.current = loadPreviewChatState();
+  }
+  const restored = restoredRef.current;
+
+  const [messages, setMessages] = useState<PreviewMessage[]>(() => restored?.messages ?? []);
   const [input, setInput] = useState("");
-  const [questionCount, setQuestionCount] = useState(0);
+  const [questionCount, setQuestionCount] = useState(() => restored?.questionCount ?? 0);
   const [isStreaming, setIsStreaming] = useState(false);
-  const [conversationId, setConversationId] = useState<number | null>(null);
-  const [locked, setLocked] = useState(false);
+  const [conversationId, setConversationId] = useState<number | null>(() => restored?.conversationId ?? null);
+  const [locked, setLocked] = useState(() => restored?.locked ?? false);
   const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
-  const sessionRef = useRef<string>("preview-" + crypto.randomUUID());
+  const sessionRef = useRef<string>(restored?.sessionRef ?? "preview-" + crypto.randomUUID());
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Persist conversation state across refresh (~24h) so the paywall and history survive.
+  // Skip writes during streaming to avoid persisting half-streamed assistant responses.
+  useEffect(() => {
+    if (isStreaming) return;
+    if (messages.length === 0 && questionCount === 0 && !locked) return;
+    savePreviewChatState({
+      sessionRef: sessionRef.current,
+      messages,
+      questionCount,
+      locked,
+      conversationId,
+    });
+  }, [messages, questionCount, locked, conversationId, isStreaming]);
 
   useEffect(() => {
     if (messages.length === 0) return;
