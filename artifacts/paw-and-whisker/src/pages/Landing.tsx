@@ -143,7 +143,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
           </span>
         </div>
 
-        <div ref={messagesContainerRef} className="h-[28rem] overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-slate-50 to-white">
+        <div ref={messagesContainerRef} className="h-80 sm:h-[28rem] overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-slate-50 to-white">
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center text-center gap-4 px-4">
             <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-md ring-2 ring-purple-100 mb-1">
