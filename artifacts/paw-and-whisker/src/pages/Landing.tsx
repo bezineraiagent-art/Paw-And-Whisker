@@ -389,10 +389,25 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
         setConversationId(convId);
       }
 
+      // Reuse the same detection used by the nudge so the assistant can
+      // address the pet by name in its reply (e.g. "It sounds like Whiskers...").
+      // Run on the messages we have *before* the latest user turn was appended;
+      // append it manually so a name introduced in the very first message still
+      // gets picked up.
+      const messagesForNameDetection: PreviewMessage[] = [
+        ...messages,
+        { role: "user", content: displayContent },
+      ];
+      const detectedPetName = detectPetName(messagesForNameDetection);
+
       const res = await fetch(`/api/openai/conversations/${convId}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Session-Id": sessionRef.current },
-        body: JSON.stringify({ content: displayContent, ...(capturedImage ? { imageBase64: capturedImage.dataUrl } : {}) }),
+        body: JSON.stringify({
+          content: displayContent,
+          ...(capturedImage ? { imageBase64: capturedImage.dataUrl } : {}),
+          ...(detectedPetName ? { petName: detectedPetName } : {}),
+        }),
       });
 
       if (!res.body) throw new Error("No body");

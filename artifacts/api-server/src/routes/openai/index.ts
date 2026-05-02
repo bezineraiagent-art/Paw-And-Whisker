@@ -212,6 +212,17 @@ router.post("/conversations/:id/messages", async (req, res) => {
         ? (req.body.imageBase64 as string)
         : null;
 
+    // Optional pet name detected client-side by the same heuristic that powers
+    // the locked-chat sign-up nudge. Validated defensively (length cap, simple
+    // character set) so we never splice arbitrary user text into the prompt.
+    const rawPetName = typeof req.body.petName === "string" ? req.body.petName.trim() : "";
+    const petName =
+      rawPetName.length >= 2 &&
+      rawPetName.length <= 40 &&
+      /^[A-Za-z][A-Za-z'\- ]*$/.test(rawPetName)
+        ? rawPetName
+        : null;
+
     await db.insert(messages).values({
       conversationId,
       role: "user",
@@ -244,8 +255,15 @@ router.post("/conversations/:id/messages", async (req, res) => {
         }
       : { role: "user", content: userContent };
 
+    // When we have a confidently-detected pet name, ask the model to address
+    // the pet by name. Kept as a short addendum to the existing prompt so the
+    // 240-word reply cap and section format are unchanged.
+    const systemPrompt = petName
+      ? `${SYSTEM_PROMPT}\n\n## Pet name\n\nThe user's pet is named "${petName}". Address the pet by name in your reply where it sounds natural (e.g. "It sounds like ${petName} might be..." or "${petName} probably just..."). Don't overuse it — once or twice in the reply is plenty. Don't mention that you know the name; just use it.`
+      : SYSTEM_PROMPT;
+
     const allMessages: ChatMessage[] = [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: systemPrompt },
       ...textHistory,
       currentUserMessage,
     ];
