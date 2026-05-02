@@ -92,6 +92,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [conversationId, setConversationId] = useState<number | null>(() => restored?.conversationId ?? null);
   const [locked, setLocked] = useState(() => restored?.locked ?? false);
   const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
+  const [confirmingReset, setConfirmingReset] = useState(false);
   const sessionRef = useRef<string>(restored?.sessionRef ?? "preview-" + crypto.randomUUID());
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -199,6 +200,24 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   useEffect(() => {
     onReady?.(send);
   }, [send, onReady]);
+
+  const resetChat = useCallback(() => {
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.removeItem(PREVIEW_CHAT_STORAGE_KEY);
+      } catch {
+        // ignore
+      }
+    }
+    setMessages([]);
+    setQuestionCount(0);
+    setLocked(false);
+    setConversationId(null);
+    setInput("");
+    setImageToSend(null);
+    setConfirmingReset(false);
+    sessionRef.current = "preview-" + crypto.randomUUID();
+  }, []);
 
   return (
     <div className="relative max-w-2xl mx-auto">
@@ -324,6 +343,33 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
             <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions · Image analysis · Available 24/7</p>
             <CtaButton className="text-sm py-3 px-6 rounded-xl w-full justify-center" label="Start for $4.99/month →" />
             <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
+            <div className="mt-4 pt-3 border-t border-purple-100">
+              {confirmingReset ? (
+                <div className="flex items-center justify-center gap-3 text-xs">
+                  <span className="text-slate-500">Clear this conversation?</span>
+                  <button
+                    onClick={resetChat}
+                    className="font-bold text-purple-700 hover:text-purple-900 underline underline-offset-2"
+                  >
+                    Yes, reset
+                  </button>
+                  <span className="text-slate-300">·</span>
+                  <button
+                    onClick={() => setConfirmingReset(false)}
+                    className="font-medium text-slate-500 hover:text-slate-700"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setConfirmingReset(true)}
+                  className="text-xs text-slate-400 hover:text-purple-700 underline underline-offset-2 transition-colors"
+                >
+                  Start a new chat
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           <div className="border-t-2 border-purple-100 bg-white">
