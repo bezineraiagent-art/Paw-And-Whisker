@@ -45,6 +45,26 @@ function savePreviewChatState(state: Omit<PreviewChatPersistedState, "savedAt">)
   }
 }
 
+function detectPetTerm(messages: PreviewMessage[]): string {
+  const userText = messages
+    .filter((m) => m.role === "user")
+    .map((m) => m.content.toLowerCase())
+    .join(" ");
+  const matches: { re: RegExp; label: string }[] = [
+    { re: /\b(puppy|puppies)\b/, label: "your puppy" },
+    { re: /\b(kitten|kittens)\b/, label: "your kitten" },
+    { re: /\b(dog|dogs|doggie|doggy|pup|pooch)\b/, label: "your dog" },
+    { re: /\b(cat|cats|kitty|feline)\b/, label: "your cat" },
+    { re: /\b(rabbit|bunny)\b/, label: "your bunny" },
+    { re: /\b(parrot|bird|cockatiel|budgie)\b/, label: "your bird" },
+    { re: /\b(hamster|guinea pig|gerbil)\b/, label: "your little one" },
+  ];
+  for (const m of matches) {
+    if (m.re.test(userText)) return m.label;
+  }
+  return "your pet";
+}
+
 function CtaButton({ className = "", label = "Start for $4.99/month" }: { className?: string; label?: string }) {
   return (
     <a
@@ -273,6 +293,29 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
             </div>
           </div>
         ))}
+
+        {locked && !isStreaming && (
+          <div className="flex gap-2 msg-enter flex-row">
+            <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-purple-100">
+              <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
+            </div>
+            <div className="rounded-2xl rounded-tl-sm text-sm max-w-[82%] shadow-sm overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 text-slate-700">
+              <div className="px-4 py-3 leading-relaxed">
+                <p className="mb-2">
+                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetTerm(messages)}</strong>? I can keep going as long as you need 🐾
+                </p>
+                <a
+                  href={STRIPE_PAYMENT_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-purple-700 font-bold hover:text-purple-900 underline underline-offset-2"
+                >
+                  Continue for $4.99/month →
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
         </div>
 
         {locked ? (
