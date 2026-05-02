@@ -59,6 +59,9 @@ type CtaSource =
   | "pricing_card";
 
 const ANALYTICS_SESSION_KEY = "pw-analytics-session-v1";
+const AB_VARIANT_KEY = "pw-ab-nudge-variant-v1";
+
+type NudgeVariant = "nudge_on" | "nudge_off";
 
 function getOrCreateAnalyticsSessionId(): string {
   if (typeof window === "undefined") return "";
@@ -73,6 +76,23 @@ function getOrCreateAnalyticsSessionId(): string {
   }
 }
 
+// Persisted ~50/50 split between "nudge_on" (sees the inline nudge bubble) and
+// "nudge_off" (only sees the locked paywall card). Assignment happens on first
+// visit and survives reloads via localStorage so the same visitor always sees
+// the same experience while the experiment runs.
+function getOrCreateNudgeVariant(): NudgeVariant {
+  if (typeof window === "undefined") return "nudge_on";
+  try {
+    const existing = window.localStorage.getItem(AB_VARIANT_KEY);
+    if (existing === "nudge_on" || existing === "nudge_off") return existing;
+    const fresh: NudgeVariant = Math.random() < 0.5 ? "nudge_on" : "nudge_off";
+    window.localStorage.setItem(AB_VARIANT_KEY, fresh);
+    return fresh;
+  } catch {
+    return Math.random() < 0.5 ? "nudge_on" : "nudge_off";
+  }
+}
+
 function trackEvent(
   eventName: AnalyticsEventName,
   source?: CtaSource,
@@ -80,12 +100,16 @@ function trackEvent(
 ): void {
   if (typeof window === "undefined") return;
   const sessionId = getOrCreateAnalyticsSessionId();
+  const variant = getOrCreateNudgeVariant();
   // sendBeacon can't set custom headers, so we always include sessionId in the
   // body. The server reads X-Session-Id first and falls back to body.sessionId.
+  // `variant` rides on its own column so the summary endpoint can group by it
+  // cheaply, and we mirror it into metadata for ad-hoc digging.
   const payload = JSON.stringify({
     eventName,
     source: source ?? null,
-    metadata: metadata ?? null,
+    variant,
+    metadata: { ...(metadata ?? {}), variant },
     sessionId,
   });
   try {
@@ -271,6 +295,10 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
   const [confirmingReset, setConfirmingReset] = useState(false);
   const sessionRef = useRef<string>(restored?.sessionRef ?? "preview-" + crypto.randomUUID());
+  // Resolved on first render and never changed for the rest of the session so
+  // the inline nudge doesn't pop in/out if storage is cleared mid-session.
+  const variantRef = useRef<NudgeVariant>(getOrCreateNudgeVariant());
+  const variant = variantRef.current;
   const nudgeShownTrackedRef = useRef(false);
   // Tracks resets done within this page session so we can stamp subsequent
   // events with `afterReset` metadata. This lets the analytics dashboard see,
@@ -283,7 +311,10 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
 
   // Fire a one-time `nudge_shown` event whenever the locked nudge becomes visible
   // for this session. Skips the streaming window so we count it once it actually renders.
+  // Only the "nudge_on" variant actually renders the inline nudge, so we skip
+  // the event for "nudge_off" — that variant is supposed to never see it.
   useEffect(() => {
+    if (variant !== "nudge_on") return;
     if (!locked || isStreaming) return;
     if (nudgeShownTrackedRef.current) return;
     nudgeShownTrackedRef.current = true;
@@ -296,7 +327,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
       afterReset: resetCountRef.current > 0,
       resetCount: resetCountRef.current,
     });
-  }, [locked, isStreaming, questionCount, messages]);
+  }, [variant, locked, isStreaming, questionCount, messages]);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -542,7 +573,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
           </div>
         ))}
 
-        {locked && !isStreaming && (
+        {locked && !isStreaming && variant === "nudge_on" && (
           <div className="flex gap-2 msg-enter flex-row">
             <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 mt-0.5 border border-purple-100">
               <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />

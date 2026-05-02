@@ -2,6 +2,20 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 const TOKEN_STORAGE_KEY = "pw-admin-analytics-token";
 
+type VariantBucket = {
+  views: number;
+  viewSessions: number;
+  clicks: number;
+  clickSessions: number;
+  paywallClicks: number;
+  paywallClickSessions: number;
+  totalSessions: number;
+  ctaClicksBySource: Record<string, { clicks: number; sessions: number }>;
+  clickThroughRate: number;
+  sessionClickThroughRate: number;
+  paywallSessionConversionRate: number;
+};
+
 type AnalyticsSummary = {
   period: { since: string | null; until: string | null };
   totalSessions: number;
@@ -25,6 +39,15 @@ type AnalyticsSummary = {
     sessions: number;
   }>;
   eventCountsByName: Record<string, number>;
+  byVariant: Record<string, VariantBucket>;
+  variantComparison: {
+    paywallSessionConversionRate: {
+      nudge_on: number;
+      nudge_off: number;
+      lift: number | null;
+    };
+    sessions: { nudge_on: number; nudge_off: number };
+  } | null;
 };
 
 function formatPercent(ratio: number): string {
@@ -341,6 +364,76 @@ export default function AdminAnalytics() {
                   />
                 </section>
 
+                <section
+                  className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                  data-testid="section-ab-test"
+                >
+                  <div className="px-6 py-4 border-b border-slate-100">
+                    <h2 className="text-base font-bold">
+                      A/B test: inline nudge vs. paywall card only
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Visitors are randomly split ~50/50. The headline metric
+                      is paywall-card click rate per session — that's what
+                      drives Stripe conversion.
+                    </p>
+                  </div>
+                  {data.variantComparison ? (
+                    <div className="grid sm:grid-cols-2 gap-4 p-6">
+                      <VariantCard
+                        title="nudge_on (sees inline bubble)"
+                        bucket={data.byVariant["nudge_on"]}
+                        accent="purple"
+                        testId="variant-card-nudge-on"
+                      />
+                      <VariantCard
+                        title="nudge_off (paywall card only)"
+                        bucket={data.byVariant["nudge_off"]}
+                        accent="slate"
+                        testId="variant-card-nudge-off"
+                      />
+                      <div
+                        className="sm:col-span-2 rounded-xl bg-slate-50 border border-slate-200 px-5 py-4 text-sm"
+                        data-testid="text-variant-lift"
+                      >
+                        <span className="font-bold text-slate-700">
+                          Paywall conversion lift (nudge_on vs nudge_off):
+                        </span>{" "}
+                        <span className="tabular-nums">
+                          {data.variantComparison.paywallSessionConversionRate
+                            .lift === null
+                            ? "—"
+                            : formatPercent(
+                                data.variantComparison
+                                  .paywallSessionConversionRate.lift,
+                              )}
+                        </span>
+                        <span className="text-slate-500 ml-2">
+                          (
+                          {formatPercent(
+                            data.variantComparison
+                              .paywallSessionConversionRate.nudge_on,
+                          )}{" "}
+                          vs{" "}
+                          {formatPercent(
+                            data.variantComparison
+                              .paywallSessionConversionRate.nudge_off,
+                          )}
+                          )
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <p
+                      className="px-6 py-8 text-sm text-slate-500 text-center"
+                      data-testid="text-no-ab-data"
+                    >
+                      Not enough data yet — both variants need at least one
+                      session before a comparison can be shown.
+                    </p>
+                  )}
+                </section>
+
                 <section className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                   <div className="px-6 py-4 border-b border-slate-100">
                     <h2 className="text-base font-bold">
@@ -469,6 +562,74 @@ export default function AdminAnalytics() {
           </>
         )}
       </main>
+    </div>
+  );
+}
+
+function VariantCard({
+  title,
+  bucket,
+  accent,
+  testId,
+}: {
+  title: string;
+  bucket: VariantBucket | undefined;
+  accent: "purple" | "slate";
+  testId: string;
+}) {
+  const accentClasses =
+    accent === "purple"
+      ? "border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50"
+      : "border-slate-200 bg-slate-50";
+  if (!bucket) {
+    return (
+      <div
+        className={`rounded-xl border p-5 ${accentClasses}`}
+        data-testid={testId}
+      >
+        <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+          {title}
+        </p>
+        <p className="text-sm text-slate-500 mt-3">No data yet.</p>
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`rounded-xl border p-5 ${accentClasses}`}
+      data-testid={testId}
+    >
+      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+        {title}
+      </p>
+      <p className="text-2xl font-black tracking-tight mt-2 tabular-nums">
+        {formatPercent(bucket.paywallSessionConversionRate)}
+      </p>
+      <p className="text-xs text-slate-500 mt-1">
+        paywall-card click rate per session
+      </p>
+      <dl className="mt-4 space-y-1 text-xs">
+        <div className="flex justify-between">
+          <dt className="text-slate-500">Sessions</dt>
+          <dd className="font-semibold tabular-nums">
+            {formatNumber(bucket.totalSessions)}
+          </dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="text-slate-500">Paywall-card clicks</dt>
+          <dd className="font-semibold tabular-nums">
+            {formatNumber(bucket.paywallClicks)} ·{" "}
+            {formatNumber(bucket.paywallClickSessions)} sessions
+          </dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="text-slate-500">Inline-nudge clicks</dt>
+          <dd className="font-semibold tabular-nums">
+            {formatNumber(bucket.clicks)} ·{" "}
+            {formatNumber(bucket.clickSessions)} sessions
+          </dd>
+        </div>
+      </dl>
     </div>
   );
 }

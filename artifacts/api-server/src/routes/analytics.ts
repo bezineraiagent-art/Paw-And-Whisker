@@ -68,6 +68,20 @@ router.post("/analytics/events", async (req, res) => {
   }
 });
 
+type VariantBucket = {
+  views: number;
+  viewSessions: number;
+  clicks: number;
+  clickSessions: number;
+  paywallClicks: number;
+  paywallClickSessions: number;
+  totalSessions: number;
+  ctaClicksBySource: Record<string, { clicks: number; sessions: number }>;
+  clickThroughRate: number;
+  sessionClickThroughRate: number;
+  paywallSessionConversionRate: number;
+};
+
 router.get("/analytics/summary", requireAdminToken, async (req, res) => {
   try {
     const since = parseDate(req.query.since);
@@ -87,13 +101,18 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
       .select({
         eventName: analyticsEvents.eventName,
         source: analyticsEvents.source,
+        variant: analyticsEvents.variant,
         eventCount: count().as("event_count"),
         sessionCount: countDistinct(analyticsEvents.sessionId).as(
           "session_count",
         ),
       })
       .from(analyticsEvents)
-      .groupBy(analyticsEvents.eventName, analyticsEvents.source);
+      .groupBy(
+        analyticsEvents.eventName,
+        analyticsEvents.source,
+        analyticsEvents.variant,
+      );
 
     const breakdown = whereClause
       ? await baseSelect.where(whereClause)
@@ -109,21 +128,134 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
           .from(analyticsEvents);
     const totalSessions = Number(totalSessionsRow[0]?.value ?? 0);
 
-    const find = (eventName: string, source: string | null) =>
-      breakdown.find(
-        (row) => row.eventName === eventName && row.source === source,
+    const sessionsByVariantRows = whereClause
+      ? await db
+          .select({
+            variant: analyticsEvents.variant,
+            sessions: countDistinct(analyticsEvents.sessionId),
+          })
+          .from(analyticsEvents)
+          .where(whereClause)
+          .groupBy(analyticsEvents.variant)
+      : await db
+          .select({
+            variant: analyticsEvents.variant,
+            sessions: countDistinct(analyticsEvents.sessionId),
+          })
+          .from(analyticsEvents)
+          .groupBy(analyticsEvents.variant);
+
+    const ratio = (num: number, denom: number) =>
+      denom > 0 ? Number((num / denom).toFixed(4)) : 0;
+
+    type BreakdownRow = (typeof breakdown)[number];
+
+    const computeForVariant = (
+      rows: BreakdownRow[],
+      totalSessionsForVariant: number,
+    ): VariantBucket => {
+      const findRow = (eventName: string, source: string | null) =>
+        rows.find(
+          (row) => row.eventName === eventName && row.source === source,
+        );
+
+      const nudgeViewRow = findRow("nudge_shown", null);
+      const nudgeClickRow = findRow("cta_click", "preview_nudge");
+      const paywallClickRow = findRow("cta_click", "preview_paywall_card");
+
+      const views = Number(nudgeViewRow?.eventCount ?? 0);
+      const viewSessions = Number(nudgeViewRow?.sessionCount ?? 0);
+      const clicks = Number(nudgeClickRow?.eventCount ?? 0);
+      const clickSessions = Number(nudgeClickRow?.sessionCount ?? 0);
+      const paywallClicksLocal = Number(paywallClickRow?.eventCount ?? 0);
+      const paywallClickSessionsLocal = Number(
+        paywallClickRow?.sessionCount ?? 0,
       );
 
-    const nudgeViewRow = find("nudge_shown", null);
-    const nudgeClickRow = find("cta_click", "preview_nudge");
-    const paywallClickRow = find("cta_click", "preview_paywall_card");
+      const ctaClicksBySource: VariantBucket["ctaClicksBySource"] = {};
+      for (const row of rows) {
+        if (row.eventName !== "cta_click") continue;
+        const key = row.source ?? "unknown";
+        const existing = ctaClicksBySource[key] ?? { clicks: 0, sessions: 0 };
+        existing.clicks += Number(row.eventCount);
+        existing.sessions += Number(row.sessionCount);
+        ctaClicksBySource[key] = existing;
+      }
 
-    const nudgeViews = Number(nudgeViewRow?.eventCount ?? 0);
-    const nudgeViewSessions = Number(nudgeViewRow?.sessionCount ?? 0);
-    const nudgeClicks = Number(nudgeClickRow?.eventCount ?? 0);
-    const nudgeClickSessions = Number(nudgeClickRow?.sessionCount ?? 0);
-    const paywallClicks = Number(paywallClickRow?.eventCount ?? 0);
-    const paywallClickSessions = Number(paywallClickRow?.sessionCount ?? 0);
+      return {
+        views,
+        viewSessions,
+        clicks,
+        clickSessions,
+        paywallClicks: paywallClicksLocal,
+        paywallClickSessions: paywallClickSessionsLocal,
+        totalSessions: totalSessionsForVariant,
+        ctaClicksBySource,
+        clickThroughRate: ratio(clicks, views),
+        sessionClickThroughRate: ratio(clickSessions, viewSessions),
+        // For nudge_off this is the most useful number: of all sessions
+        // assigned to the variant, what fraction clicked the paywall card?
+        paywallSessionConversionRate: ratio(
+          paywallClickSessionsLocal,
+          totalSessionsForVariant,
+        ),
+      };
+    };
+
+    // Build per-variant buckets. We treat null/empty as "unassigned" so legacy
+    // events recorded before the experiment shipped still appear somewhere.
+    const variantKey = (v: string | null | undefined) =>
+      v && v.length > 0 ? v : "unassigned";
+
+    const sessionsByVariant: Record<string, number> = {};
+    for (const row of sessionsByVariantRows) {
+      sessionsByVariant[variantKey(row.variant)] = Number(row.sessions ?? 0);
+    }
+
+    const rowsByVariant = breakdown.reduce<Record<string, BreakdownRow[]>>(
+      (acc, row) => {
+        const key = variantKey(row.variant);
+        if (!acc[key]) acc[key] = [];
+        acc[key]!.push(row);
+        return acc;
+      },
+      {},
+    );
+
+    const variantNames = new Set<string>([
+      ...Object.keys(sessionsByVariant),
+      ...Object.keys(rowsByVariant),
+    ]);
+
+    const byVariant: Record<string, VariantBucket> = {};
+    for (const v of variantNames) {
+      byVariant[v] = computeForVariant(
+        rowsByVariant[v] ?? [],
+        sessionsByVariant[v] ?? 0,
+      );
+    }
+
+    // Aggregate (legacy) totals across all variants — keeps the existing
+    // dashboard shape working while the new `byVariant` block lives alongside.
+    const findRows = (eventName: string, source: string | null) =>
+      breakdown.filter(
+        (row) => row.eventName === eventName && row.source === source,
+      );
+    const sumCount = (rows: BreakdownRow[]) =>
+      rows.reduce((acc, row) => acc + Number(row.eventCount), 0);
+    const sumSessions = (rows: BreakdownRow[]) =>
+      rows.reduce((acc, row) => acc + Number(row.sessionCount), 0);
+
+    const nudgeViewRows = findRows("nudge_shown", null);
+    const nudgeClickRows = findRows("cta_click", "preview_nudge");
+    const paywallClickRows = findRows("cta_click", "preview_paywall_card");
+
+    const nudgeViews = sumCount(nudgeViewRows);
+    const nudgeViewSessions = sumSessions(nudgeViewRows);
+    const nudgeClicks = sumCount(nudgeClickRows);
+    const nudgeClickSessions = sumSessions(nudgeClickRows);
+    const paywallClicks = sumCount(paywallClickRows);
+    const paywallClickSessions = sumSessions(paywallClickRows);
 
     const totalCtaRow = whereClause
       ? await db
@@ -136,8 +268,33 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
           .where(eq(analyticsEvents.eventName, "cta_click"));
     const totalCtaClicks = Number(totalCtaRow[0]?.value ?? 0);
 
-    const ratio = (num: number, denom: number) =>
-      denom > 0 ? Number((num / denom).toFixed(4)) : 0;
+    // Compare paywall-card session conversion between variants — this is the
+    // headline A/B number the task asks for.
+    const nudgeOn = byVariant["nudge_on"];
+    const nudgeOff = byVariant["nudge_off"];
+    const variantComparison =
+      nudgeOn && nudgeOff
+        ? {
+            paywallSessionConversionRate: {
+              nudge_on: nudgeOn.paywallSessionConversionRate,
+              nudge_off: nudgeOff.paywallSessionConversionRate,
+              lift:
+                nudgeOff.paywallSessionConversionRate > 0
+                  ? Number(
+                      (
+                        (nudgeOn.paywallSessionConversionRate -
+                          nudgeOff.paywallSessionConversionRate) /
+                        nudgeOff.paywallSessionConversionRate
+                      ).toFixed(4),
+                    )
+                  : null,
+            },
+            sessions: {
+              nudge_on: nudgeOn.totalSessions,
+              nudge_off: nudgeOff.totalSessions,
+            },
+          }
+        : null;
 
     res.json({
       period: {
@@ -157,15 +314,32 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
       paywallCard: {
         clicks: paywallClicks,
         clickSessions: paywallClickSessions,
-        sessionConversionRate: ratio(paywallClickSessions, nudgeViewSessions),
+        // Denominator is total sessions across both variants. Pre-experiment
+        // this was nudgeViewSessions (the nudge was always shown), but now
+        // nudge_off sessions never trigger nudge_shown — keeping the old
+        // denominator would only count nudge_on sessions and inflate the
+        // aggregate rate. For per-variant rates, see byVariant.
+        sessionConversionRate: ratio(paywallClickSessions, totalSessions),
       },
       ctaClicksBySource: breakdown
         .filter((row) => row.eventName === "cta_click")
-        .map((row) => ({
-          source: row.source,
-          clicks: Number(row.eventCount),
-          sessions: Number(row.sessionCount),
-        })),
+        .reduce<{ source: string | null; clicks: number; sessions: number }[]>(
+          (acc, row) => {
+            const existing = acc.find((r) => r.source === row.source);
+            if (existing) {
+              existing.clicks += Number(row.eventCount);
+              existing.sessions += Number(row.sessionCount);
+            } else {
+              acc.push({
+                source: row.source,
+                clicks: Number(row.eventCount),
+                sessions: Number(row.sessionCount),
+              });
+            }
+            return acc;
+          },
+          [],
+        ),
       eventCountsByName: Object.fromEntries(
         Object.entries(
           breakdown.reduce<Record<string, number>>((acc, row) => {
@@ -175,6 +349,8 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
           }, {}),
         ),
       ),
+      byVariant,
+      variantComparison,
     });
   } catch (err) {
     req.log.error({ err }, "Failed to compute analytics summary");
