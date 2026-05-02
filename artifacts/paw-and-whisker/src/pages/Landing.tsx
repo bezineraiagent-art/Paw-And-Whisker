@@ -401,9 +401,9 @@ export default function Landing() {
           <div className="flex flex-col items-center gap-3">
             <a
               href="https://quiz.pawandwhisker.net"
-              className="inline-flex items-center justify-center gap-2 bg-white border-2 border-purple-300 text-purple-700 font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 active:scale-[0.98] transition-all duration-150 text-base"
+              className="inline-flex items-center justify-center gap-2 bg-white border-2 border-purple-300 text-purple-700 font-semibold px-6 py-3 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 active:scale-[0.98] transition-all duration-150 text-sm"
             >
-              <span>Is My Pet OK? Take the Free Check</span>
+              <span>Is My Pet OK? Free Check</span>
               <span aria-hidden="true">→</span>
             </a>
             <CtaButton className="text-lg px-10 py-4 rounded-2xl" />
