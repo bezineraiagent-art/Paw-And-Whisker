@@ -45,7 +45,11 @@ function savePreviewChatState(state: Omit<PreviewChatPersistedState, "savedAt">)
   }
 }
 
-type AnalyticsEventName = "nudge_shown" | "cta_click";
+type AnalyticsEventName =
+  | "nudge_shown"
+  | "cta_click"
+  | "preview_chat_reset"
+  | "preview_chat_resumed";
 type CtaSource =
   | "preview_nudge"
   | "preview_paywall_card"
@@ -231,17 +235,19 @@ function CtaButton({
   className = "",
   label = "Start for $4.99/month",
   source,
+  extraMetadata,
 }: {
   className?: string;
   label?: string;
   source: CtaSource;
+  extraMetadata?: Record<string, unknown>;
 }) {
   return (
     <a
       href={STRIPE_PAYMENT_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackEvent("cta_click", source, { label })}
+      onClick={() => trackEvent("cta_click", source, { label, ...extraMetadata })}
       className={`inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold px-7 py-4 rounded-2xl shadow-md hover:shadow-xl hover:opacity-95 active:scale-[0.98] transition-all duration-150 ${className}`}
     >
       {label}
@@ -266,6 +272,14 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [confirmingReset, setConfirmingReset] = useState(false);
   const sessionRef = useRef<string>(restored?.sessionRef ?? "preview-" + crypto.randomUUID());
   const nudgeShownTrackedRef = useRef(false);
+  // Tracks resets done within this page session so we can stamp subsequent
+  // events with `afterReset` metadata. This lets the analytics dashboard see,
+  // per session, whether a reset led to another preview chat, a subscribe
+  // click, or abandonment.
+  const resetCountRef = useRef(0);
+  // Set to true the moment a reset happens; flipped back to false once we've
+  // fired the `preview_chat_resumed` event for the next message send.
+  const pendingResumeRef = useRef(false);
 
   // Fire a one-time `nudge_shown` event whenever the locked nudge becomes visible
   // for this session. Skips the streaming window so we count it once it actually renders.
@@ -279,6 +293,8 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
       petTerm: detectPetTerm(messages),
       petName,
       usedPetName: petName !== null,
+      afterReset: resetCountRef.current > 0,
+      resetCount: resetCountRef.current,
     });
   }, [locked, isStreaming, questionCount, messages]);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -312,6 +328,17 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
     if ((!content && !capturedImage) || isStreaming || locked) return;
     setInput("");
     setImageToSend(null);
+
+    // If the user just hit reset and is now starting another preview chat,
+    // record that so we can distinguish "reset → resumed chatting" from
+    // "reset → abandoned" in the analytics.
+    if (pendingResumeRef.current) {
+      pendingResumeRef.current = false;
+      trackEvent("preview_chat_resumed", undefined, {
+        resetCount: resetCountRef.current,
+        sessionRef: sessionRef.current,
+      });
+    }
 
     const displayContent = content || (capturedImage ? "What do you think about this?" : "");
     setMessages((prev) => [...prev, { role: "user", content: displayContent, imageUrl: capturedImage?.dataUrl }]);
@@ -389,6 +416,10 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   }, [send, onReady]);
 
   const resetChat = useCallback(() => {
+    const previousSessionRef = sessionRef.current;
+    const previousQuestionCount = questionCount;
+    const previousResetCount = resetCountRef.current;
+
     if (typeof window !== "undefined") {
       try {
         window.localStorage.removeItem(PREVIEW_CHAT_STORAGE_KEY);
@@ -404,7 +435,18 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
     setImageToSend(null);
     setConfirmingReset(false);
     sessionRef.current = "preview-" + crypto.randomUUID();
-  }, []);
+    // Allow the next nudge_shown to fire again for the fresh chat.
+    nudgeShownTrackedRef.current = false;
+    resetCountRef.current = previousResetCount + 1;
+    pendingResumeRef.current = true;
+
+    trackEvent("preview_chat_reset", undefined, {
+      questionCountAtReset: previousQuestionCount,
+      previousSessionRef,
+      newSessionRef: sessionRef.current,
+      resetCount: resetCountRef.current,
+    });
+  }, [questionCount]);
 
   return (
     <div className="relative max-w-2xl mx-auto">
@@ -518,6 +560,8 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                     trackEvent("cta_click", "preview_nudge", {
                       label: "Continue for $4.99/month →",
                       questionCount,
+                      afterReset: resetCountRef.current > 0,
+                      resetCount: resetCountRef.current,
                     })
                   }
                   className="inline-flex items-center gap-1 text-purple-700 font-bold hover:text-purple-900 underline underline-offset-2"
@@ -534,7 +578,16 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
           <div className="p-5 border-t border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50 text-center">
             <p className="text-base font-black text-slate-800 mb-1">Get unlimited answers when you need them most</p>
             <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions · Image analysis · Available 24/7</p>
-            <CtaButton className="text-sm py-3 px-6 rounded-xl w-full justify-center" label="Start for $4.99/month →" source="preview_paywall_card" />
+            <CtaButton
+              className="text-sm py-3 px-6 rounded-xl w-full justify-center"
+              label="Start for $4.99/month →"
+              source="preview_paywall_card"
+              extraMetadata={{
+                questionCount,
+                afterReset: resetCountRef.current > 0,
+                resetCount: resetCountRef.current,
+              }}
+            />
             <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
             <div className="mt-4 pt-3 border-t border-purple-100">
               {confirmingReset ? (
