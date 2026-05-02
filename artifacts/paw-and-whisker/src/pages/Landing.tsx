@@ -28,13 +28,15 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [locked, setLocked] = useState(false);
   const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
   const sessionRef = useRef<string>("preview-" + crypto.randomUUID());
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (messages.length === 0) return;
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = messagesContainerRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: isStreaming ? "auto" : "smooth" });
   }, [messages, isStreaming]);
 
   const send = useCallback(async (text?: string) => {
@@ -120,31 +122,44 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   }, [send, onReady]);
 
   return (
-    <div className="bg-white rounded-3xl shadow-2xl border-2 border-purple-100 overflow-hidden max-w-xl mx-auto" style={{ boxShadow: "0 8px 48px 0 rgba(147,51,234,0.13), 0 2px 8px 0 rgba(236,72,153,0.07)" }}>
-      <div className="bg-gradient-to-r from-purple-600 to-pink-500 px-5 py-3.5 flex items-center gap-3">
-        <div className="w-7 h-7 rounded-lg overflow-hidden">
-          <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
+    <div className="relative max-w-2xl mx-auto">
+      {/* Animated glow ring behind the chat — draws the eye */}
+      <div
+        aria-hidden
+        className="absolute -inset-2 rounded-[2rem] bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 opacity-30 blur-2xl animate-pulse motion-reduce:animate-none pointer-events-none"
+      />
+      <div className="relative bg-white rounded-[2rem] shadow-2xl border-2 border-purple-200 overflow-hidden" style={{ boxShadow: "0 20px 60px 0 rgba(147,51,234,0.25), 0 8px 24px 0 rgba(236,72,153,0.15)" }}>
+        <div className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-500 px-5 py-4 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl overflow-hidden bg-white/10 ring-2 ring-white/30 flex-shrink-0">
+            <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="text-white font-black text-base block leading-tight">Paw And Whisker AI</span>
+            <span className="text-white/85 text-xs font-medium">Ask anything about your pet 🐾</span>
+          </div>
+          <span className="flex items-center gap-1.5 text-xs text-white/95 bg-white/15 px-2.5 py-1 rounded-full font-semibold">
+            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+            Online
+          </span>
         </div>
-        <div>
-          <span className="text-white font-bold text-sm block leading-tight">Paw And Whisker AI</span>
-          <span className="text-white/70 text-xs">Your pet assistant 🐾</span>
-        </div>
-        <span className="ml-auto flex items-center gap-1.5 text-xs text-white/80">
-          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-          Online
-        </span>
-      </div>
 
-      <div className="h-96 overflow-y-auto p-4 space-y-3 bg-slate-50">
+        <div ref={messagesContainerRef} className="h-[28rem] overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-slate-50 to-white">
         {messages.length === 0 && (
-          <div className="h-full flex flex-col items-center justify-center text-center gap-3">
-            <p className="text-sm text-slate-500 font-medium">Ask your first question about your pet</p>
+          <div className="h-full flex flex-col items-center justify-center text-center gap-4 px-4">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-md ring-2 ring-purple-100 mb-1">
+              <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
+            </div>
+            <div>
+              <p className="text-base font-black text-slate-800">👋 Hi! I'm here to help.</p>
+              <p className="text-sm text-slate-500 mt-1">Ask me anything about your pet — I'll answer in seconds.</p>
+            </div>
+            <p className="text-xs font-bold text-purple-600 uppercase tracking-wider mt-1">Try one of these</p>
             <div className="flex flex-wrap gap-2 justify-center">
               {["My cat stopped eating — should I worry?", "My dog is limping, what should I do?", "Why is my cat hiding suddenly?"].map((q) => (
                 <button
                   key={q}
                   onClick={() => send(q)}
-                  className="text-xs bg-white border border-purple-200 text-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-50 transition-colors font-medium"
+                  className="text-xs bg-white border-2 border-purple-200 text-purple-700 px-3 py-2 rounded-full hover:bg-purple-50 hover:border-purple-400 hover:shadow-sm transition-all font-semibold"
                 >
                   {q}
                 </button>
@@ -199,79 +214,81 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
             </div>
           </div>
         ))}
-        <div ref={bottomRef} />
-      </div>
+        </div>
 
-      {locked ? (
-        <div className="p-5 border-t border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50 text-center">
-          <p className="text-base font-black text-slate-800 mb-1">Get unlimited answers when you need them most</p>
-          <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions · Image analysis · Available 24/7</p>
-          <CtaButton className="text-sm py-3 px-6 rounded-xl w-full justify-center" label="Start for $4.99/month →" />
-          <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
-        </div>
-      ) : (
-        <div className="border-t border-slate-100 bg-white">
-          {/* Image preview strip */}
-          {imageToSend && (
-            <div className="px-3 pt-2 flex items-center gap-2">
-              <div className="relative w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-200 flex-shrink-0">
-                <img src={imageToSend.dataUrl} alt="preview" className="w-full h-full object-cover" />
-                <button
-                  onClick={() => setImageToSend(null)}
-                  className="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-slate-800/70 text-white text-xs flex items-center justify-center leading-none"
-                >
-                  ×
-                </button>
-              </div>
-              <p className="text-xs text-purple-600 font-medium">📸 Photo ready to send</p>
-            </div>
-          )}
-          {/* Upload + input row */}
-          <div className="p-3 flex gap-2 items-center">
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isStreaming}
-              className="flex items-center gap-1.5 text-xs font-bold text-purple-600 bg-purple-50 border border-purple-200 px-3 py-2.5 rounded-xl hover:bg-purple-100 transition-colors disabled:opacity-50 flex-shrink-0"
-            >
-              📸 <span>Photo</span>
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-                e.target.value = "";
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                  const dataUrl = ev.target?.result as string;
-                  if (dataUrl) setImageToSend({ dataUrl, name: file.name });
-                };
-                reader.readAsDataURL(file);
-              }}
-            />
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder="Ask about your pet..."
-              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 transition-all"
-              disabled={isStreaming}
-            />
-            <button
-              onClick={() => send()}
-              disabled={isStreaming || (!input.trim() && !imageToSend)}
-              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold disabled:opacity-50 transition-opacity hover:opacity-90 flex-shrink-0"
-            >
-              Send
-            </button>
+        {locked ? (
+          <div className="p-5 border-t border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50 text-center">
+            <p className="text-base font-black text-slate-800 mb-1">Get unlimited answers when you need them most</p>
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions · Image analysis · Available 24/7</p>
+            <CtaButton className="text-sm py-3 px-6 rounded-xl w-full justify-center" label="Start for $4.99/month →" />
+            <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="border-t-2 border-purple-100 bg-white">
+            {/* Image preview strip */}
+            {imageToSend && (
+              <div className="px-4 pt-3 flex items-center gap-2">
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-200 flex-shrink-0">
+                  <img src={imageToSend.dataUrl} alt="preview" className="w-full h-full object-cover" />
+                  <button
+                    onClick={() => setImageToSend(null)}
+                    aria-label="Remove selected photo"
+                    className="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-slate-800/70 text-white text-xs flex items-center justify-center leading-none"
+                  >
+                    ×
+                  </button>
+                </div>
+                <p className="text-xs text-purple-600 font-medium">📸 Photo ready to send</p>
+              </div>
+            )}
+            {/* Upload + input row */}
+            <div className="p-4 flex gap-2 items-center">
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isStreaming}
+                className="flex items-center gap-1.5 text-sm font-bold text-purple-600 bg-purple-50 border-2 border-purple-200 px-3 py-3 rounded-xl hover:bg-purple-100 hover:border-purple-300 transition-all disabled:opacity-50 flex-shrink-0"
+                aria-label="Add photo"
+              >
+                📸
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  e.target.value = "";
+                  const reader = new FileReader();
+                  reader.onload = (ev) => {
+                    const dataUrl = ev.target?.result as string;
+                    if (dataUrl) setImageToSend({ dataUrl, name: file.name });
+                  };
+                  reader.readAsDataURL(file);
+                }}
+              />
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && send()}
+                placeholder="Type your question about your pet..."
+                className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-base outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 focus:bg-white transition-all placeholder:text-slate-400"
+                disabled={isStreaming}
+              />
+              <button
+                onClick={() => send()}
+                disabled={isStreaming || (!input.trim() && !imageToSend)}
+                className="bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl px-5 py-3 text-base font-black shadow-md disabled:opacity-50 transition-all hover:shadow-lg hover:scale-[1.03] active:scale-[0.98] flex-shrink-0"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -477,20 +494,32 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* LIVE CHAT PREVIEW */}
-        <section ref={chatSectionRef} className="bg-gradient-to-br from-purple-50 to-pink-50 border-y border-purple-100 py-16">
+        {/* LIVE CHAT PREVIEW — the centerpiece */}
+        <section ref={chatSectionRef} className="bg-gradient-to-br from-purple-100 via-fuchsia-50 to-pink-100 border-y-2 border-purple-200 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto px-5">
-            <div className="text-center mb-8">
-              <span className="inline-flex items-center gap-2 bg-white border border-purple-200 text-purple-700 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm mb-3">
-                <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                Try it now — no signup
+            <div className="text-center mb-10">
+              <span className="inline-flex items-center gap-2 bg-white border-2 border-purple-300 text-purple-700 text-xs font-black px-4 py-2 rounded-full shadow-md mb-4 uppercase tracking-wider">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                Try it now — Free, no signup
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-800">
-                Ask your first question free
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-800 mb-3">
+                Ask your pet question{" "}
+                <span className="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                  right here
+                </span>
               </h2>
-              <p className="text-slate-400 text-sm mt-2">2 free questions. No account. No credit card.</p>
+              <p className="text-slate-600 text-base sm:text-lg max-w-md mx-auto">
+                This is the heart of Paw And Whisker — type below and get a real answer in seconds.
+              </p>
+              <p className="text-purple-600 text-sm font-bold mt-3 flex items-center justify-center gap-1.5">
+                <span className="text-xl animate-bounce motion-reduce:animate-none">👇</span>
+                <span>Start typing — your first 2 questions are free</span>
+              </p>
             </div>
             <FreePreviewChat onReady={(fn) => { chatSendRef.current = fn; }} />
+            <p className="text-center text-xs text-slate-500 font-semibold mt-5">
+              Free · No signup · Answers in seconds
+            </p>
           </div>
         </section>
 
