@@ -127,6 +127,106 @@ function detectPetTerm(messages: PreviewMessage[]): string {
   return "your pet";
 }
 
+// Words that look like names (capitalized) but almost certainly aren't a pet
+// name — sentence starters, days/months, generic nouns, common pronouns, etc.
+const NAME_BLOCKLIST = new Set([
+  "I", "Im", "Ive", "Id", "Ill",
+  "My", "Mine", "Our", "Ours", "Your", "Yours", "His", "Her", "Hers", "Its", "Their", "Theirs",
+  "He", "She", "It", "They", "We", "You", "Me", "Us", "Them", "This", "That", "These", "Those",
+  "A", "An", "The", "And", "But", "Or", "So", "If", "Then", "Than", "As", "At", "In", "On", "Of", "To", "For", "With", "From", "By",
+  "Is", "Was", "Are", "Were", "Be", "Been", "Being", "Am",
+  "Has", "Have", "Had", "Having",
+  "Do", "Does", "Did", "Doing", "Done",
+  "Will", "Would", "Should", "Could", "Can", "Cant", "Cannot", "Wont", "Wouldnt", "Shouldnt",
+  "Why", "What", "When", "Where", "How", "Who", "Which", "Whose",
+  "Yes", "No", "Yeah", "Yep", "Nope", "Okay", "Ok", "Sure", "Maybe", "Please", "Thanks", "Hi", "Hello", "Hey",
+  "Today", "Yesterday", "Tonight", "Tomorrow", "Morning", "Afternoon", "Evening", "Night",
+  "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+  "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+  // Species / generic pet words — never treat these as names even when capitalized
+  // (e.g. "My Cat won't eat" at the start of a sentence).
+  "Cat", "Cats", "Kitty", "Kitten", "Kittens", "Feline",
+  "Dog", "Dogs", "Doggie", "Doggy", "Puppy", "Puppies", "Pup", "Pooch",
+  "Rabbit", "Bunny", "Bird", "Parrot", "Cockatiel", "Budgie",
+  "Hamster", "Gerbil", "Pet", "Pets",
+  "Mr", "Mrs", "Ms", "Dr",
+]);
+
+const SPECIES_WORD = "(?:cat|kitten|kitty|feline|dog|doggie|doggy|puppy|pup|pooch|rabbit|bunny|bird|parrot|cockatiel|budgie|hamster|gerbil|pet)";
+// A name token: starts with a capital letter, may contain inner letters,
+// apostrophes ("O'Malley") or hyphens ("Mary-Anne"). 2-20 chars total.
+const NAME_TOKEN = "([A-Z][a-zA-Z'\\-]{1,19})";
+
+function isLikelyName(candidate: string | undefined): candidate is string {
+  if (!candidate) return false;
+  const stripped = candidate.replace(/[^a-zA-Z]/g, "");
+  if (stripped.length < 2) return false;
+  if (NAME_BLOCKLIST.has(stripped)) return false;
+  return true;
+}
+
+// Try to pull a pet's actual name out of the user's earlier messages so the
+// nudge can say "keep helping with Whiskers?" instead of "your cat".
+//
+// Strategy (in confidence order):
+//   1) "my cat named Whiskers" / "dog called Rex"
+//   2) "my cat Whiskers" — capitalized token immediately after a species word
+//   3) "Whiskers <pet-ish verb>" — e.g. "Bella keeps limping",
+//      "Whiskers stopped eating". The verb list is intentionally narrow so
+//      we don't latch onto unrelated capitalized words.
+//
+// We bail out (return null) on anything ambiguous and let the caller fall
+// back to the generic species term.
+function detectPetName(messages: PreviewMessage[]): string | null {
+  const userTexts = messages
+    .filter((m) => m.role === "user")
+    .map((m) => m.content)
+    .filter((c) => typeof c === "string" && c.length > 0);
+  if (userTexts.length === 0) return null;
+
+  const namedPattern = new RegExp(
+    `\\b${SPECIES_WORD}\\s+(?:named|called)\\s+${NAME_TOKEN}\\b`,
+    "i",
+  );
+  // "my cat Whiskers" — require a possessive/article so we don't match
+  // "the cat Sleeping on the rug". Determiners are written with both cases
+  // explicitly so "My cat Whiskers" matches at sentence start. We deliberately
+  // avoid the global `i` flag here because it would also relax NAME_TOKEN's
+  // leading [A-Z], causing matches like "my cat is sick" -> "is".
+  const possessiveSpeciesPattern = new RegExp(
+    `\\b(?:[Mm]y|[Oo]ur|[Tt]he|[Aa])\\s+${SPECIES_WORD}\\s+${NAME_TOKEN}\\b`,
+  );
+  // "Whiskers stopped eating", "Bella keeps limping". Verb list is narrow on
+  // purpose — these are the kinds of things people actually write to a pet
+  // helper, and they're unlikely to follow a non-name capitalized word.
+  const nameThenVerbPattern = new RegExp(
+    `\\b${NAME_TOKEN}\\s+(?:keeps?|kept|stopped|won't|wont|isn't|isnt|doesn't|doesnt|hasn't|hasnt|seems|started|has\\s+been|been|got|gets|ate|eats|drinks?|drank|sleeps?|slept|limps?|limped|whines?|barks?|meows?|hisses?|coughs?|vomits?|vomited|threw\\s+up|throws\\s+up|scratches?|bit|bites?|won't\\s+eat|won't\\s+drink|hides?|hid|cries|cried)\\b`,
+  );
+
+  for (const text of userTexts) {
+    const m = text.match(namedPattern);
+    if (m && isLikelyName(m[1])) return m[1];
+  }
+  for (const text of userTexts) {
+    const m = text.match(possessiveSpeciesPattern);
+    if (m && isLikelyName(m[1])) return m[1];
+  }
+  for (const text of userTexts) {
+    const m = text.match(nameThenVerbPattern);
+    if (m && isLikelyName(m[1])) return m[1];
+  }
+  return null;
+}
+
+// Returns what the nudge should call the pet: the actual name when we can
+// detect one confidently, otherwise the existing "your cat / your dog / your
+// pet" wording.
+function detectPetReference(messages: PreviewMessage[]): string {
+  const name = detectPetName(messages);
+  if (name) return name;
+  return detectPetTerm(messages);
+}
+
 function CtaButton({
   className = "",
   label = "Start for $4.99/month",
@@ -173,9 +273,12 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
     if (!locked || isStreaming) return;
     if (nudgeShownTrackedRef.current) return;
     nudgeShownTrackedRef.current = true;
+    const petName = detectPetName(messages);
     trackEvent("nudge_shown", undefined, {
       questionCount,
       petTerm: detectPetTerm(messages),
+      petName,
+      usedPetName: petName !== null,
     });
   }, [locked, isStreaming, questionCount, messages]);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -405,7 +508,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
             <div className="rounded-2xl rounded-tl-sm text-sm max-w-[82%] shadow-sm overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 text-slate-700">
               <div className="px-4 py-3 leading-relaxed">
                 <p className="mb-2">
-                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetTerm(messages)}</strong>? I can keep going as long as you need 🐾
+                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetReference(messages)}</strong>? I can keep going as long as you need 🐾
                 </p>
                 <a
                   href={STRIPE_PAYMENT_LINK}
