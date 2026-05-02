@@ -59,6 +59,77 @@ function getSessionId(req: Parameters<Router>[0]): string {
   return typeof sessionId === "string" && sessionId.length > 0 ? sessionId : "";
 }
 
+// Allowed species labels we accept from the LLM extractor. Anything else gets
+// dropped to null so we never splice unexpected freeform text downstream.
+const ALLOWED_SPECIES = new Set([
+  "cat", "dog", "rabbit", "bird", "hamster", "guinea pig", "gerbil",
+  "ferret", "reptile", "fish", "horse", "puppy", "kitten",
+]);
+
+// Loose enough to allow titled names ("Mr. Whiskers", "Sir Reginald"), hyphens
+// ("Mary-Anne"), apostrophes ("O'Malley"), spaces ("Lady Bug"), AND non-English
+// names with diacritics or non-Latin scripts ("Lëa", "Müsli", "ちゃちゃ", "豆豆").
+// We use Unicode categories (\p{L} = any letter, \p{M} = combining marks) so
+// names typed in any script the user actually uses are accepted. Length is
+// capped at 40 chars so we never splice anything wild into the system prompt.
+const PET_NAME_PATTERN = /^[\p{L}][\p{L}\p{M}'.\- ]{0,39}$/u;
+
+function sanitizePetName(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (trimmed.length < 2 || trimmed.length > 40) return null;
+  if (!PET_NAME_PATTERN.test(trimmed)) return null;
+  return trimmed;
+}
+
+// Ask a small LLM to pull a pet name + species out of a single user message.
+// This catches cases the client-side regex misses: lowercase typos
+// ("my cat whiskers won't eat"), titled names ("Mr. Whiskers"), names
+// introduced indirectly ("we just adopted her, she's called Pippa"), and
+// non-English names. Returns nulls on any failure so the chat flow keeps
+// working even if extraction fails.
+async function extractPetInfo(
+  content: string,
+): Promise<{ petName: string | null; species: string | null }> {
+  if (!content || content.length > 4000) {
+    return { petName: null, species: null };
+  }
+  try {
+    const completion = await openai.chat.completions.create({
+      // gpt-5-mini is fast and cheap; nano tends to spend its whole budget on
+      // internal reasoning and return an empty string for structured outputs.
+      model: "gpt-5-mini",
+      max_completion_tokens: 2000,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content:
+            'You extract pet info from a single user message sent to a pet care assistant. ' +
+            'Return ONLY a JSON object of the shape {"petName": string|null, "species": string|null}. ' +
+            'petName is the pet\'s proper name (e.g. "Whiskers", "Mr. Whiskers", "Bella", "Pippa"). ' +
+            'Capitalize the name naturally even if the user typed it lowercase ("whiskers" -> "Whiskers"). ' +
+            'Preserve titles like "Mr.", "Sir", "Lady". ' +
+            'If the user only refers to the pet generically ("my cat", "the dog", "she", "he") with no proper name, set petName to null. ' +
+            'Never invent a name. If unsure, return null. ' +
+            'species must be one of: "cat", "dog", "rabbit", "bird", "hamster", "guinea pig", "gerbil", "ferret", "reptile", "fish", "horse", "puppy", "kitten" — or null if unclear. ' +
+            'No extra fields, no prose, no markdown.',
+        },
+        { role: "user", content },
+      ],
+    });
+    const text = completion.choices[0]?.message?.content?.trim() ?? "";
+    if (!text) return { petName: null, species: null };
+    const parsed = JSON.parse(text) as { petName?: unknown; species?: unknown };
+    const petName = sanitizePetName(parsed.petName);
+    const speciesRaw = typeof parsed.species === "string" ? parsed.species.trim().toLowerCase() : "";
+    const species = ALLOWED_SPECIES.has(speciesRaw) ? speciesRaw : null;
+    return { petName, species };
+  } catch {
+    return { petName: null, species: null };
+  }
+}
+
 router.get("/conversations", async (req, res) => {
   try {
     const sessionId = getSessionId(req);
@@ -212,16 +283,27 @@ router.post("/conversations/:id/messages", async (req, res) => {
         ? (req.body.imageBase64 as string)
         : null;
 
-    // Optional pet name detected client-side by the same heuristic that powers
-    // the locked-chat sign-up nudge. Validated defensively (length cap, simple
-    // character set) so we never splice arbitrary user text into the prompt.
-    const rawPetName = typeof req.body.petName === "string" ? req.body.petName.trim() : "";
-    const petName =
-      rawPetName.length >= 2 &&
-      rawPetName.length <= 40 &&
-      /^[A-Za-z][A-Za-z'\- ]*$/.test(rawPetName)
-        ? rawPetName
-        : null;
+    // Optional pet name passed from the client. May come from either:
+    //   - the client-side regex heuristic (clean cases like "my cat Whiskers"),
+    //   - or a previously-extracted name returned by the LLM extractor on an
+    //     earlier turn and stored client-side.
+    // Validated defensively so we never splice arbitrary user text into the
+    // prompt — same character set as `sanitizePetName` above.
+    const clientPetName = sanitizePetName(req.body.petName);
+
+    // Kick off the LLM-based extractor in parallel with the streaming chat
+    // call so we don't add latency to the first chunk. We only run extraction
+    // on the very first user turn — the name is then sent back to the client
+    // and reused on subsequent turns. If the client already passed a name we
+    // skip extraction entirely (the regex got it, no need to spend a call).
+    const isFirstUserTurn = existingMessages.length === 0;
+    const shouldExtract = isFirstUserTurn && !clientPetName;
+    const petInfoPromise: Promise<{ petName: string | null; species: string | null }> =
+      shouldExtract
+        ? extractPetInfo(userContent)
+        : Promise.resolve({ petName: null, species: null });
+
+    const petName = clientPetName;
 
     await db.insert(messages).values({
       conversationId,
@@ -294,6 +376,16 @@ router.post("/conversations/:id/messages", async (req, res) => {
       role: "assistant",
       content: fullResponse,
     });
+
+    // Wait on the parallel extraction (typically already resolved by now since
+    // the chat stream takes much longer). Emit the result so the client can
+    // store it and prefer it over its own regex on subsequent turns.
+    if (shouldExtract) {
+      const petInfo = await petInfoPromise;
+      if (petInfo.petName || petInfo.species) {
+        res.write(`data: ${JSON.stringify({ petInfo })}\n\n`);
+      }
+    }
 
     res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
     res.end();

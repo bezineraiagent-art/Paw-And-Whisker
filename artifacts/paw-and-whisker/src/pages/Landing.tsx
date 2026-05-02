@@ -14,6 +14,11 @@ type PreviewChatPersistedState = {
   questionCount: number;
   locked: boolean;
   conversationId: number | null;
+  // Pet name + species the server's LLM extractor returned on the first turn.
+  // Stored so subsequent turns (and resumed sessions) reuse it instead of
+  // re-running detection.
+  serverPetName?: string | null;
+  serverPetSpecies?: string | null;
   savedAt: number;
 };
 
@@ -248,11 +253,40 @@ function detectPetName(messages: PreviewMessage[]): string | null {
 
 // Returns what the nudge should call the pet: the actual name when we can
 // detect one confidently, otherwise the existing "your cat / your dog / your
-// pet" wording.
-function detectPetReference(messages: PreviewMessage[]): string {
+// pet" wording. Server-extracted values take precedence over the regex.
+function detectPetReference(
+  messages: PreviewMessage[],
+  serverPetName: string | null,
+  serverPetSpecies: string | null,
+): string {
+  if (serverPetName) return serverPetName;
   const name = detectPetName(messages);
   if (name) return name;
+  if (serverPetSpecies) return speciesToTerm(serverPetSpecies);
   return detectPetTerm(messages);
+}
+
+// Map an LLM-extracted species label to the same "your cat / your dog / your
+// pet" wording the regex heuristic produces.
+function speciesToTerm(species: string): string {
+  switch (species) {
+    case "cat":
+    case "kitten":
+      return species === "kitten" ? "your kitten" : "your cat";
+    case "dog":
+    case "puppy":
+      return species === "puppy" ? "your puppy" : "your dog";
+    case "rabbit":
+      return "your bunny";
+    case "bird":
+      return "your bird";
+    case "hamster":
+    case "guinea pig":
+    case "gerbil":
+      return "your little one";
+    default:
+      return "your pet";
+  }
 }
 
 function CtaButton({
@@ -294,6 +328,16 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [locked, setLocked] = useState(() => restored?.locked ?? false);
   const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
   const [confirmingReset, setConfirmingReset] = useState(false);
+  // Pet name + species the server's LLM extractor returned. Preferred over the
+  // client-side regex when present so we catch lowercase names ("whiskers"),
+  // titled names ("Mr. Whiskers"), and indirectly-introduced names. Hydrated
+  // from localStorage so a returning visitor keeps the personalization.
+  const [serverPetName, setServerPetName] = useState<string | null>(() => restored?.serverPetName ?? null);
+  const [serverPetSpecies, setServerPetSpecies] = useState<string | null>(() => restored?.serverPetSpecies ?? null);
+  // Mirror in a ref so the streaming send() callback (which closes over an
+  // older render) can read the latest server-extracted name without re-running.
+  const serverPetNameRef = useRef<string | null>(serverPetName);
+  useEffect(() => { serverPetNameRef.current = serverPetName; }, [serverPetName]);
   const sessionRef = useRef<string>(restored?.sessionRef ?? "preview-" + crypto.randomUUID());
   // Resolved on first render and never changed for the rest of the session so
   // the inline nudge doesn't pop in/out if storage is cleared mid-session.
@@ -318,16 +362,21 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
     if (!locked || isStreaming) return;
     if (nudgeShownTrackedRef.current) return;
     nudgeShownTrackedRef.current = true;
-    const petName = detectPetName(messages);
+    // Prefer the server-extracted name (catches lowercase + titled names the
+    // regex misses); fall back to the regex heuristic otherwise.
+    const regexName = detectPetName(messages);
+    const petName = serverPetName ?? regexName;
     trackEvent("nudge_shown", undefined, {
       questionCount,
       petTerm: detectPetTerm(messages),
       petName,
       usedPetName: petName !== null,
+      petNameSource: petName ? (serverPetName ? "server_llm" : "client_regex") : null,
+      serverPetSpecies,
       afterReset: resetCountRef.current > 0,
       resetCount: resetCountRef.current,
     });
-  }, [variant, locked, isStreaming, questionCount, messages]);
+  }, [variant, locked, isStreaming, questionCount, messages, serverPetName, serverPetSpecies]);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -343,8 +392,10 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
       questionCount,
       locked,
       conversationId,
+      serverPetName,
+      serverPetSpecies,
     });
-  }, [messages, questionCount, locked, conversationId, isStreaming]);
+  }, [messages, questionCount, locked, conversationId, isStreaming, serverPetName, serverPetSpecies]);
 
   useEffect(() => {
     if (messages.length === 0) return;
@@ -389,16 +440,17 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
         setConversationId(convId);
       }
 
-      // Reuse the same detection used by the nudge so the assistant can
-      // address the pet by name in its reply (e.g. "It sounds like Whiskers...").
-      // Run on the messages we have *before* the latest user turn was appended;
-      // append it manually so a name introduced in the very first message still
-      // gets picked up.
+      // Pick a pet name to send to the server so it can address the pet by
+      // name in its reply (e.g. "It sounds like Whiskers..."). Prefer the
+      // server's LLM-extracted name from a previous turn (catches lowercase /
+      // titled names) and fall back to the regex heuristic otherwise. Run the
+      // regex on messages *plus* the latest user turn so a name introduced in
+      // the very first message still gets picked up.
       const messagesForNameDetection: PreviewMessage[] = [
         ...messages,
         { role: "user", content: displayContent },
       ];
-      const detectedPetName = detectPetName(messagesForNameDetection);
+      const detectedPetName = serverPetNameRef.current ?? detectPetName(messagesForNameDetection);
 
       const res = await fetch(`/api/openai/conversations/${convId}/messages`, {
         method: "POST",
@@ -434,6 +486,14 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                   }
                   return updated;
                 });
+              }
+              // Server's LLM-extracted pet info from the first user turn. Stash
+              // it so subsequent sends and the nudge prefer it over the regex.
+              if (data.petInfo && typeof data.petInfo === "object") {
+                const incomingName = typeof data.petInfo.petName === "string" ? data.petInfo.petName : null;
+                const incomingSpecies = typeof data.petInfo.species === "string" ? data.petInfo.species : null;
+                if (incomingName) setServerPetName(incomingName);
+                if (incomingSpecies) setServerPetSpecies(incomingSpecies);
               }
             } catch { }
           }
@@ -480,6 +540,8 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
     setInput("");
     setImageToSend(null);
     setConfirmingReset(false);
+    setServerPetName(null);
+    setServerPetSpecies(null);
     sessionRef.current = "preview-" + crypto.randomUUID();
     // Allow the next nudge_shown to fire again for the fresh chat.
     nudgeShownTrackedRef.current = false;
@@ -596,7 +658,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
             <div className="rounded-2xl rounded-tl-sm text-sm max-w-[82%] shadow-sm overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 text-slate-700">
               <div className="px-4 py-3 leading-relaxed">
                 <p className="mb-2">
-                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetReference(messages)}</strong>? I can keep going as long as you need 🐾
+                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetReference(messages, serverPetName, serverPetSpecies)}</strong>? I can keep going as long as you need 🐾
                 </p>
                 <a
                   href={STRIPE_PAYMENT_LINK}
