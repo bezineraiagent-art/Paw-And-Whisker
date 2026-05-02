@@ -1,5 +1,5 @@
 import { Router, type Request, type Response, type NextFunction } from "express";
-import { and, count, countDistinct, eq, gte, lte } from "drizzle-orm";
+import { and, count, countDistinct, eq, gte, lte, sql } from "drizzle-orm";
 import {
   analyticsEvents,
   db,
@@ -145,13 +145,60 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
           .from(analyticsEvents)
           .groupBy(analyticsEvents.variant);
 
+    // Reset-link experiment lives in metadata.resetVariant (no schema change).
+    // We extract it as text via the jsonb `->>` operator so we can group on it
+    // the same way we group on the dedicated `variant` column for the nudge
+    // experiment.
+    const resetVariantExpr = sql<
+      string | null
+    >`${analyticsEvents.metadata} ->> 'resetVariant'`;
+
+    const resetBaseSelect = db
+      .select({
+        eventName: analyticsEvents.eventName,
+        source: analyticsEvents.source,
+        resetVariant: resetVariantExpr.as("reset_variant"),
+        eventCount: count().as("event_count"),
+        sessionCount: countDistinct(analyticsEvents.sessionId).as(
+          "session_count",
+        ),
+      })
+      .from(analyticsEvents)
+      .groupBy(
+        analyticsEvents.eventName,
+        analyticsEvents.source,
+        resetVariantExpr,
+      );
+
+    const resetBreakdown = whereClause
+      ? await resetBaseSelect.where(whereClause)
+      : await resetBaseSelect;
+
+    const sessionsByResetVariantRows = whereClause
+      ? await db
+          .select({
+            resetVariant: resetVariantExpr.as("reset_variant"),
+            sessions: countDistinct(analyticsEvents.sessionId),
+          })
+          .from(analyticsEvents)
+          .where(whereClause)
+          .groupBy(resetVariantExpr)
+      : await db
+          .select({
+            resetVariant: resetVariantExpr.as("reset_variant"),
+            sessions: countDistinct(analyticsEvents.sessionId),
+          })
+          .from(analyticsEvents)
+          .groupBy(resetVariantExpr);
+
     const ratio = (num: number, denom: number) =>
       denom > 0 ? Number((num / denom).toFixed(4)) : 0;
 
     type BreakdownRow = (typeof breakdown)[number];
+    type ResetBreakdownRow = (typeof resetBreakdown)[number];
 
     const computeForVariant = (
-      rows: BreakdownRow[],
+      rows: BreakdownRow[] | ResetBreakdownRow[],
       totalSessionsForVariant: number,
     ): VariantBucket => {
       const findRow = (eventName: string, source: string | null) =>
@@ -235,6 +282,39 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
       );
     }
 
+    // Same shape, but pivoted by the reset-link experiment instead of the
+    // nudge experiment. Lets the dashboard answer "did the reset link help or
+    // hurt subscriptions?" by comparing paywallSessionConversionRate between
+    // reset_on and reset_off.
+    const sessionsByResetVariant: Record<string, number> = {};
+    for (const row of sessionsByResetVariantRows) {
+      sessionsByResetVariant[variantKey(row.resetVariant)] = Number(
+        row.sessions ?? 0,
+      );
+    }
+
+    const rowsByResetVariant = resetBreakdown.reduce<
+      Record<string, ResetBreakdownRow[]>
+    >((acc, row) => {
+      const key = variantKey(row.resetVariant);
+      if (!acc[key]) acc[key] = [];
+      acc[key]!.push(row);
+      return acc;
+    }, {});
+
+    const resetVariantNames = new Set<string>([
+      ...Object.keys(sessionsByResetVariant),
+      ...Object.keys(rowsByResetVariant),
+    ]);
+
+    const byResetVariant: Record<string, VariantBucket> = {};
+    for (const v of resetVariantNames) {
+      byResetVariant[v] = computeForVariant(
+        rowsByResetVariant[v] ?? [],
+        sessionsByResetVariant[v] ?? 0,
+      );
+    }
+
     // Aggregate (legacy) totals across all variants — keeps the existing
     // dashboard shape working while the new `byVariant` block lives alongside.
     const findRows = (eventName: string, source: string | null) =>
@@ -296,6 +376,35 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
           }
         : null;
 
+    // Same comparison shape for the reset-link experiment. "lift" is reset_on
+    // minus reset_off divided by reset_off — positive means showing the link
+    // helped subscriptions, negative means it hurt.
+    const resetOn = byResetVariant["reset_on"];
+    const resetOff = byResetVariant["reset_off"];
+    const resetVariantComparison =
+      resetOn && resetOff
+        ? {
+            paywallSessionConversionRate: {
+              reset_on: resetOn.paywallSessionConversionRate,
+              reset_off: resetOff.paywallSessionConversionRate,
+              lift:
+                resetOff.paywallSessionConversionRate > 0
+                  ? Number(
+                      (
+                        (resetOn.paywallSessionConversionRate -
+                          resetOff.paywallSessionConversionRate) /
+                        resetOff.paywallSessionConversionRate
+                      ).toFixed(4),
+                    )
+                  : null,
+            },
+            sessions: {
+              reset_on: resetOn.totalSessions,
+              reset_off: resetOff.totalSessions,
+            },
+          }
+        : null;
+
     res.json({
       period: {
         since: since?.toISOString() ?? null,
@@ -351,6 +460,8 @@ router.get("/analytics/summary", requireAdminToken, async (req, res) => {
       ),
       byVariant,
       variantComparison,
+      byResetVariant,
+      resetVariantComparison,
     });
   } catch (err) {
     req.log.error({ err }, "Failed to compute analytics summary");

@@ -65,8 +65,10 @@ type CtaSource =
 
 const ANALYTICS_SESSION_KEY = "pw-analytics-session-v1";
 const AB_VARIANT_KEY = "pw-ab-nudge-variant-v1";
+const AB_RESET_VARIANT_KEY = "pw-ab-reset-variant-v1";
 
 type NudgeVariant = "nudge_on" | "nudge_off";
+type ResetVariant = "reset_on" | "reset_off";
 
 function getOrCreateAnalyticsSessionId(): string {
   if (typeof window === "undefined") return "";
@@ -98,6 +100,24 @@ function getOrCreateNudgeVariant(): NudgeVariant {
   }
 }
 
+// Independent ~50/50 split for the "Start a new chat" reset affordance under
+// the locked paywall. "reset_on" sees the link (current behavior); "reset_off"
+// never sees it. Assigned independently from the nudge variant so we can
+// measure the reset link's effect on conversion in isolation. Persisted in
+// its own localStorage key so it survives reloads and stays stable per visitor.
+function getOrCreateResetVariant(): ResetVariant {
+  if (typeof window === "undefined") return "reset_on";
+  try {
+    const existing = window.localStorage.getItem(AB_RESET_VARIANT_KEY);
+    if (existing === "reset_on" || existing === "reset_off") return existing;
+    const fresh: ResetVariant = Math.random() < 0.5 ? "reset_on" : "reset_off";
+    window.localStorage.setItem(AB_RESET_VARIANT_KEY, fresh);
+    return fresh;
+  } catch {
+    return Math.random() < 0.5 ? "reset_on" : "reset_off";
+  }
+}
+
 function trackEvent(
   eventName: AnalyticsEventName,
   source?: CtaSource,
@@ -106,15 +126,17 @@ function trackEvent(
   if (typeof window === "undefined") return;
   const sessionId = getOrCreateAnalyticsSessionId();
   const variant = getOrCreateNudgeVariant();
+  const resetVariant = getOrCreateResetVariant();
   // sendBeacon can't set custom headers, so we always include sessionId in the
   // body. The server reads X-Session-Id first and falls back to body.sessionId.
   // `variant` rides on its own column so the summary endpoint can group by it
-  // cheaply, and we mirror it into metadata for ad-hoc digging.
+  // cheaply (that's the nudge experiment). The reset experiment piggybacks on
+  // metadata.resetVariant — the analytics summary reads it back out of jsonb.
   const payload = JSON.stringify({
     eventName,
     source: source ?? null,
     variant,
-    metadata: { ...(metadata ?? {}), variant },
+    metadata: { ...(metadata ?? {}), variant, resetVariant },
     sessionId,
   });
   try {
@@ -343,6 +365,10 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   // the inline nudge doesn't pop in/out if storage is cleared mid-session.
   const variantRef = useRef<NudgeVariant>(getOrCreateNudgeVariant());
   const variant = variantRef.current;
+  // Same idea for the reset-link experiment — pinned at first render so the
+  // "Start a new chat" affordance doesn't appear/disappear mid-session.
+  const resetVariantRef = useRef<ResetVariant>(getOrCreateResetVariant());
+  const resetVariant = resetVariantRef.current;
   const nudgeShownTrackedRef = useRef(false);
   // Tracks resets done within this page session so we can stamp subsequent
   // events with `afterReset` metadata. This lets the analytics dashboard see,
@@ -697,33 +723,35 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
               }}
             />
             <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
-            <div className="mt-4 pt-3 border-t border-purple-100">
-              {confirmingReset ? (
-                <div className="flex items-center justify-center gap-3 text-xs">
-                  <span className="text-slate-500">Clear this conversation?</span>
+            {resetVariant === "reset_on" && (
+              <div className="mt-4 pt-3 border-t border-purple-100">
+                {confirmingReset ? (
+                  <div className="flex items-center justify-center gap-3 text-xs">
+                    <span className="text-slate-500">Clear this conversation?</span>
+                    <button
+                      onClick={resetChat}
+                      className="font-bold text-purple-700 hover:text-purple-900 underline underline-offset-2"
+                    >
+                      Yes, reset
+                    </button>
+                    <span className="text-slate-300">·</span>
+                    <button
+                      onClick={() => setConfirmingReset(false)}
+                      className="font-medium text-slate-500 hover:text-slate-700"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
                   <button
-                    onClick={resetChat}
-                    className="font-bold text-purple-700 hover:text-purple-900 underline underline-offset-2"
+                    onClick={() => setConfirmingReset(true)}
+                    className="text-xs text-slate-400 hover:text-purple-700 underline underline-offset-2 transition-colors"
                   >
-                    Yes, reset
+                    Start a new chat
                   </button>
-                  <span className="text-slate-300">·</span>
-                  <button
-                    onClick={() => setConfirmingReset(false)}
-                    className="font-medium text-slate-500 hover:text-slate-700"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setConfirmingReset(true)}
-                  className="text-xs text-slate-400 hover:text-purple-700 underline underline-offset-2 transition-colors"
-                >
-                  Start a new chat
-                </button>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div className="border-t-2 border-purple-100 bg-white">
