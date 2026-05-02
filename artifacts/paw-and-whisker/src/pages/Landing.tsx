@@ -398,7 +398,16 @@ export default function Landing() {
           <p className="text-xl text-slate-500 max-w-xl mx-auto mb-10 leading-relaxed">
             No guessing. No stress. Just clear guidance when you need it most.
           </p>
-          <CtaButton className="text-lg px-10 py-4 rounded-2xl mx-auto" />
+          <div className="flex flex-col items-center gap-3">
+            <a
+              href="https://quiz.pawandwhisker.net"
+              className="inline-flex items-center justify-center gap-2 bg-white border-2 border-purple-300 text-purple-700 font-bold px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 active:scale-[0.98] transition-all duration-150 text-base"
+            >
+              <span>Is My Pet OK? Take the Free Check</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <CtaButton className="text-lg px-10 py-4 rounded-2xl" />
+          </div>
           <p className="mt-4 text-sm text-slate-400">Cancel anytime · No commitment</p>
         </section>
 
