@@ -45,6 +45,68 @@ function savePreviewChatState(state: Omit<PreviewChatPersistedState, "savedAt">)
   }
 }
 
+type AnalyticsEventName = "nudge_shown" | "cta_click";
+type CtaSource =
+  | "preview_nudge"
+  | "preview_paywall_card"
+  | "header_nav"
+  | "hero"
+  | "daily_use_section"
+  | "pricing_card";
+
+const ANALYTICS_SESSION_KEY = "pw-analytics-session-v1";
+
+function getOrCreateAnalyticsSessionId(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    const existing = window.localStorage.getItem(ANALYTICS_SESSION_KEY);
+    if (existing) return existing;
+    const fresh = "anon-" + crypto.randomUUID();
+    window.localStorage.setItem(ANALYTICS_SESSION_KEY, fresh);
+    return fresh;
+  } catch {
+    return "anon-" + Math.random().toString(36).slice(2);
+  }
+}
+
+function trackEvent(
+  eventName: AnalyticsEventName,
+  source?: CtaSource,
+  metadata?: Record<string, unknown>,
+): void {
+  if (typeof window === "undefined") return;
+  const sessionId = getOrCreateAnalyticsSessionId();
+  // sendBeacon can't set custom headers, so we always include sessionId in the
+  // body. The server reads X-Session-Id first and falls back to body.sessionId.
+  const payload = JSON.stringify({
+    eventName,
+    source: source ?? null,
+    metadata: metadata ?? null,
+    sessionId,
+  });
+  try {
+    // Prefer sendBeacon when available so the request survives navigation
+    // (e.g. clicking a link that opens Stripe in a new tab).
+    if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+      navigator.sendBeacon(
+        "/api/analytics/events",
+        new Blob([payload], { type: "application/json" }),
+      );
+      return;
+    }
+    void fetch("/api/analytics/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Session-Id": sessionId },
+      body: payload,
+      keepalive: true,
+    }).catch(() => {
+      // analytics is best-effort
+    });
+  } catch {
+    // ignore
+  }
+}
+
 function detectPetTerm(messages: PreviewMessage[]): string {
   const userText = messages
     .filter((m) => m.role === "user")
@@ -65,12 +127,21 @@ function detectPetTerm(messages: PreviewMessage[]): string {
   return "your pet";
 }
 
-function CtaButton({ className = "", label = "Start for $4.99/month" }: { className?: string; label?: string }) {
+function CtaButton({
+  className = "",
+  label = "Start for $4.99/month",
+  source,
+}: {
+  className?: string;
+  label?: string;
+  source: CtaSource;
+}) {
   return (
     <a
       href={STRIPE_PAYMENT_LINK}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackEvent("cta_click", source, { label })}
       className={`inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold px-7 py-4 rounded-2xl shadow-md hover:shadow-xl hover:opacity-95 active:scale-[0.98] transition-all duration-150 ${className}`}
     >
       {label}
@@ -94,6 +165,19 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   const [imageToSend, setImageToSend] = useState<{ dataUrl: string; name: string } | null>(null);
   const [confirmingReset, setConfirmingReset] = useState(false);
   const sessionRef = useRef<string>(restored?.sessionRef ?? "preview-" + crypto.randomUUID());
+  const nudgeShownTrackedRef = useRef(false);
+
+  // Fire a one-time `nudge_shown` event whenever the locked nudge becomes visible
+  // for this session. Skips the streaming window so we count it once it actually renders.
+  useEffect(() => {
+    if (!locked || isStreaming) return;
+    if (nudgeShownTrackedRef.current) return;
+    nudgeShownTrackedRef.current = true;
+    trackEvent("nudge_shown", undefined, {
+      questionCount,
+      petTerm: detectPetTerm(messages),
+    });
+  }, [locked, isStreaming, questionCount, messages]);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -327,6 +411,12 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                   href={STRIPE_PAYMENT_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent("cta_click", "preview_nudge", {
+                      label: "Continue for $4.99/month →",
+                      questionCount,
+                    })
+                  }
                   className="inline-flex items-center gap-1 text-purple-700 font-bold hover:text-purple-900 underline underline-offset-2"
                 >
                   Continue for $4.99/month →
@@ -341,7 +431,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
           <div className="p-5 border-t border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50 text-center">
             <p className="text-base font-black text-slate-800 mb-1">Get unlimited answers when you need them most</p>
             <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions · Image analysis · Available 24/7</p>
-            <CtaButton className="text-sm py-3 px-6 rounded-xl w-full justify-center" label="Start for $4.99/month →" />
+            <CtaButton className="text-sm py-3 px-6 rounded-xl w-full justify-center" label="Start for $4.99/month →" source="preview_paywall_card" />
             <p className="text-xs text-slate-400 mt-2">Cancel anytime. No commitment.</p>
             <div className="mt-4 pt-3 border-t border-purple-100">
               {confirmingReset ? (
@@ -466,7 +556,7 @@ export default function Landing() {
               Paw And Whisker
             </span>
           </div>
-          <CtaButton className="text-sm py-2.5 px-5 rounded-xl" />
+          <CtaButton className="text-sm py-2.5 px-5 rounded-xl" source="header_nav" />
         </div>
       </header>
 
@@ -495,7 +585,7 @@ export default function Landing() {
               <span>Is My Pet OK? Free Check</span>
               <span aria-hidden="true">→</span>
             </a>
-            <CtaButton className="text-lg px-10 py-4 rounded-2xl" />
+            <CtaButton className="text-lg px-10 py-4 rounded-2xl" source="hero" />
           </div>
           <p className="mt-4 text-sm text-slate-400">Cancel anytime · No commitment</p>
         </section>
@@ -647,7 +737,7 @@ export default function Landing() {
             <p className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 mb-8">
               Ask here first.
             </p>
-            <CtaButton className="text-base px-8 py-3.5 rounded-2xl" label="Get instant answers — $4.99/month" />
+            <CtaButton className="text-base px-8 py-3.5 rounded-2xl" label="Get instant answers — $4.99/month" source="daily_use_section" />
           </div>
         </section>
 
@@ -742,7 +832,7 @@ export default function Landing() {
                 </li>
               ))}
             </ul>
-            <CtaButton className="w-full justify-center text-base py-4 rounded-xl" label="Get unlimited answers — $4.99/month" />
+            <CtaButton className="w-full justify-center text-base py-4 rounded-xl" label="Get unlimited answers — $4.99/month" source="pricing_card" />
             <p className="mt-3 text-xs text-slate-400">Secure checkout via Stripe</p>
           </div>
         </section>
