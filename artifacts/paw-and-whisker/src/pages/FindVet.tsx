@@ -1,3 +1,5 @@
+import { OptionalPhoto } from "@/components/Art";
+import { photoSlots } from "@/content/slots";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { LocateFixed, Phone, Globe, Navigation, Search } from "lucide-react";
 import { searchVets, type VetClinic, type VetSearchInput, type VetSearchResult } from "@workspace/api-client-react";
@@ -89,6 +91,9 @@ export default function FindVet() {
             <p className="pw-lede">Search by city or postcode, or share your location only if you choose to. Results come from public map data, which can be incomplete or out of date. Always call ahead.</p>
             <div className="emergency-notice"><strong>Emergency? Call the clinic first.</strong><p>If your pet is struggling to breathe, collapsed, bleeding heavily or may have eaten poison, phone the nearest emergency clinic now. Do not wait for AI or this page.</p></div>
           </div>
+        </section>
+        <section className="pw-section">
+          <div className="pw-wrap"><OptionalPhoto {...photoSlots.vet} fallback="cat" /></div>
         </section>
         <section className="pw-section">
           <div className="pw-wrap">

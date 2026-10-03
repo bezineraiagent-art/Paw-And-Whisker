@@ -3,8 +3,18 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import { createProxyTrust } from "./lib/client-ip";
+import { securityHeaders } from "../../../scripts/security-headers.mjs";
+import { retiredLegacyChat } from "./lib/retired-chat";
 
 const app: Express = express();
+app.set("trust proxy", createProxyTrust());
+app.use((req, res, next) => {
+  for (const [name, value] of Object.entries(securityHeaders({ development: process.env.NODE_ENV !== "production" }))) res.setHeader(name, value);
+  // Never allow shared/browser caches to retain protected leads or AI data.
+  if (req.path.startsWith("/api/")) res.setHeader("Cache-Control", "no-store");
+  next();
+});
 
 app.use(
   pinoHttp({
@@ -26,8 +36,12 @@ app.use(
   }),
 );
 app.use(cors());
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+// Retired endpoints never parse submitted legacy images or touch stored data.
+app.use("/api/openai", retiredLegacyChat);
+const smallJson = express.json({ limit: "20kb" });
+const photoJson = express.json({ limit: "4mb" });
+app.use((req, res, next) => (req.path === "/api/companion/message" ? photoJson : smallJson)(req, res, next));
+app.use(express.urlencoded({ extended: false, limit: "20kb" }));
 
 app.use("/api", router);
 

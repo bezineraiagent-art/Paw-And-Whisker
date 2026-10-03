@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { getPage, pages, type SitePage } from "@/content/site";
 import SiteHeader from "@/components/SiteHeader";
-import { Bowl, Cat, Doorframe, NightScene, PhotoSlot, Puppy } from "@/components/Art";
+import { Bowl, Cat, Doorframe, NightScene, OptionalPhoto, Puppy } from "@/components/Art";
+import { photoSlots } from "@/content/slots";
 
 const BYLINE_KINDS = ["guide", "comparison", "food"];
 
@@ -84,7 +85,7 @@ export function ContentDocument({ page }: { page: SitePage }) {
                 ))}
               </div>
               <p className="guide-callout" style={{ marginTop: "2rem" }}>These guides are general information, not veterinary advice. Contact an emergency vet immediately for urgent signs.</p>
-              <div style={{ marginTop: "2.5rem" }}><PhotoSlot slot="puppy-photo-guides-hub" caption="Planned: a real puppy photo for the guides hub." /></div>
+              <div style={{ marginTop: "2.5rem" }}><OptionalPhoto {...photoSlots.puppy} fallback="puppy" /></div>
             </>
           ) : page.kind === "404" ? (
             <>

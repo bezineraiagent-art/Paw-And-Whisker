@@ -2,17 +2,25 @@ import type { Plugin } from "vite";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { pages, getPage, guideRedirects, normalizePath, SITE_URL } from "./src/content/site";
+import { securityHeaders } from "../../scripts/security-headers.mjs";
 
 // Development uses the same page metadata, prerenderer and redirect map as the build.
 export default function seoPlugin(): Plugin {
   return {
     name: "paw-route-documents",
     configureServer(server) {
+      server.middlewares.use((_req, res, next) => {
+        for (const [name, value] of Object.entries(securityHeaders({ development: true }))) res.setHeader(name, value);
+        next();
+      });
       server.middlewares.use(async (req, res, next) => {
         if (!req.url || !["GET", "HEAD"].includes(req.method ?? "GET")) return next();
         let url: URL;
         try { url = new URL(req.url, "http://localhost"); } catch { return next(); }
         const pathname = url.pathname;
+        if (pathname.replace(/\/+$/, "") === "/chat") {
+          res.writeHead(301, { Location: "/#free-chat" }); res.end(); return;
+        }
         if (pathname.startsWith("/api") || pathname.startsWith("/src/") || pathname.startsWith("/@") || pathname.startsWith("/node_modules/") || pathname.startsWith("/__")) return next();
         if (pathname === "/robots.txt") {
           res.setHeader("Content-Type", "text/plain");

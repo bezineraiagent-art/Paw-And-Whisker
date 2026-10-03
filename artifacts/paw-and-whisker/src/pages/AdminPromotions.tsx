@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { getPromotionLeads, type PromotionLeads } from "@workspace/api-client-react";
 
 export default function AdminPromotions() {
@@ -7,18 +7,25 @@ export default function AdminPromotions() {
   const [data, setData] = useState<PromotionLeads | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const generation = useRef(0);
 
   async function load(t: string) {
+    const mine = ++generation.current;
     setLoading(true); setError("");
-    try { setData(await getPromotionLeads({ headers: { "x-admin-token": t } })); setToken(t); }
+    try {
+      const result = await getPromotionLeads({ headers: { "x-admin-token": t } });
+      if (mine !== generation.current) return;
+      setData(result); setToken(t); setInput("");
+    }
     catch (e) {
+      if (mine !== generation.current) return;
       const status = (e as { status?: number }).status;
       setData(null); setToken("");
       setError(status === 401 || status === 403 ? "That token was not accepted. Leads stay protected." : "Couldn't load leads. Try again.");
-    } finally { setLoading(false); }
+    } finally { if (mine === generation.current) setLoading(false); }
   }
   function signIn(e: FormEvent) { e.preventDefault(); if (input.trim()) load(input.trim()); }
-  function lock() { setToken(""); setData(null); setInput(""); setError(""); }
+  function lock() { generation.current++; setToken(""); setData(null); setInput(""); setError(""); setLoading(false); }
   const fmt = (s: string) => new Date(s).toLocaleString();
 
   return (

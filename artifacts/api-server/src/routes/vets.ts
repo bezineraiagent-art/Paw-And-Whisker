@@ -6,7 +6,7 @@ import { requestLimit } from "../lib/request-limits";
 export function createVetsRouter(provider = new OpenStreetMapProvider() as import("../lib/vet-directory").VetDirectoryProvider) {
 const router = Router();
 const search = createVetDirectory(provider);
-router.post("/vets/search", requestLimit(30), async (req, res) => {
+router.post("/vets/search", requestLimit(30, 60_000, "vet-search"), async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
   const parsed = SearchVetsBody.safeParse(req.body);
   const data = parsed.success ? parsed.data : null;

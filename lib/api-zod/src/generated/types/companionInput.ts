@@ -6,8 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { CompanionInputSpecies } from "./companionInputSpecies";
+import type { PetProfile } from "./petProfile";
 
 export interface CompanionInput {
+  pet?: PetProfile;
   /**
    * Optional transient JPEG, PNG or WebP, never persisted in the app database
    * @maxLength 4500000

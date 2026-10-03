@@ -26,121 +26,38 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
-  /openai/conversations:
-    get:
-      operationId: listOpenaiConversations
-      tags: [openai]
-      summary: List all conversations
-      responses:
-        "200":
-          description: List of conversations
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/OpenaiConversation"
+  /waitlist:
     post:
-      operationId: createOpenaiConversation
-      tags: [openai]
-      summary: Create a new conversation
+      operationId: joinPlusWaitlist
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OpenaiConversationInput"
+              $ref: "#/components/schemas/WaitlistInput"
       responses:
         "201":
-          description: Created conversation
+          description: Saved to the coming-soon email waitlist, no paid access
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OpenaiConversation"
-  /openai/conversations/{id}:
-    get:
-      operationId: getOpenaiConversation
-      tags: [openai]
-      summary: Get conversation with messages
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Conversation with messages
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OpenaiConversationWithMessages"
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OpenaiError"
-    delete:
-      operationId: deleteOpenaiConversation
-      tags: [openai]
-      summary: Delete a conversation
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        "204":
-          description: Deleted
-        "404":
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OpenaiError"
-  /openai/conversations/{id}/messages:
-    get:
-      operationId: listOpenaiMessages
-      tags: [openai]
-      summary: List messages in a conversation
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: List of messages
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/OpenaiMessage"
+                $ref: "#/components/schemas/SubmissionReceipt"
+  /answer-reports:
     post:
-      operationId: sendOpenaiMessage
-      tags: [openai]
-      summary: Send a text message and receive a streaming text response
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      operationId: reportWrongAnswer
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OpenaiMessageInput"
+              $ref: "#/components/schemas/AnswerReportInput"
       responses:
-        "200":
-          description: SSE stream of assistant text chunks
+        "201":
+          description: Report saved for manual review, no email sent
           content:
-            text/event-stream: {}
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubmissionReceipt"
   /subscribers:
     post:
       operationId: capturePdfEmail
@@ -271,6 +188,38 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    SubmissionReceipt:
+      type: object
+      required: [success, message]
+      properties:
+        success: { type: boolean }
+        message: { type: string }
+    WaitlistInput:
+      type: object
+      required: [email, consent]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        consent: { type: boolean }
+        fax: { type: string, maxLength: 0 }
+    AnswerReportInput:
+      type: object
+      required: [email, message, consent]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        message: { type: string, minLength: 10, maxLength: 3000 }
+        consent: { type: boolean }
+        fax: { type: string, maxLength: 0 }
+    PetProfile:
+      type: object
+      required: [name, species, age, weight, allergies, conditions]
+      properties:
+        name: { type: string, maxLength: 60 }
+        species: { type: string, enum: [puppy, dog, cat, other] }
+        age: { type: string, maxLength: 40 }
+        weight: { type: string, maxLength: 40 }
+        breed: { type: string, maxLength: 100 }
+        allergies: { type: string, maxLength: 300 }
+        conditions: { type: string, maxLength: 300 }
     SubscriberInput:
       type: object
       required: [email]
@@ -291,6 +240,7 @@ components:
       type: object
       required: [question]
       properties:
+        pet: { $ref: "#/components/schemas/PetProfile" }
         imageDataUrl:
           type: string
           maxLength: 4500000
@@ -321,8 +271,11 @@ components:
           format: date-time
     CompanionAnswer:
       type: object
-      required: [answer, remaining, limit, resetsAt]
+      required: [answer, urgency, remaining, limit, resetsAt]
       properties:
+        urgency:
+          type: string
+          enum: [monitor, today, urgent, emergency]
         answer:
           type: string
         remaining:
@@ -446,77 +399,3 @@ components:
             $ref: "#/components/schemas/AdvertiserInquiry"
         clinicTotal: { type: integer }
         advertiserTotal: { type: integer }
-    OpenaiConversation:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-      required:
-        - id
-        - title
-        - createdAt
-    OpenaiMessage:
-      type: object
-      properties:
-        id:
-          type: integer
-        conversationId:
-          type: integer
-        role:
-          type: string
-        content:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-      required:
-        - id
-        - conversationId
-        - role
-        - content
-        - createdAt
-    OpenaiConversationInput:
-      type: object
-      properties:
-        title:
-          type: string
-      required:
-        - title
-    OpenaiMessageInput:
-      type: object
-      properties:
-        content:
-          type: string
-      required:
-        - content
-    OpenaiConversationWithMessages:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        messages:
-          type: array
-          items:
-            $ref: "#/components/schemas/OpenaiMessage"
-      required:
-        - id
-        - title
-        - createdAt
-        - messages
-    OpenaiError:
-      type: object
-      properties:
-        error:
-          type: string
-      required:
-        - error

@@ -5,6 +5,58 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface SubmissionReceipt {
+  success: boolean;
+  message: string;
+}
+
+export interface WaitlistInput {
+  /** @maxLength 254 */
+  email: string;
+  consent: boolean;
+  /** @maxLength 0 */
+  fax?: string;
+}
+
+export interface AnswerReportInput {
+  /** @maxLength 254 */
+  email: string;
+  /**
+   * @minLength 10
+   * @maxLength 3000
+   */
+  message: string;
+  consent: boolean;
+  /** @maxLength 0 */
+  fax?: string;
+}
+
+export type PetProfileSpecies =
+  (typeof PetProfileSpecies)[keyof typeof PetProfileSpecies];
+
+export const PetProfileSpecies = {
+  puppy: "puppy",
+  dog: "dog",
+  cat: "cat",
+  other: "other",
+} as const;
+
+export interface PetProfile {
+  /** @maxLength 60 */
+  name: string;
+  species: PetProfileSpecies;
+  /** @maxLength 40 */
+  age: string;
+  /** @maxLength 40 */
+  weight: string;
+  /** @maxLength 100 */
+  breed?: string;
+  /** @maxLength 300 */
+  allergies: string;
+  /** @maxLength 300 */
+  conditions: string;
+}
+
 export interface SubscriberInput {
   /** @maxLength 254 */
   email: string;
@@ -25,6 +77,7 @@ export const CompanionInputSpecies = {
 } as const;
 
 export interface CompanionInput {
+  pet?: PetProfile;
   /**
    * Optional transient JPEG, PNG or WebP, never persisted in the app database
    * @maxLength 4500000
@@ -48,7 +101,18 @@ export interface CompanionUsage {
   resetsAt: string;
 }
 
+export type CompanionAnswerUrgency =
+  (typeof CompanionAnswerUrgency)[keyof typeof CompanionAnswerUrgency];
+
+export const CompanionAnswerUrgency = {
+  monitor: "monitor",
+  today: "today",
+  urgent: "urgent",
+  emergency: "emergency",
+} as const;
+
 export interface CompanionAnswer {
+  urgency: CompanionAnswerUrgency;
   answer: string;
   remaining: number;
   limit: number;
@@ -208,37 +272,4 @@ export interface PromotionLeads {
   advertiserInquiries: AdvertiserInquiry[];
   clinicTotal: number;
   advertiserTotal: number;
-}
-
-export interface OpenaiConversation {
-  id: number;
-  title: string;
-  createdAt: string;
-}
-
-export interface OpenaiMessage {
-  id: number;
-  conversationId: number;
-  role: string;
-  content: string;
-  createdAt: string;
-}
-
-export interface OpenaiConversationInput {
-  title: string;
-}
-
-export interface OpenaiMessageInput {
-  content: string;
-}
-
-export interface OpenaiConversationWithMessages {
-  id: number;
-  title: string;
-  createdAt: string;
-  messages: OpenaiMessage[];
-}
-
-export interface OpenaiError {
-  error: string;
 }

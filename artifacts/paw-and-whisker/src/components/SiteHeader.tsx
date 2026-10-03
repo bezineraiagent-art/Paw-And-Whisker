@@ -8,6 +8,7 @@ const links = [
   { href: "/tools", label: "Tools" },
   { href: "/tools/symptom-check", label: "Symptom check" },
   { href: "/tools/toxic-food-checker", label: "Food checker" },
+  { href: "/how-it-works", label: "How it works" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ];

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
-    "build": "node scripts/generate-pdf.mjs && vite build --config vite.config.ts --ssr src/prerender.tsx --outDir dist/server && node scripts/generate-manifest.mjs && vite build --config vite.config.ts && node scripts/generate.mjs",
+    "build": "node scripts/generate-images.mjs && node scripts/generate-pdf.mjs && vite build --config vite.config.ts --ssr src/prerender.tsx --outDir dist/server && node scripts/generate-manifest.mjs && vite build --config vite.config.ts && node scripts/generate.mjs",
     "serve": "node server.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test:site": "node --test tests/site.test.mjs"

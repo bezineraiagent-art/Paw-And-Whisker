@@ -1,4 +1,5 @@
-import type { SVGProps } from "react";
+import { useEffect, useRef, useState, type SVGProps } from "react";
+import presentImages from "@/generated/image-slots.json";
 
 type P = SVGProps<SVGSVGElement> & { title?: string };
 const base = (title?: string) => (title ? { role: "img", "aria-label": title } : { "aria-hidden": true as const, focusable: false as const });
@@ -126,15 +127,25 @@ export function NightScene({ title, ...p }: P) {
   );
 }
 
-/** Illustrated placeholder for a real photo we do not yet have. Never presented as a genuine photograph. */
-export function PhotoSlot({ slot, caption, kind = "puppy" }: { slot: string; caption: string; kind?: "puppy" | "cat" }) {
+/**
+ * Optional real photo. Drop the named file into public/images/ and it appears; until then (or if it fails
+ * to load) a clearly labelled vector illustration stays. Never presented as a genuine photograph.
+ */
+export function OptionalPhoto({ slot, src, alt, caption, fallback = "puppy", fallbackLabel, eager = false, width = 1200, height = 800 }: {
+  slot: string; src: string; alt: string; caption: string; fallback?: "puppy" | "cat" | "bowl"; fallbackLabel: string; eager?: boolean; width?: number; height?: number;
+}) {
+  const [failed, setFailed] = useState(!(presentImages as string[]).includes(src.split("/").pop() ?? ""));
+  const ref = useRef<HTMLImageElement>(null);
+  useEffect(() => { const img = ref.current; if (img && img.complete && img.naturalWidth === 0) setFailed(true); }, []);
+  const Art = fallback === "puppy" ? Puppy : fallback === "bowl" ? Bowl : Cat;
   return (
-    <figure className="pw-slot" data-photo-slot={slot}>
-      <div className="pw-slot-frame">
-        {kind === "puppy" ? <Puppy className="pw-slot-art" /> : <Cat className="pw-slot-art" />}
-        <span className="pw-slot-badge">Future photo slot: {slot}</span>
-      </div>
-      <figcaption>{caption} This is an illustration standing in until a real photo is added.</figcaption>
+    <figure className="pw-slot" data-photo-slot={slot} data-testid={`figure-${slot}`}>
+      {failed ? (
+        <div className="pw-slot-frame" role="img" aria-label={fallbackLabel}><Art className="pw-slot-art" /></div>
+      ) : (
+        <img ref={ref} className="pw-slot-img" src={src} alt={alt} width={width} height={height} loading={eager ? "eager" : "lazy"} decoding="async" onError={() => setFailed(true)} />
+      )}
+      <figcaption>{failed ? fallbackLabel : caption}</figcaption>
     </figure>
   );
 }

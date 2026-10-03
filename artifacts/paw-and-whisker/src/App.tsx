@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -18,10 +18,15 @@ const Advertise = lazy(() => import("@/pages/Advertise"));
 const SponsorshipPolicy = lazy(() => import("@/pages/SponsorshipPolicy"));
 const AdminPromotions = lazy(() => import("@/pages/AdminPromotions"));
 const Success = lazy(() => import("@/pages/Success"));
-const Chat = lazy(() => import("@/pages/Chat"));
 const AdminAnalytics = lazy(() => import("@/pages/AdminAnalytics"));
 const ContentPage = lazy(() => import("@/pages/ContentPage"));
+const HowItWorks = lazy(() => import("@/pages/HowItWorks"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+
+function LegacyChat() {
+  useEffect(() => { window.location.replace("/#free-chat"); }, []);
+  return <main className="pw pw-section"><div className="pw-wrap"><p>Chat has moved. <a href="/#free-chat">Open the free chat</a>.</p></div></main>;
+}
 
 const queryClient = new QueryClient();
 
@@ -29,6 +34,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={PublicHome} />
+      <Route path="/how-it-works" component={HowItWorks} />
       <Route path="/pricing" component={PublicPricing} />
       <Route path="/about" component={PublicAbout} />
       <Route path="/tools/toxic-food-checker" component={FoodChecker} />
@@ -40,7 +46,7 @@ function Router() {
       <Route path="/sponsorship-policy" component={SponsorshipPolicy} />
       <Route path="/admin/promotions" component={AdminPromotions} />
       <Route path="/success" component={Success} />
-      <Route path="/chat" component={Chat} />
+      <Route path="/chat">{() => <LegacyChat />}</Route>
       <Route path="/admin/analytics" component={AdminAnalytics} />
       {pages.filter(page => page.kind).map(page => <Route key={page.path} path={page.path} component={ContentPage} />)}
       <Route path="/guides/" component={ContentPage} />

@@ -19,7 +19,7 @@ export default function PublicAbout() {
         <section className="pw-section">
           <div className="pw-wrap pw-narrow">
             <article className="content-copy" dangerouslySetInnerHTML={{ __html: getPage("/about").html ?? "" }} />
-            <p><a className="pw-btn" href="/#free-chat">Start free</a> <a className="pw-btn ghost" href="/guides">Read the guides</a></p>
+            <p><a className="pw-btn" href="/#free-chat">Start free</a> <a className="pw-btn ghost" href="/guides">Read the guides</a> <a className="pw-btn ghost" href="/how-it-works">How it works</a></p>
           </div>
         </section>
       </main>

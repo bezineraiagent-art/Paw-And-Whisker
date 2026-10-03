@@ -1,0 +1,7 @@
+/** Optional local photo slots. Files live in public/images/ (see the README there). */
+export const photoSlots = {
+  home: { slot: "home-sofa-night", src: "/images/home-sofa-night.jpg", alt: "Lucky, a black cat, and Sugar, a brown tabby, curled up together on a sofa at night", caption: "Lucky and Sugar on the sofa, late evening.", fallbackLabel: "Illustration of a cat standing in for a photo of Lucky and Sugar on the sofa at night." },
+  puppy: { slot: "puppy-hub-doorframe", src: "/images/puppy-hub-doorframe.jpg", alt: "A golden puppy standing by a doorframe with pencilled growth marks", caption: "A golden puppy by the doorframe where growth is marked.", fallbackLabel: "Illustration of a puppy standing in for a photo of a golden puppy by a doorframe with growth marks." },
+  food: { slot: "food-hub-safe-counter", src: "/images/food-hub-safe-counter.jpg", alt: "A kitchen counter with pet-safe foods set out beside a bowl", caption: "A counter set with foods that are safe in small amounts.", fallbackLabel: "Illustration of a food bowl standing in for a photo of a kitchen counter with pet-safe foods." },
+  vet: { slot: "vet-black-cat-clinic", src: "/images/vet-black-cat-clinic.jpg", alt: "A person holding a black cat outside a veterinary clinic", caption: "Carrying a black cat to the clinic.", fallbackLabel: "Illustration of a cat standing in for a photo of a person holding a black cat near a vet clinic." },
+} as const;

@@ -1,0 +1,1 @@
+export function securityHeaders(options?: { development?: boolean; mapTilesUrl?: string }): Record<string, string>;

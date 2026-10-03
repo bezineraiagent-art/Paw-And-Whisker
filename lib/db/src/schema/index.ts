@@ -23,3 +23,5 @@ export * from "./messages";
 export * from "./subscribers";
 export * from "./clinic-applications";
 export * from "./advertiser-inquiries";
+export * from "./usage-counters";
+export * from "./answer-reports";

@@ -6,7 +6,7 @@ import { requestLimit } from "../lib/request-limits";
 import { requireAdminToken } from "../lib/admin-auth";
 
 const router = Router();
-const limit = requestLimit(8);
+const limit = requestLimit(8, 60_000, "promotion-intake");
 function safeWebsite(value?: string) {
   if (!value?.trim()) return "";
   const url = new URL(value.trim());
@@ -54,7 +54,7 @@ router.post("/promotion/advertiser-inquiries", limit, async (req, res) => {
     res.status(503).json({ error: "We couldn't save your inquiry. Please try again later." });
   }
 });
-router.get("/promotion/leads", requestLimit(30), requireAdminToken, async (req, res) => {
+router.get("/promotion/leads", requestLimit(30, 60_000, "promotion-admin"), requireAdminToken, async (req, res) => {
   try {
     const [clinics, advertisers, [clinicCount], [advertiserCount]] = await Promise.all([
       db.select().from(clinicApplications).orderBy(desc(clinicApplications.createdAt), desc(clinicApplications.id)).limit(100),

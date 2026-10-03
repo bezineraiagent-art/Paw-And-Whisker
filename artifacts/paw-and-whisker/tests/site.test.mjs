@@ -239,6 +239,8 @@ test("symptom answers are validated and no combination produces an all-clear", (
     if (index === symptomQuestions.length) {
       const result = symptomResult(answers);
       assert.ok(["emergency", "vet"].includes(result.level));
+      assert.ok(["today", "urgent", "emergency"].includes(result.urgency));
+      assert.notEqual(result.urgency, "monitor");
       if (["breathing", "lethargic"].includes(answers.symptom)) assert.equal(result.level, "emergency");
       if (answers.age === "young" && result.level !== "emergency") assert.ok(result.heading.includes("don't wait overnight"));
       count++; return;
@@ -259,7 +261,47 @@ test("PDF is a genuine file and private routes remain excluded from crawl metada
   assert.ok(robots.includes("Disallow: /chat") && robots.includes("Disallow: /success"));
   const sitemap = await (await fetch(base + "/sitemap.xml")).text();
   assert.equal((sitemap.match(/<lastmod>/g) ?? []).length, pages.filter(p => !p.noindex).length);
-  const pricing = await (await fetch(base + "/pricing")).text();
-  assert.ok(pricing.includes("https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002") && pricing.includes("$4.99"));
-  assert.ok(pricing.includes("not available yet"));
+});
+test("no public page or source copy sells a subscription; Whisker Plus is an honest coming-soon waitlist", async () => {
+  const everything = [];
+  for (const route of Object.keys(routeFiles)) everything.push([route, await (await fetch(base + route)).text()]);
+  for (const [route, html] of everything) {
+    assert.ok(!html.includes("4.99"), `${route}: price`);
+    assert.ok(!html.includes("3cI6oG32021Bedm1Xkgw002"), `${route}: subscription link`);
+    assert.ok(!/subscription renew|billed through stripe|See Plus on Stripe/i.test(html), route);
+    assert.ok(!html.includes('"Plus monthly subscription"'), route);
+  }
+  const pricing = everything.find(([r]) => r === "/pricing")[1];
+  assert.ok(pricing.includes("Whisker Plus") && /coming soon/i.test(pricing) && pricing.includes("plus-waitlist"));
+  assert.ok(pricing.includes("two text or photo questions") || pricing.includes("2 AI questions"));
+  const kit = everything.find(([r]) => r === "/puppy-kit/")[1];
+  assert.ok(kit.includes("https://buy.stripe.com/8x2bJ0eKI0Xx0mwatQgw008") && kit.includes("$12"));
+  assert.ok(everything.every(([, h]) => !/<script type="application\/ld\+json"[^>]*>[^<]*"price":"[1-9]/.test(h)));
+});
+
+test("how-it-works is a public route with urgency definitions, report form and honest review status", async () => {
+  assert.ok(routeFiles["/how-it-works"]);
+  const html = await (await fetch(base + "/how-it-works")).text();
+  for (const label of ["Monitor at home", "Call a vet today", "Urgent: go now", "Emergency: go immediately"]) assert.ok(html.includes(label), label);
+  assert.ok(html.includes("report-wrong-answer") && html.includes("No licensed veterinarian has reviewed"));
+  assert.ok(/black female aged 1/.test(html) && /brown tabby female aged 7/.test(html));
+  for (const path of ["/", "/about"]) assert.ok((await (await fetch(base + path)).text()).includes('href="/how-it-works"'), path);
+  assert.ok(!privatePaths.includes("/how-it-works"));
+});
+
+test("legacy /chat redirects to the free chat and is not a private 200 page", async () => {
+  assert.ok(!routeFiles["/chat"]);
+  const res = await fetch(base + "/chat?old=1", { redirect: "manual" });
+  assert.equal(res.status, 301);
+  assert.equal(res.headers.get("location"), "/#free-chat");
+});
+
+test("home has the My Pet profile, urgency copy and a food search that cannot overlap its icon", async () => {
+  const home = await (await fetch(base + "/")).text();
+  assert.ok(home.includes("My Pet") && home.includes("Join the Whisker Plus waitlist"));
+  assert.ok(/not stored|do not store/i.test(home));
+  const css = await readFile(new URL("../src/pw-extra.css", import.meta.url), "utf8");
+  assert.ok(css.includes('input[type="search"][role="combobox"]{padding-left:3.25rem!important'));
+  const about = JSON.parse(await readFile(new URL("../src/content/expanded/about.json", import.meta.url), "utf8")).html;
+  assert.ok(!/curious and playful|calm and observant/.test(about));
 });

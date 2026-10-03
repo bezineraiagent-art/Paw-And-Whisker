@@ -2,8 +2,8 @@ import { Moon, Paw } from "@/components/Art";
 
 const cols = [
   { h: "Free tools", l: [["/tools/symptom-check", "Symptom check"], ["/tools/toxic-food-checker", "Toxic food checker"], ["/#free-chat", "Free chat"], ["/find-a-vet", "Find a vet"], ["/tools", "All tools"]] },
-  { h: "Read", l: [["/guides", "Guides"], ["/compare", "Compare"], ["/puppy-kit/", "Puppy Kit"], ["/pricing", "Pricing"]] },
-  { h: "About", l: [["/about", "Paul and the cats"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/refund", "Refunds"], ["/medical-disclaimer", "Medical disclaimer"], ["/sponsorship-policy", "Sponsorship policy"]]},
+  { h: "Read", l: [["/guides", "Guides"], ["/compare", "Compare"], ["/puppy-kit/", "Puppy Kit"], ["/pricing", "Pricing and Plus waitlist"]] },
+  { h: "About", l: [["/about", "Paul and the cats"], ["/how-it-works", "How it works"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/refund", "Puppy Kit refunds"], ["/medical-disclaimer", "Medical disclaimer"], ["/sponsorship-policy", "Sponsorship policy"]]},
   { h: "Business", l: [["/for-vets", "For vets"], ["/advertise", "Advertise"], ["/sponsorship-policy", "Sponsorship policy"]] },
 ];
 

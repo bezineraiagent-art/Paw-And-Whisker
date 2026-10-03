@@ -1,5 +1,7 @@
 - [Production content foundations](production-content-foundations.md) — puppy guides were recovered from the owner's live site; preserve that copy rather than treating it as placeholders.
-- [Veterinary claims](veterinary-claims.md) — never claim vet review or input; About alone has the approved coming-soon statement.
+- [Veterinary claims](veterinary-claims.md) — default to “Not yet reviewed by a veterinarian”; reviewer attribution requires genuine supplied review details.
+- [Publication control](publication-control.md) — the owner reviews and publishes; do not publish or deploy these phases.
+- [Request-only pet context](request-only-pet-context.md) — never persist new profiles, photos or chat transcripts; generated answers can repeat profile details.
 - [Food publication policy](food-publication-policy.md) — one substantive article per food, not species clones; shared emergency copy does not count as substantive content.
 - [Content build boundaries](content-build-boundaries.md) — Node-loaded SEO content cannot use Vite-only glob macros; keep article bodies out of homepage client imports.
 - [Workspace tooling](workspace-tooling.md) — runtime capability errors override stale skill examples; scope package additions to their artifact.

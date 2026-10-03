@@ -5,8 +5,10 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { CompanionAnswerUrgency } from "./companionAnswerUrgency";
 
 export interface CompanionAnswer {
+  urgency: CompanionAnswerUrgency;
   answer: string;
   remaining: number;
   limit: number;

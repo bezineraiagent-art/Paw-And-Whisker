@@ -22,7 +22,7 @@ export function structuredData(path: string) {
   schema.push({ "@context": "https://schema.org", "@type": ["guide", "food", "comparison"].includes(page.kind ?? "") ? "Article" : "WebPage", name: page.title, headline: page.heading, description: page.description, url: canonical, mainEntityOfPage: canonical, author, publisher, dateModified: page.updated });
   if (page.path === "/") {
     schema.push({ "@context": "https://schema.org", "@type": "WebSite", name: "Paw & Whisker", url: SITE_URL, publisher });
-    schema.push({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Paw & Whisker", applicationCategory: "LifestyleApplication", operatingSystem: "Web", url: SITE_URL, description: "Educational pet information, free daily-capped AI chat and pet-care reference tools. Not veterinary care.", offers: [{ "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" }, { "@type": "Offer", name: "Plus monthly subscription", price: "4.99", priceCurrency: "USD", url: SITE_URL + "/pricing" }] });
+    schema.push({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Paw & Whisker", applicationCategory: "LifestyleApplication", operatingSystem: "Web", url: SITE_URL, description: "Educational pet information, free daily-capped AI chat and pet-care reference tools. Not veterinary care.", offers: [{ "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" }] });
   }
   // Only encode FAQs which are actually visible as question/answer pairs in the page.
   const faq = [...(page.html ?? "").matchAll(/<h3>([^<]*\?)<\/h3><p>([\s\S]*?)<\/p>/g)].map(match => ({ "@type": "Question", name: text(match[1]), acceptedAnswer: { "@type": "Answer", text: text(match[2]) } }));

@@ -4,8 +4,9 @@ import FreeCompanion from "@/components/FreeCompanion";
 import EmailCapture from "@/components/EmailCapture";
 import FoodSearch from "@/components/FoodSearch";
 import Faq from "@/components/Faq";
-import { Bowl, Cat, Doorframe, Moon, Paw, PhotoSlot, Puppy, Stars } from "@/components/Art";
-import { STRIPE_PAYMENT_LINK } from "@/content/settings";
+import { Bowl, Cat, Doorframe, Moon, OptionalPhoto, Paw, Puppy, Stars } from "@/components/Art";
+import WaitlistForm from "@/components/WaitlistForm";
+import { photoSlots } from "@/content/slots";
 
 const steps = [
   { when: "Day 1", t: "One quiet room", d: "Water, a bed, a place to settle. Keep the first day boring on purpose." },
@@ -55,9 +56,9 @@ export default function PublicHome() {
             <p className="pw-eyebrow">Free, start anywhere</p>
             <h2>Four ways in, all free</h2>
             <div className="pw-bento">
-              <a href="/tools/symptom-check" className="bt b-sym"><Cat className="bt-art" /><span className="pw-tag">Free</span><h3>Five-question symptom check</h3><p>Answer a few questions and get general guidance on how urgent something may be. No email needed for the result.</p><span className="go">Start the check <ArrowRight size={18} aria-hidden="true" /></span></a>
+              <a href="/tools/symptom-check" className="bt b-sym"><Cat className="bt-art" /><span className="pw-tag">Free</span><h3>Five-question symptom check</h3><p>Five short questions, general guidance on how urgent it may be. No email needed.</p><ol className="bt-qs"><li>What kind of pet?</li><li>What is the main symptom?</li><li>How long has it lasted?</li><li>Still eating and drinking?</li><li>How old is your pet?</li></ol><span className="go">Start the check <ArrowRight size={18} aria-hidden="true" /></span></a>
               <a href="/tools/toxic-food-checker" className="bt b-food"><Bowl className="bt-art" /><h3>Toxic food checker</h3><p>Check ingredients before sharing food.</p><span className="go">Search foods <ArrowRight size={18} aria-hidden="true" /></span></a>
-              <a href="#free-chat" className="bt b-chat"><Moon className="bt-art" /><h3>Two free questions a night</h3><p>Ask the companion at any hour. Resets at midnight UTC.</p><span className="go">Ask now <ArrowRight size={18} aria-hidden="true" /></span></a>
+              <a href="#free-chat" className="bt b-chat"><Moon className="bt-art" /><h3>Two free questions a day</h3><p>Text or photo, at any hour. Resets at midnight UTC.</p><span className="go">Ask now <ArrowRight size={18} aria-hidden="true" /></span></a>
               <a href="/guides" className="bt b-guide"><Paw className="bt-paw" /><h3>Puppy guides</h3><p>Checklists and first-30-days plans for nervous, trying-hard people.</p><span className="go">Read free <ArrowRight size={18} aria-hidden="true" /></span></a>
               <a href="/compare" className="bt b-cmp"><Puppy className="bt-art small" /><h3>Comparisons</h3><p>Pet-care choices side by side, no sales pressure.</p><span className="go">Compare <ArrowRight size={18} aria-hidden="true" /></span></a>
             </div>
@@ -79,9 +80,6 @@ export default function PublicHome() {
               ))}
             </ol>
           </div>
-          <div className="pw-wrap" style={{ marginTop: "2.5rem" }}>
-            <PhotoSlot slot="puppy-photo-first-night" caption="Planned: a real photo of a puppy's first night at home." />
-          </div>
         </section>
 
         <section className="pw-section alt" id="free-chat">
@@ -91,9 +89,9 @@ export default function PublicHome() {
                 <p className="pw-eyebrow">Free chat</p>
                 <h2>Ask your question</h2>
                 <ol className="pw-steps">
-                  <li><Sparkles aria-hidden="true" /><span><strong>Tell us a little.</strong> Name, life stage and age make the question clearer.</span></li>
-                  <li><MessageCircleHeart aria-hidden="true" /><span><strong>Ask in your own words.</strong> You get a general, gentle answer.</span></li>
-                  <li><ShieldCheck aria-hidden="true" /><span><strong>Know the limit.</strong> Two free questions each day, resetting at midnight UTC. It is not a vet.</span></li>
+                  <li><Sparkles aria-hidden="true" /><span><strong>Tell us a little.</strong> Name, type, age and weight make the question clearer.</span></li>
+                  <li><MessageCircleHeart aria-hidden="true" /><span><strong>Ask in your own words.</strong> Every answer starts with an urgency label.</span></li>
+                  <li><ShieldCheck aria-hidden="true" /><span><strong>Know the limit.</strong> Two free questions each day, resetting at midnight UTC. It is not a vet. <a href="/how-it-works">How it works</a>.</span></li>
                 </ol>
                 <div className="pw-pips" aria-hidden="true"><i /><i /><span>2 a day, free</span></div>
               </div>
@@ -108,28 +106,23 @@ export default function PublicHome() {
             <p><strong>Free tools stay free</strong>No card for the symptom check, food checker or guides.</p>
             <p><strong>Sources linked</strong>Food pages cite ASPCA, Pet Poison Helpline and AKC pages.</p>
             <p><strong>A note from Paul</strong>I sent a photo of Lucky to an earlier version of this site. It suggested a prompt vet visit; she had a bad infection and was treated. One owner's experience: AI cannot diagnose, results vary, and when in doubt, call a vet.</p>
-            <p><strong>Not a diagnosis</strong>Educational information to help you decide whom to call.</p>
+            <p><strong>Not a diagnosis</strong>Educational information to help you decide whom to call. <a href="/how-it-works">How answers are made</a>.</p>
           </div>
         </section>
 
         <section className="pw-section">
           <div className="pw-wrap">
             <p className="pw-eyebrow">Pricing</p>
-            <h2>Start free. Add Plus if you want more.</h2>
+            <h2>Free now. Whisker Plus is coming soon.</h2>
             <div className="pw-plans">
               <div className="pw-card">
-                <span className="pw-tag">Free</span><div className="pw-price">$0</div>
-                <ul className="pw-list"><li>One pet profile, saved in your browser</li><li>2 AI questions per day</li><li>Symptom check, food checker, all guides</li></ul>
+                <span className="pw-tag">Free today</span><div className="pw-price">$0</div>
+                <ul className="pw-list"><li>One pet profile, saved in your browser</li><li>2 AI questions a day, text or photo</li><li>Symptom check, food checker, all guides</li></ul>
                 <a className="pw-btn ghost" href="#free-chat">Try the free chat</a>
               </div>
-              <div className="pw-card feature">
-                <span className="pw-tag">Plus</span><div className="pw-price">$4.99 <small>per month</small></div>
-                <ul className="pw-list"><li>Unlimited chat questions</li><li>Photo questions</li></ul>
-                <p>Billed through Stripe. Cancel anytime. Refunds can be requested within 7 days of a charge.</p>
-                <a className="pw-btn gold" href={STRIPE_PAYMENT_LINK}>See Plus on Stripe</a>
-              </div>
+              <WaitlistForm id="plus-waitlist" />
             </div>
-            <p className="pw-disc">The Puppy Survival Kit is a separate $12 purchase, not included in Plus. Multiple pets, reminders and vet summaries are planned and not available yet. <a href="/pricing">Full pricing details</a> · <a href="/puppy-kit/">Puppy Kit</a></p>
+            <p className="pw-disc">Whisker Plus is not for sale and has no price. The Puppy Survival Kit is a separate $12 purchase. Multiple pets, reminders and vet summaries are only ideas. <a href="/pricing">Full details</a> · <a href="/puppy-kit/">Puppy Kit</a></p>
           </div>
         </section>
 
@@ -145,6 +138,7 @@ export default function PublicHome() {
             <p className="pw-eyebrow">Why it exists</p>
             <h2>Built by a pet parent, not a vet</h2>
             <p>I'm Paul. I made this after living with my cats, Lucky and Sugar, and learning how fast small worries turn big when you have no one to ask. <a href="/about">Read more about Paul and the cats</a>.</p><p>An earlier version of this site helped once. I sent it a photo of a problem on Lucky, it told me to see a vet quickly, and I took her in. She had a bad infection and was treated. That is one owner's experience, not a diagnosis or a promise. AI cannot diagnose, results vary, and when in doubt, call a vet.</p>
+            <OptionalPhoto {...photoSlots.home} fallback="cat" />
             <EmailCapture />
           </div>
         </section>

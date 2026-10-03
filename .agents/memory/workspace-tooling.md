@@ -14,3 +14,9 @@ The language-package installer could not target this pnpm workspace's artifact p
 **Why:** Its invocation had no workspace-selection parameter and attempted a root install.
 
 **How to apply:** If that limitation is still present, use explicitly scoped pnpm package operations rather than adding artifact dependencies to the root.
+
+Disposable CDP checks must establish keyboard modality before testing focus-visible, and must wait for the new document after navigation/reload.
+
+**Why:** Programmatic focus in mobile emulation did not activate focus-visible. Navigation acknowledgements also arrived before the old document unloaded, causing otherwise correct profile-reload checks to read stale elements.
+
+**How to apply:** Use actual keyboard events for keyboard-focus checks; verify the target route and hydrated UI rather than immediately accepting an old DOM selector after reload.

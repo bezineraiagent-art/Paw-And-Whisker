@@ -1,3 +1,5 @@
+import { OptionalPhoto } from "@/components/Art";
+import { photoSlots } from "@/content/slots";
 import { useState } from "react";
 import SiteHeader from "@/components/SiteHeader";
 import { foods, foodPath, riskFor, riskLabels, type Species } from "@/content/foods";
@@ -11,6 +13,7 @@ export default function FoodChecker() {
     <p className="pw-byline">By Paul, pet parent and founder · Updated <time dateTime="2026-10-03">3 October 2026</time></p>
     <p>Check {foods.length} foods for puppies, dogs and cats. Learn what to avoid, what needs plain preparation and when to call for help.</p>
     <div className="emergency-notice"><strong>Already eaten something potentially poisonous?</strong><p>Call an emergency vet now. Do not wait for symptoms, use this checker to calculate a dose or induce vomiting.</p><a href="tel:18884264435">US ASPCA: (888) 426-4435</a> · <a href="tel:18557667661">US Pet Poison Helpline: (855) 764-7661</a><p>Fees may apply. Outside the US, call your local emergency vet. <a href="/find-a-vet?urgent=1">Find an emergency vet near you</a>.</p></div>
+    <OptionalPhoto {...photoSlots.food} fallback="bowl" />
     <div className="tool-filters"><label>Pet type<select value={species} onChange={e => setSpecies(e.target.value as Species)}><option value="puppy">Puppy</option><option value="dog">Dog</option><option value="cat">Cat</option></select></label><label>Search foods<input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Try chocolate, grapes or carrots" /></label></div>
     <p aria-live="polite">{selected.length} foods found. “Generally non-toxic” never means unlimited or suitable for every pet.</p>
     {!selected.length && <div className="tool-empty"><h2>That food isn't in our reference yet.</h2><p>No result does not mean safe. Check all ingredients and contact your vet if your pet has eaten something uncertain.</p></div>}

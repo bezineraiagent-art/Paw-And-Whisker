@@ -99,6 +99,8 @@
 .pw-trust-in{display:grid;gap:1.25rem}
 .pw-trust p{margin:0;font-size:.97rem}
 .pw-trust strong{display:block;font:800 1.1rem var(--pw-display);color:#ffe08a}
+.pw-trust a{color:#ffe08a!important;text-decoration:underline}
+.pw-steps a,.pw-level a,.content-copy a{text-decoration:underline}
 @media(min-width:800px){.pw-trust-in{grid-template-columns:repeat(4,1fr)}}
 /* faq */
 .pw-faq-wrap{display:grid;gap:2rem}
@@ -169,3 +171,74 @@ body .site-footer .site-wordmark{color:#fff!important;font-size:1.4rem}
 .pw-sponsored-label{display:inline-block;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .55rem;border-radius:6px;background:var(--pw-butter);color:#161a38}
 .pw-photo-box{margin:.5rem 0}.pw-photo-box .content-secondary{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;min-height:44px;border-radius:999px;background:transparent;cursor:pointer;font:inherit;font-weight:600}
 .pw-photo-preview{display:flex;align-items:flex-end;gap:.8rem;flex-wrap:wrap;margin:.5rem 0}.pw-photo-preview img{max-width:9rem;max-height:9rem;border-radius:12px;object-fit:cover}
+
+/* ---- Phase 5 ---- */
+/* Food search: icon must never overlap text. Specificity beats the global `.pw input:not(...)` rule. */
+.pw .pw-fs-field input[type="search"][role="combobox"]{padding-left:3.25rem!important;padding-right:1rem}
+.pw-fs-field .pw-fs-icon{left:1.05rem;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--pw-muted)}
+.pw-fs-field input[type="search"]::-webkit-search-cancel-button{margin-right:.25rem}
+
+/* Bento: five balanced tiles */
+.bt{min-height:190px}
+.b-sym{gap:.6rem}
+.b-sym .bt-art{position:absolute;right:1rem;top:1rem;width:84px;margin:0}
+.b-sym h3{font-size:1.7rem;max-width:12ch}
+.bt-qs{list-style:none;counter-reset:q;margin:.25rem 0 0;padding:0;display:grid;gap:.3rem;color:#161a38;font-weight:600;font-size:.97rem}
+.bt-qs li{counter-increment:q;display:flex;gap:.6rem;align-items:center}
+.bt-qs li:before{content:counter(q);flex:none;width:1.5rem;height:1.5rem;border-radius:50%;background:#161a38;color:#ffe7a3;font-size:.8rem;font-weight:800;display:grid;place-items:center}
+@media(min-width:760px){
+  .pw-bento{grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(190px,auto)}
+  .b-sym{grid-column:span 3;grid-row:span 2}
+  .b-food,.b-chat{grid-column:span 3}
+  .b-guide,.b-cmp{grid-column:span 3}
+  .b-sym .bt-art{width:120px}
+  .b-sym h3{font-size:2.1rem}
+  .b-food .bt-art,.b-chat .bt-art,.b-cmp .bt-art{position:absolute;right:1.25rem;top:1rem;width:84px;margin:0}
+  .b-food h3,.b-chat h3,.b-cmp h3{max-width:14ch}
+  .b-guide .bt-paw{position:absolute;right:1.25rem;top:1rem}
+}
+@media(max-width:759px){.b-sym h3{max-width:11ch}.bt-art,.b-food .bt-art{width:72px}}
+
+/* Urgency badges, text first */
+.pw-urgency{display:inline-flex;align-items:center;gap:.5rem;margin:0 0 .6rem;padding:.35rem .8rem;border-radius:999px;font-weight:800;font-size:.95rem;border:2px solid currentColor;line-height:1.3}
+.pw-urgency.u-monitor{background:var(--pw-safe-bg);color:var(--pw-safe)}
+.pw-urgency.u-today{background:var(--pw-warn-bg);color:var(--pw-warn)}
+.pw-urgency.u-urgent{background:var(--pw-danger-bg);color:var(--pw-danger)}
+.pw-urgency.u-emergency{background:var(--pw-danger);color:var(--pw-bg);border-style:double;border-width:4px}
+.pw-levels{display:grid;gap:1rem;margin:1.25rem 0}
+.pw-level{background:var(--pw-card);border:1px solid var(--pw-line);border-radius:18px;padding:1.1rem 1.25rem}
+.pw-level p:not(.pw-urgency){margin:.25rem 0}
+.pw-urgency-defs div{margin:.6rem 0}.pw-urgency-defs dt{font-weight:800}.pw-urgency-defs dd{margin:0;color:var(--pw-muted)}
+
+/* My Pet card */
+.pw-mypet{background:var(--pw-card);border:2px solid var(--pw-line);border-radius:22px;padding:1.25rem 1.4rem;margin-bottom:1.25rem}
+.pw-mypet h3{font-size:1.35rem;margin-bottom:.5rem}
+.pw-mypet-name{font-family:var(--pw-display);font-size:1.8rem;font-weight:800;color:var(--pw-ink);margin:0}
+.pw-mypet-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem 1rem;margin:.75rem 0}
+.pw-mypet-facts dt{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--pw-muted)}
+.pw-mypet-facts dd{margin:0;overflow-wrap:anywhere}
+.pw-mypet-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:.75rem 0}
+.pw-mypet .pet-profile-form{display:grid;gap:.6rem}
+.pw-mypet label{display:block;font-weight:700}
+
+/* Forms: waitlist and reports */
+.pw-formcard{background:var(--pw-card);border:2px solid var(--pw-line);border-radius:22px;padding:1.4rem}
+.pw-formcard h3{font-size:1.4rem;margin-bottom:.5rem}
+.pw-formcard .pw-form{display:grid;gap:.75rem}
+.pw-formcard label{font-weight:700;display:block}
+.pw-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.pw-ok{background:var(--pw-safe-bg);color:var(--pw-safe);border-radius:12px;padding:.8rem 1rem;font-weight:700}
+
+/* Optional photos */
+.pw-slot{max-width:640px}
+.pw-slot-img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:24px;border:1px solid var(--pw-line);background:var(--pw-mist)}
+.pw-slot-frame{border-style:solid;border-width:1px}
+
+/* Keyboard focus everywhere */
+.pw :is(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--pw-focus,#1b57d6);outline-offset:3px}
+.pw .bt:focus-visible,.pw .pw-card:focus-visible{outline:3px solid var(--pw-focus);outline-offset:4px;border-radius:28px}
+.pw label:has(input[type="radio"]:focus-visible),.pw label:has(input[type="checkbox"]:focus-visible){outline:3px solid var(--pw-focus);outline-offset:2px;border-radius:12px}
+.pw input[type="radio"]:focus-visible,.pw input[type="checkbox"]:focus-visible{outline:3px solid var(--pw-focus);outline-offset:2px}
+.pw .pw-sky :focus-visible{outline-color:#ffe08a}
+.pw .pw-fs-species button:focus-visible{outline:3px solid var(--pw-focus);outline-offset:2px}
+.dark .pw-urgency.u-emergency{background:var(--pw-danger);color:#1a0d12}

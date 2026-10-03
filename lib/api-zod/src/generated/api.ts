@@ -15,81 +15,31 @@ export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
 
-/**
- * @summary List all conversations
- */
-export const ListOpenaiConversationsResponseItem = zod.object({
-  id: zod.number(),
-  title: zod.string(),
-  createdAt: zod.coerce.date(),
-});
-export const ListOpenaiConversationsResponse = zod.array(
-  ListOpenaiConversationsResponseItem,
-);
+export const joinPlusWaitlistBodyEmailMax = 254;
 
-/**
- * @summary Create a new conversation
- */
-export const CreateOpenaiConversationBody = zod.object({
-  title: zod.string(),
+export const joinPlusWaitlistBodyFaxMax = 0;
+
+export const JoinPlusWaitlistBody = zod.object({
+  email: zod.string().email().max(joinPlusWaitlistBodyEmailMax),
+  consent: zod.boolean(),
+  fax: zod.string().max(joinPlusWaitlistBodyFaxMax).optional(),
 });
 
-/**
- * @summary Get conversation with messages
- */
-export const GetOpenaiConversationParams = zod.object({
-  id: zod.coerce.number(),
-});
+export const reportWrongAnswerBodyEmailMax = 254;
 
-export const GetOpenaiConversationResponse = zod.object({
-  id: zod.number(),
-  title: zod.string(),
-  createdAt: zod.coerce.date(),
-  messages: zod.array(
-    zod.object({
-      id: zod.number(),
-      conversationId: zod.number(),
-      role: zod.string(),
-      content: zod.string(),
-      createdAt: zod.coerce.date(),
-    }),
-  ),
-});
+export const reportWrongAnswerBodyMessageMin = 10;
+export const reportWrongAnswerBodyMessageMax = 3000;
 
-/**
- * @summary Delete a conversation
- */
-export const DeleteOpenaiConversationParams = zod.object({
-  id: zod.coerce.number(),
-});
+export const reportWrongAnswerBodyFaxMax = 0;
 
-/**
- * @summary List messages in a conversation
- */
-export const ListOpenaiMessagesParams = zod.object({
-  id: zod.coerce.number(),
-});
-
-export const ListOpenaiMessagesResponseItem = zod.object({
-  id: zod.number(),
-  conversationId: zod.number(),
-  role: zod.string(),
-  content: zod.string(),
-  createdAt: zod.coerce.date(),
-});
-export const ListOpenaiMessagesResponse = zod.array(
-  ListOpenaiMessagesResponseItem,
-);
-
-/**
- * @summary Send a text message and receive a streaming text response
- */
-export const SendOpenaiMessageParams = zod.object({
-  id: zod.coerce.number(),
-});
-
-export const SendOpenaiMessageBody = zod.object({
-  content: zod.string(),
+export const ReportWrongAnswerBody = zod.object({
+  email: zod.string().email().max(reportWrongAnswerBodyEmailMax),
+  message: zod
+    .string()
+    .min(reportWrongAnswerBodyMessageMin)
+    .max(reportWrongAnswerBodyMessageMax),
+  consent: zod.boolean(),
+  fax: zod.string().max(reportWrongAnswerBodyFaxMax).optional(),
 });
 
 /**
@@ -113,15 +63,38 @@ export const GetCompanionUsageResponse = zod.object({
 /**
  * @summary Ask a general pet question within the daily allowance
  */
+export const askCompanionBodyPetNameMax = 60;
+
+export const askCompanionBodyPetAgeMax = 40;
+
+export const askCompanionBodyPetWeightMax = 40;
+
+export const askCompanionBodyPetBreedMax = 100;
+
+export const askCompanionBodyPetAllergiesMax = 300;
+
+export const askCompanionBodyPetConditionsMax = 300;
+
 export const askCompanionBodyImageDataUrlMax = 4500000;
 
 export const askCompanionBodyQuestionMax = 3000;
 
-export const askCompanionBodyPetNameMax = 60;
+export const askCompanionBodyPetNameMaxOne = 60;
 
 export const askCompanionBodyAgeMax = 40;
 
 export const AskCompanionBody = zod.object({
+  pet: zod
+    .object({
+      name: zod.string().max(askCompanionBodyPetNameMax),
+      species: zod.enum(["puppy", "dog", "cat", "other"]),
+      age: zod.string().max(askCompanionBodyPetAgeMax),
+      weight: zod.string().max(askCompanionBodyPetWeightMax),
+      breed: zod.string().max(askCompanionBodyPetBreedMax).optional(),
+      allergies: zod.string().max(askCompanionBodyPetAllergiesMax),
+      conditions: zod.string().max(askCompanionBodyPetConditionsMax),
+    })
+    .optional(),
   imageDataUrl: zod
     .string()
     .max(askCompanionBodyImageDataUrlMax)
@@ -130,12 +103,13 @@ export const AskCompanionBody = zod.object({
       "Optional transient JPEG, PNG or WebP, never persisted in the app database",
     ),
   question: zod.string().min(1).max(askCompanionBodyQuestionMax),
-  petName: zod.string().max(askCompanionBodyPetNameMax).optional(),
+  petName: zod.string().max(askCompanionBodyPetNameMaxOne).optional(),
   species: zod.enum(["puppy", "dog", "cat"]).optional(),
   age: zod.string().max(askCompanionBodyAgeMax).optional(),
 });
 
 export const AskCompanionResponse = zod.object({
+  urgency: zod.enum(["monitor", "today", "urgent", "emergency"]),
   answer: zod.string(),
   remaining: zod.number(),
   limit: zod.number(),

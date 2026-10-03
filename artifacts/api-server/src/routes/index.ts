@@ -1,16 +1,17 @@
 import { Router, type IRouter } from "express";
 import analyticsRouter from "./analytics";
 import healthRouter from "./health";
-import openaiRouter from "./openai/index";
 import subscribersRouter from "./subscribers";
 import companionRouter from "./companion";
 import vetsRouter from "./vets";
 import promotionRouter from "./promotion";
+import { retiredLegacyChat } from "../lib/retired-chat";
 
 const router: IRouter = Router();
 
 router.use(healthRouter);
-router.use("/openai", openaiRouter);
+// Retire the insecure legacy API without deleting any stored conversations.
+router.use("/openai", retiredLegacyChat);
 router.use(subscribersRouter);
 router.use(companionRouter);
 router.use(vetsRouter);

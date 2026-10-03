@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { securityHeaders } from "../../scripts/security-headers.mjs";
 
 const publicRoot = path.resolve(fileURLToPath(new URL("./dist/public/", import.meta.url)));
 const manifest = JSON.parse(await readFile(path.join(publicRoot, "routes.json"), "utf8"));
@@ -11,6 +12,7 @@ const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; ch
 
 // Importable handler so verification can exercise the actual production server.
 export async function handleRequest(req, res) {
+  for (const [name, value] of Object.entries(securityHeaders())) res.setHeader(name, value);
   res.setHeader("X-Content-Type-Options", "nosniff");
   if (!["GET", "HEAD"].includes(req.method)) {
     res.writeHead(405, { Allow: "GET, HEAD" });
@@ -22,6 +24,9 @@ export async function handleRequest(req, res) {
   catch { res.writeHead(400); res.end("Invalid URL"); return; }
   const query = new URL(req.url, "http://localhost").search;
   const clean = pathname.replace(/\/+$/, "") || "/";
+  if (clean === "/chat") {
+    res.writeHead(301, { Location: "/#free-chat" }); res.end(); return;
+  }
   const route = clean === "/puppy-kit" ? "/puppy-kit/" : clean;
   const oldGuide = manifest.guideRedirects[clean];
   if (oldGuide || (Object.hasOwn(manifest.routeFiles, route) && pathname !== route)) {

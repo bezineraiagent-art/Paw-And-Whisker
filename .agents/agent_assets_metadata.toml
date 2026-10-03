@@ -14,3 +14,17 @@ mtime_ms = 1791062026275
 storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:ae8d0c6f-615f-405f-9a53-a5b4b902be1d/6594b6fb-e048-4616-9b98-8dfaa528f46c/ea3c5308-d71c-419d-85b2-5931a133c42e"
 storage_version_token = "1791062165388298"
 content_type = "text/html"
+
+[[outputs]]
+id = "JyZnULoxbhZwhOag0MrRK"
+uri = "file://.local/reports/phase5-launch-report.html"
+type = "html"
+title = "Phase 5 launch report"
+description = "Security controls, test results, operating limits and desktop/mobile screenshot evidence. Not published."
+logical_id = "b49c3659-041d-446e-be7e-b6ef330ee215"
+content_hash = "sha256:96b87c71cb68e3e2d9ba9245861aa6d19f6ae66e1d099998c64bf81e0c6e4ff9"
+size = 518238
+mtime_ms = 1791068679810
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:ae8d0c6f-615f-405f-9a53-a5b4b902be1d/b49c3659-041d-446e-be7e-b6ef330ee215/6650dcbc-fee9-47e3-b42e-c946631f8161"
+storage_version_token = "1791068706804648"
+content_type = "text/html"

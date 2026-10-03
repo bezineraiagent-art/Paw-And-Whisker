@@ -84,7 +84,7 @@
     "kind": "comparison",
     "title": "Paw & Whisker vs ChatGPT for Pet Care",
     "heading": "Paw & Whisker vs ChatGPT: focused tools or a general assistant?",
-    "description": "Compare Paw & Whisker's free pet tools with ChatGPT's general-purpose chat. See use cases, limits, privacy questions and the $4.99 Plus plan.",
+    "description": "Compare Paw & Whisker's free pet tools with ChatGPT's general-purpose chat. See use cases, limits, privacy questions and what is free today.",
     "updated": "2026-10-03"
   },
   {
@@ -529,9 +529,9 @@
   },
   {
     "path": "/pricing",
-    "title": "Free Pet Chat & Subscription Pricing | Paw & Whisker",
-    "heading": "Start free. Upgrade only if you want to.",
-    "description": "Try your first two AI pet questions free, browse free puppy guides or take the free symptom check. The optional paid plan is $4.99 per month.",
+    "title": "Free Pet Chat & Whisker Plus Waitlist | Paw & Whisker",
+    "heading": "Free today. Whisker Plus is coming soon.",
+    "description": "Two photo or text AI pet questions a day are free, with guides and tools. Whisker Plus is not for sale yet; join the email waitlist to hear when it opens.",
     "kind": "pricing",
     "updated": "2026-10-03"
   },
@@ -563,7 +563,7 @@
     "path": "/refund",
     "title": "7-Day Refund Policy Draft | Paw & Whisker",
     "heading": "Refund and cancellation policy",
-    "description": "Request a Paw & Whisker refund within 7 days of a charge. Learn how to cancel a Stripe-billed subscription and contact us for practical billing help.",
+    "description": "Request a Puppy Survival Kit refund within seven days of a charge and contact us for delivery or billing help. Whisker Plus is not currently for sale.",
     "kind": "legal",
     "updated": "2026-10-03"
   },
@@ -573,6 +573,14 @@
     "heading": "Medical disclaimer",
     "description": "Paw & Whisker offers general pet information, not veterinary advice. AI never replaces a vet. Seek an emergency veterinarian for urgent signs.",
     "kind": "legal",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/how-it-works",
+    "kind": "how-it-works",
+    "title": "How Paw & Whisker Works: AI, Limits & Safety",
+    "heading": "How Paw & Whisker works",
+    "description": "How our AI answers are made, what the four urgency labels mean, when to go to a vet, and what the AI never does. No licensed vet has reviewed it yet.",
     "updated": "2026-10-03"
   },
   {
@@ -616,18 +624,10 @@
     "updated": "2026-10-03"
   },
   {
-    "path": "/chat",
-    "title": "Your Private AI Pet Chat | Paw & Whisker",
-    "heading": "Pet chat",
-    "description": "Ask general pet-care questions in your Paw & Whisker chat. AI information is not veterinary advice. Contact an emergency vet for urgent signs.",
-    "noindex": true,
-    "updated": "2026-10-03"
-  },
-  {
     "path": "/success",
-    "title": "Subscription Next Steps | Paw & Whisker",
-    "heading": "Subscription next steps",
-    "description": "Continue to your Paw & Whisker pet chat and find support after checkout. For billing or cancellation questions, contact Paw & Whisker support.",
+    "title": "Thanks for Visiting | Paw & Whisker",
+    "heading": "Thanks for visiting",
+    "description": "Whisker Plus is coming soon. This page does not verify a payment or grant access. All current free tools stay free. Not intended for public search results.",
     "noindex": true,
     "updated": "2026-10-03"
   },

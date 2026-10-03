@@ -5,6 +5,7 @@ import { z } from "zod/v4";
 export const subscribers = pgTable("subscribers", {
   id: serial("id").primaryKey(),
   email: text("email").notNull(),
+  source: text("source").notNull().default("pdf"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
