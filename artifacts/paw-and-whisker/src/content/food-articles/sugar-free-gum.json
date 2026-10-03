@@ -1,0 +1,39 @@
+{
+  "slug": "sugar-free-gum",
+  "verdict": "Sugar-free gum is a simple item with a complicated risk profile for pets. The gum itself may contain xylitol, which is the main concern for dogs, while the wrapper and discarded packet can add a separate swallowing hazard. The practical issue is that a home “gum” exposure is often really a mixed exposure: sweetener, chewing base, wrapper, and sometimes a whole packet pulled from a bag or bin. Because ingredients vary by brand and flavour, the label matters, but it should never slow down urgent action.",
+  "mechanism": "The main problem in dogs is xylitol, a sweetener used in some sugar-free gums and other products. Pet Poison Helpline notes that xylitol levels vary widely between products, and even within the same brand different flavours may contain different amounts. If a dog eats enough, it can trigger a severe drop in blood sugar very quickly, and it can also lead to acute liver failure. That makes sugar-free gum different from ordinary sweet snacks: the danger is not sugar, but the sweetener and the uncertainty around how much is in each piece.",
+  "preparation": "Sugar-free gum is not a single ingredient food. It is a manufactured product with a label, a wrapper, and sometimes a pocket pack, purse pack, or loose pieces in a handbag or jacket. For pet safety, the label is more useful than the front-of-pack wording, because “sugar-free” can hide xylitol. Flavoured pieces in the same packet may not be identical. The wrapper and packet matter too, because they can be swallowed along with the gum and create an obstruction risk. This is why a dropped chewing gum on the floor is not a trivial clean-up issue around pets.",
+  "signsAndTiming": "In dogs, xylitol exposure can become life-threatening quickly. Pet Poison Helpline says severe low blood sugar may occur within minutes after ingestion, and the ASPCA describes vomiting, lethargy, loss of coordination, and progression to seizures. Liver damage is also a concern and may appear later. The exact timing varies with the product and the amount swallowed, so there is no reliable “small piece” or “wait and see” window. For cats, xylitol is not established in the same way, but gum and its packaging are still not safe to treat as harmless.",
+  "puppy": "Puppies are more likely to gulp gum, wrappers, and entire packets instead of chewing carefully. With sugar-free gum, that means a puppy may face both xylitol exposure and a physical obstruction risk from the wrapper. Because puppies are smaller, a piece that seems minor to an adult dog can still be relevant. Treat any puppy exposure as a real ingestion event, not a sticky accident.",
+  "dog": "For dogs, sugar-free gum is a label-check food. The key risk is xylitol, which is used in some gum but not all. The same brand may vary by flavour, so a familiar packet is not automatically safe. Dogs also tend to swallow wrappers, blister packs, or several pieces at once, which makes the exposure more complicated than a single chewy sweet.",
+  "cat": "Cats should not be given sugar-free gum. The xylitol-specific dog syndrome is not proven the same way in cats, but gum still brings problems cats do not need: wrappers, packet plastic, and a foreign material that is not a food. A cat may also simply bite or swallow pieces rather than chewing them like a dog.",
+  "alternatives": "For a pet parent, the safest “replacement” is not another human chew product. Keep gum out of reach, especially in bags, coat pockets, bedside tables, and car cup holders. If you want a mouth-freshening or chew-based treat, choose a product made for the species you have rather than anything labelled sugar-free on a human shelf.",
+  "faqs": [
+    {
+      "question": "Why is sugar-free gum more dangerous than regular gum for dogs?",
+      "answer": "Regular gum is still not a dog treat, but sugar-free gum may contain xylitol, which is the ingredient linked to severe problems in dogs. The issue is not sweetness itself; it is the sweetener and the fact that the amount can vary by brand and flavour."
+    },
+    {
+      "question": "Does every sugar-free gum contain xylitol?",
+      "answer": "No. Sugar-free gum is a product category, not an ingredient list. Some brands or flavours use xylitol, while others may use different sweeteners. That is why the packet or wrapper matters, but a label check should never replace urgent help if a dog has eaten it."
+    },
+    {
+      "question": "Is one piece of gum really a problem?",
+      "answer": "It can be. Pet Poison Helpline states that xylitol amounts vary widely and that enough can cause very serious effects in dogs. Because you often do not know the exact sweetener load in a piece, it is better to treat any swallowed gum as relevant rather than harmless."
+    },
+    {
+      "question": "What if my dog ate the wrapper but not the gum?",
+      "answer": "The wrapper still matters. Sugar-free gum packets, foils, and paper wraps can be swallowed and may create a physical blockage risk. Even when the sweetener itself is not the main issue, the packaging can turn a small incident into a much messier one."
+    },
+    {
+      "question": "Can I give my cat sugar-free gum as a novelty chew?",
+      "answer": "No. Cats should not be given sugar-free gum. Even though the dog-specific xylitol syndrome is not assumed in cats, gum can still be a foreign item with packaging hazards, and there is no useful reason to offer it as a chew or play object."
+    }
+  ],
+  "related": [
+    "xylitol",
+    "cheese",
+    "milk",
+    "peanut-butter"
+  ]
+}

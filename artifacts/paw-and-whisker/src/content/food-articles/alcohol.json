@@ -1,0 +1,39 @@
+{
+  "slug": "alcohol",
+  "verdict": "Alcohol is a real poisoning risk for both dogs and cats, and the source of exposure is often ordinary household items rather than a deliberate drink. Beer, wine, spirits, cocktails, liquor-filled sweets and even raw bread dough can all matter. The main concern is ethanol, which is rapidly absorbed and can bring on neurological and gastrointestinal upset quickly. Because pets may reach bottles, glasses, dessert fillings or fermenting dough, the safest choice is simple: keep all alcohol-containing food and drink out of reach.",
+  "mechanism": "The toxic ingredient is ethanol, also called ethyl alcohol. It can be absorbed quickly after a pet licks or eats a product that contains it, which is why small-looking exposures can still be important. Once absorbed, alcohol affects the brain and body systems, causing neurological changes such as lethargy and poor coordination, along with stomach upset. It can also affect breathing and body chemistry. In the case of raw yeast dough, the alcohol concern is joined by the dough itself, which can keep rising in the stomach and create a separate physical problem.",
+  "preparation": "Alcohol risk is not limited to a glass of wine or a splash of beer. Pets may be exposed through mixed drinks left on a table, spilled liquor, desserts with liquor centres, and foods flavoured with alcohol. Some people foods are safer only when the alcohol has fully evaporated, but the source material does not give a reliable rule for judging that at home. Raw bread dough is a special case because yeast can keep fermenting after ingestion, so the problem is not just the alcohol already present but ongoing production inside the stomach. Labels matter: phrases like liquor, spirits, cocktails, wine, beer, ethanol or ethyl alcohol point to risk.",
+  "signsAndTiming": "The source describes a rapid onset after ingestion. In dogs and cats, signs can include lethargy, difficulty walking, vomiting, diarrhoea, incoordination, depression, difficulty breathing, tremors, changes in blood pH and, in severe cases, coma. With raw bread dough, a separate physical effect can develop as the dough rises and gas accumulates, which may cause abdominal pain and bloating and can become serious. The timing of each sign is not given in a precise window, so it is best to treat any known exposure as urgent rather than waiting to see whether symptoms appear.",
+  "puppy": "Puppies are at special risk with alcohol because even a small lick of beer, wine or a mixed drink can matter relative to their size. Puppies may also investigate cake scraps, trifle, rum desserts or dough left rising on a counter. Raw bread dough is especially awkward because it combines alcohol exposure with stomach expansion.",
+  "dog": "For dogs, the main food-specific issue is that alcohol can hide in both drinks and dessert-style foods, not just in a bottle. A dog may lap up spilled cocktail, lick a custard with liquor flavouring, or steal uncooked dough. Raw yeast dough is different from ordinary baked bread because it can keep fermenting after swallowing.",
+  "cat": "Cats are just as vulnerable to ethanol exposure from drinks, creams, sauces or sweets containing alcohol. A cat may be drawn to a forgotten glass, a bowl left after guests, or a dessert topping with liquor. Unlike some other foods, this is not a “dog only” problem, and cats should not be assumed to cope better.",
+  "alternatives": "When you want to share something festive, choose plain, pet-appropriate foods that do not contain alcohol, liquor fillings or fermenting ingredients. The practical rule is to check dessert labels and avoid anything described with wine, beer, spirits or liqueur. If a recipe calls for alcohol, keep the finished item away from pets unless you know the alcohol has been fully removed and the food is otherwise pet-safe.",
+  "faqs": [
+    {
+      "question": "Is beer riskier than wine for pets?",
+      "answer": "The source does not rank beer against wine by exact toxicity. Both are alcohol exposures that can cause harm because the active ingredient is ethanol. The practical difference is often context: beer is more likely to be left in a glass or knocked over, while wine may appear in sauces, desserts or leftovers."
+    },
+    {
+      "question": "Can a pet be exposed through cake or pudding?",
+      "answer": "Yes. Alcohol can appear in desserts, especially ones with liquor centres or flavourings. That makes party food a common hidden source. The label matters more than the shape of the food: if the recipe or packaging points to alcohol, treat it as a risk rather than assuming it is just a sweet treat."
+    },
+    {
+      "question": "Why is raw bread dough a problem as well as alcohol?",
+      "answer": "Raw yeast dough is a double concern. The source says it can rise in the digestive system and create gas, which may lead to painful stomach bloating. It can also produce alcohol as it ferments after ingestion, so the exposure is not limited to the ingredients that were already in the bowl."
+    },
+    {
+      "question": "Do I only need to worry about full drinks?",
+      "answer": "No. The source mentions licks of mixed drinks, beer and wine, plus candies with liquor centres and raw bread dough made with yeast. Spills, leftovers, tasting glasses and dessert fillings are all practical household exposure routes, so it is worth thinking beyond whole bottles or cans."
+    },
+    {
+      "question": "Can I tell by smell whether food contains alcohol?",
+      "answer": "Not reliably. Some foods and desserts may smell sweet rather than boozy, and the source does not give a dependable smell test. Labels and recipe ingredients are more useful. If a product lists liquor, spirits, wine, beer, cocktails or ethanol, it should be treated as alcohol-containing food."
+    }
+  ],
+  "related": [
+    "raw-yeast-dough",
+    "sugar-free-gum",
+    "moldy-food",
+    "ice-cream"
+  ]
+}

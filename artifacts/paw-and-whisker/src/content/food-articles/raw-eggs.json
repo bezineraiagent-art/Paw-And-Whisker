@@ -1,0 +1,39 @@
+{
+  "slug": "raw-eggs",
+  "verdict": "Raw eggs sit in an awkward middle ground: they are not a “poison” in the classic sense, but they are still a poor choice for pets. The main concerns are bacteria such as Salmonella and E. coli, plus the way repeated raw egg whites can interfere with absorption of certain vitamins. The shell, white and yolk also make a messy, easy-to-sling pantry food that can coat bowls, floors and paws. Fully cooked plain egg is a different food entirely and is not what this warning is about.",
+  "mechanism": "The problem with raw eggs is partly biological and partly practical. ASPCA lists raw eggs with raw meat because they can carry bacteria such as Salmonella and E. coli, which can affect pets and people. Raw egg white is also noted as containing an enzyme that can interfere with the absorption of certain vitamins. That issue is about repeated feeding rather than a single mouthful. In other words, the concern is not that one lick automatically causes poisoning, but that raw egg is an unhygienic food with a documented nutritional drawback when fed often.",
+  "preparation": "This food is defined by preparation, so the label matters. Raw, cracked eggs from the shell, raw yolk drips, and uncooked egg mixed into other foods all belong in the same risk category. Leftovers on a spoon, uncooked batter, mayonnaise-style mixtures made with raw egg, and bowls where eggs were whisked for people can all create exposure. The shell itself is not the main issue here; it is the raw contents. If the egg has been fully cooked plain, it is no longer this food and falls into a separate category. This page is only about raw egg exposure, not cooked egg feeding.",
+  "signsAndTiming": "The source material gives clear hazard categories but not a precise symptom timetable for raw eggs. Because bacteria are involved, any upset can depend on what was present in the egg and how much was eaten. The key point is that raw egg should not be treated as a harmless snack or something to “watch and wait” on casually. Repeated raw egg white exposure is the better-established concern for vitamin absorption, while contaminated eggs are a hygiene risk for both pets and people. Timing is not fixed or reliably predictable from the sources provided.",
+  "puppy": "Puppies and raw eggs are a poor match because young dogs are still settling into a routine for food, hygiene and safe handling. The raw egg concern is the same as for adult dogs: bacteria risk plus the raw egg white issue if it is fed often. A puppy is also more likely to make a messy food-laden adventure out of an egg spill.",
+  "dog": "For dogs, raw eggs are not a clever protein shortcut. The main dog-specific issue is exposure to bacteria, and the ASPCA also notes that repeated raw egg white intake can interfere with vitamin absorption. A dog that grabs a dropped raw egg, wipes it on the floor or licks it from a bowl is dealing with a sanitation problem, not a beneficial treat.",
+  "cat": "Cats are covered by the same raw egg warning, but the important point is to keep them separate from dog guidance and from cooked egg ideas. Raw eggs can contain bacteria harmful to cats as well as humans, and repeated raw egg white feeding can interfere with vitamin absorption. Because cats are not the same as dogs in appetite or food tolerance, raw egg should not be assumed to be a harmless cat snack.",
+  "alternatives": "If you want the egg idea without the raw-egg risks, the practical alternative is plainly cooked plain egg. That is a different food from the one on this page. For pantry management, the safest decision is to keep raw egg shells, cracked bowls and drips out of reach and clean up spills quickly so pets do not lick the residue or walk through it.",
+  "faqs": [
+    {
+      "question": "Is one raw egg the same as a raw egg habit?",
+      "answer": "No. The source specifically points to raw eggs carrying bacteria and to raw egg white interfering with vitamin absorption when fed repeatedly. That means the main concern is not identical for every exposure. A single slip is still not a good habit to build around."
+    },
+    {
+      "question": "Does the shell make raw eggs safer for pets?",
+      "answer": "No. The shell does not remove the food-safety issue in the raw contents. The warning is about bacteria in raw eggs and the nutritional issue linked to raw egg white. Shells can also be messy and can spread residue around the kitchen."
+    },
+    {
+      "question": "What about raw egg mixed into another recipe?",
+      "answer": "If the egg is still uncooked, it stays in the raw-egg category. That includes mixtures where the yolk or white has been stirred into sauces, batters or dips before cooking. The risk comes from the raw state, not only from a whole egg in the shell."
+    },
+    {
+      "question": "Is raw egg white the only part that matters?",
+      "answer": "No. ASPCA says raw eggs can contain bacteria such as Salmonella and E. coli, so both the white and yolk can be part of the hygiene problem. The raw egg white also has the extra concern of interfering with absorption of certain vitamins."
+    },
+    {
+      "question": "How should I think about raw egg on bowls, counters or paws?",
+      "answer": "Treat it as a contamination issue, not just a food item. A spill can leave bacteria on surfaces, fur or paws and then get tracked through the home. That is why raw eggs are better handled as a clean-up problem as well as a feeding decision."
+    }
+  ],
+  "related": [
+    "raw-meat",
+    "milk",
+    "cheese",
+    "fatty-scraps"
+  ]
+}

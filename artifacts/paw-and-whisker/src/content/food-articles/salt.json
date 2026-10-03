@@ -1,0 +1,38 @@
+{
+  "slug": "salt",
+  "verdict": "Salt itself is not a flavour pet parents need to share, and the risk is not just from the shaker. Crisps, chips, salted crackers, instant noodles, cured meats and salt dough can all deliver a lot of sodium very quickly, while a pet may also lick spilled seasoning or pantry scraps. Because excessive salt can disturb electrolytes and become serious, salty snacks are best kept out of reach entirely.",
+  "mechanism": "The concern with salt is excessive sodium intake, which can disturb the body’s fluid balance and electrolytes. That is why the ASPCA groups salt/excessively salty foods with other people foods to avoid. The problem is not a mysterious poison in ordinary table salt; it is the amount and the product. Salt dough adds another layer of risk because it is designed to hold its shape, so a pet may chew and swallow a concentrated amount before anyone notices. Very salty processed snacks can also arrive alongside fats, flavourings and coatings that make them easy to overeat.",
+  "preparation": "For pets, the practical issue is less about a single grain of salt and more about the form the food takes. Plain unsalted food is not the same as a salted snack, seasoned leftovers or a dough craft. Crisps, chips and salted crackers are often thin, easy to gulp and covered in surface salt; salted pretzels and savoury snacks can leave a residue on paws, lips and crumbs on the floor. Salt dough is particularly relevant in homes with children, because it is made to be handled and shaped, then dries hard enough to tempt chewing. Keep packets sealed and leftovers off low tables.",
+  "signsAndTiming": "ASPCA lists increased thirst and urination as possible signs of salt toxicity, and also vomiting, diarrhoea, depression, tremors, seizures and death. The source does not give a precise latency, so there is no safe window to assume nothing will happen after a salty snack or salt dough exposure. What matters is the amount and the product type. A pet may only have licked a salty coating, or may have eaten a larger pantry item, but either way the concern is electrolyte disturbance rather than simple indigestion.",
+  "puppy": "Puppies are especially likely to investigate dropped crisps, chip fragments and crunchy packet crumbs, so salt exposure can happen through the floor as much as from a bowl. Salt dough is a real risk in homes with children because puppies may mouth it as a toy-like object. Keep salty snacks and craft materials out of reach.",
+  "dog": "Dogs are the species most people picture with salt accidents: a stolen bag of crisps, barbecue snacks, savoury biscuits or a lick of salt dough from the table. Dogs may also gulp down food that is meant to be shared and end up with a concentrated salty load, not just a taste.",
+  "cat": "Cats are not given a special salt syndrome in the source, but they can still be affected by excessive salt or salty snacks if they get into them. The key difference is that cats are usually less interested in chips and crackers than dogs, so exposures may come from counter surfing, licking seasoning, or investigating salt dough.",
+  "alternatives": "If you want a crunchy or savoury treat, choose pet products made for the species rather than relying on salty human snacks. The safest practical swap is a plain, unseasoned option from the pet aisle or a small piece of a food that is not salted. For training, use the pet’s usual treats instead of chips or crackers.",
+  "faqs": [
+    {
+      "question": "Why are crisps and chips a bigger concern than a little table salt?",
+      "answer": "A pinch from the shaker is one thing, but crisps and chips package salt into an easy-to-eat snack. They are also oily and often seasoned, so a pet can swallow a lot quickly without it looking dramatic at the start."
+    },
+    {
+      "question": "Is salt dough dangerous because of the salt alone?",
+      "answer": "Salt is the main issue named in the source, but salt dough matters because it is a concentrated, chewable form that encourages swallowing. It is not a harmless craft material for pets, especially if they are likely to mouth objects."
+    },
+    {
+      "question": "Do salted crackers count as a real exposure or just a minor snack?",
+      "answer": "They count as a real exposure because the concern is the total salty load, not whether the food was originally a “meal” or a “snack”. A few crackers may be more than a pet should have if they are heavily salted."
+    },
+    {
+      "question": "Are seasoning powders and snack dust a problem too?",
+      "answer": "Yes, because the issue is the salt content in the food or coating. A pet can lick crumbs, dust from flavoured snacks, or residue from fingers and plates. That can still add up, especially with repeated nibbles around the kitchen."
+    },
+    {
+      "question": "How should I think about store-bought savoury snacks for pets?",
+      "answer": "If the food is made for human snacking and tastes clearly salty, it belongs in the avoid category. The safest decision is to treat salted snacks, flavoured crackers and similar pantry items as off-limits rather than testing what your pet will tolerate."
+    }
+  ],
+  "related": [
+    "fatty-scraps",
+    "cheese",
+    "cooked-bones"
+  ]
+}

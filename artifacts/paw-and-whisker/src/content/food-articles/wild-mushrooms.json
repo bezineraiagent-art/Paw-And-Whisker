@@ -1,0 +1,39 @@
+{
+  "slug": "wild-mushrooms",
+  "verdict": "Wild mushrooms are a poor gamble for pets because a small percentage of species can be seriously toxic, and experts say accurate identification is difficult. For dogs and cats, the biggest practical issue is that a mushroom picked from the garden, lawn, woodland edge, compost, or campsite may look harmless while still carrying dangerous toxins. Supermarket mushrooms are a different matter: washed mushrooms bought for people are generally fine for dogs, but that does not make foraged mushrooms safe. Keep wild mushrooms away and do not rely on an app or photo.",
+  "mechanism": "The risk from wild mushrooms is not one single poison. Different species can affect different parts of the body, which is why the signs are so varied. Pet Poison Helpline lists digestive, nervous system, liver, and kidney effects among the possible outcomes. That can mean stomach upset, but it can also mean trembling, disorientation, seizures, or organ failure. The most serious confirmed fatal cases in pets are linked to Amanita, Galerina, and Lepiota genera. Some mushrooms cause signs very quickly, while others do not produce obvious changes for many hours. Because species matter so much, the same word “mushroom” can hide very different levels of danger.",
+  "preparation": "With wild mushrooms, “preparation” is really about how the exposure happens. Fresh, dried, cooked, or partially cooked wild mushrooms are not made safe simply by kitchen handling. A mushroom collected from a yard, verge, or trail can still be a problem even if it is fried into a meal, mixed into pasta, or served as a topping. Leftovers matter too: pizza crusts, takeaway boxes, compost heaps, and dropped scraps can all contain mushroom pieces that a dog or cat may find later. In contrast, washed supermarket mushrooms intended for human food are generally fine for dogs, because the danger lies in wild species, not in the ordinary cultivated mushroom itself.",
+  "signsAndTiming": "Signs depend on the species involved, so there is no single mushroom poisoning pattern. Pet Poison Helpline notes possible vomiting, diarrhoea, wobbliness, tremors, seizures, visual disturbances, aggression, disorientation, black-tarry stools, abnormal thirst or urination, and liver or kidney failure. Timing also varies: some toxins can act within 15 to 30 minutes, while others may not cause signs for many hours, up to 24 hours. That range is one reason wild mushrooms are treated as dangerous until an expert has identified the exact specimen. There is no safe way to assume a later sign-free stretch means the mushroom was harmless.",
+  "puppy": "Puppies are more likely to investigate anything on the ground, which makes wild mushrooms an easy pick-up risk. The problem is not puppy-specific chemistry; it is exposure. A puppy chewing a yard mushroom, a fallen slice, or compost growth can get into the same toxic species as an adult dog, but with less body size to buffer the dose.",
+  "dog": "Dogs are the main focus of the source guidance, and the advice is direct: if a dog eats a wild mushroom, it should be treated as toxic unless a specialist quickly identifies the species as non-toxic. Supermarket mushrooms for people are generally fine for dogs, but wild ones are not. Yard access matters most.",
+  "cat": "Cats are also at risk from wild mushrooms, although the source does not single out a cat-only syndrome. The same species that threaten dogs can affect cats through vomiting, nervous system signs, or organ injury. Because cats often nibble quietly, a tiny piece from the floor, bin, or garden can be enough to matter.",
+  "alternatives": "If you want a mushroom-shaped flavour in a pet-safe context, the safer choice is not a foraged mushroom at all. For dogs, only plain, washed supermarket mushrooms are the relevant comparison, and even then they should be treated as a people-food item rather than a treat. For cats, avoid offering mushrooms altogether and keep the focus on their usual food.",
+  "faqs": [
+    {
+      "question": "Are supermarket mushrooms the same risk as wild mushrooms?",
+      "answer": "No. The source separates wild mushrooms from washed supermarket mushrooms. Wild species can be toxic, but supermarket mushrooms bought for human consumption are generally fine for dogs. The key difference is identification and control, not the word mushroom itself."
+    },
+    {
+      "question": "Does cooking wild mushrooms make them safe for pets?",
+      "answer": "No. Cooking changes the food’s texture, but it does not make an unknown wild mushroom safe. If the species is toxic, frying, roasting, or mixing it into a dish does not remove the danger. The exposure can still matter in leftovers or scraps."
+    },
+    {
+      "question": "Can I use a mushroom identification app before deciding what my pet ate?",
+      "answer": "No. The supplied source says accurate mushroom identification is difficult and should be left to experts. An app or photo is not reliable enough to decide that a mushroom is harmless, especially when toxic and non-toxic species can look similar."
+    },
+    {
+      "question": "Why are wild mushrooms treated more seriously than many other foods?",
+      "answer": "Because the same label covers thousands of species, and only a small percentage are known to be toxic while the dangerous ones can cause severe signs or death. With wild mushrooms, the problem is not just mild stomach upset; it can involve the nervous system, liver, or kidneys."
+    },
+    {
+      "question": "What parts of the home or garden are most relevant?",
+      "answer": "Anything where mushrooms can grow or be dropped matters: lawns, flowerbeds, compost piles, wooded edges, trail areas, and kitchen scraps. A pet does not need to eat a whole mushroom from the ground; a piece in compost, a dropped slice, or a plate scrap can be enough to create an exposure."
+    }
+  ],
+  "related": [
+    "moldy-food",
+    "cooked-bones",
+    "raw-meat",
+    "raw-eggs"
+  ]
+}

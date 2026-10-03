@@ -9,6 +9,11 @@ import type { CompanionInputSpecies } from "./companionInputSpecies";
 
 export interface CompanionInput {
   /**
+   * Optional transient JPEG, PNG or WebP, never persisted in the app database
+   * @maxLength 4500000
+   */
+  imageDataUrl?: string;
+  /**
    * @minLength 1
    * @maxLength 3000
    */

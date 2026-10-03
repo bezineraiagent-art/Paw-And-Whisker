@@ -1,0 +1,38 @@
+{
+  "slug": "milk",
+  "verdict": "Milk is best left out of a pet’s bowl. The problem is not a dramatic poison in the source material, but lactose digestion: pets do not have much lactase, so milk and other dairy-based products can trigger digestive upset. That means loose stools, diarrhoea or general tummy discomfort are the main concerns. For both dogs and cats, milk is not a substitute for water or a complete diet, and it is easiest to avoid casual licking from mugs, bowls and cereal leftovers.",
+  "mechanism": "The source points to a simple digestive issue rather than a specific toxin. Milk contains lactose, and pets do not possess significant amounts of lactase, the enzyme needed to break it down. When lactose is not digested well, it can irritate the gut and pass through in a way that leads to diarrhoea or other digestive upset. The evidence supplied does not set out a more precise poisoning mechanism, so it is better to think of milk as a food that can upset the stomach rather than one that acts like a poison.",
+  "preparation": "Plain cow’s milk is the main issue here, but the practical question is usually where the milk appears. Pets may lap from a glass, lick milk left in a bowl, or steal a splash from cereal. The source also groups milk with other dairy-based products, so it is not just a carton on its own that matters. Flavoured dairy drinks, creamy leftovers and puddles on the floor all count as exposures if a pet can reach them. There is no safe preparation method given in the source; the useful decision is simply to keep milk away.",
+  "signsAndTiming": "The source links milk exposure to diarrhoea and other digestive upset. It does not give a fixed timeline, so there is no reliable “wait and see” window to rely on. What matters is that the reaction is usually digestive rather than a true toxic syndrome. If a pet has had milk, the practical issue is whether it can tolerate it at all, especially if it has licked a larger amount or had repeated access to dairy. The source does not support any more precise timing or severity pattern.",
+  "puppy": "Puppies and milk do not make a sensible match. A puppy may be tempted by a saucer or a cereal bowl, but the issue is still lactose and the chance of digestive upset. Puppies also need a proper diet made for growth, not milk from the fridge. Keep it away from spills and from family drinks.",
+  "dog": "Dogs may beg for milk, but the source says dairy can upset their digestion because they do not have much lactase. That means a dog’s risk is mainly stomach upset rather than a toxic syndrome. For dogs, the big practical point is avoiding licks from bowls, mugs and cereal leftovers.",
+  "cat": "Cats are explicitly included in the source’s dairy warning, and they are often thought of when people picture a cat lapping milk. The same lactose issue applies, so milk can lead to diarrhoea or other digestive upset. For cats, even small casual tastings from bowls or breakfast plates are best avoided.",
+  "alternatives": "Water is the right everyday drink. If you want to offer something special, it is better to choose pet-appropriate foods rather than dairy from the fridge. Milk is not a substitute for water, and it is not a useful stand-in for a balanced diet. Keep it as a human ingredient, not a pet treat.",
+  "faqs": [
+    {
+      "question": "Can dogs drink a little milk from a cup?",
+      "answer": "A small lick from a cup is still a dairy exposure, and the source says milk can cause digestive upset because dogs do not have much lactase. The main practical issue is not the cup itself but the lactose. It is safer not to make milk a habit."
+    },
+    {
+      "question": "Why do some pets seem fine after milk?",
+      "answer": "The source only says milk may cause diarrhoea or other digestive upset, not that every pet reacts the same way. Some pets may appear to tolerate a taste better than others, but that does not make milk a good choice. Sensitivity can vary, so there is no reason to use it as a treat."
+    },
+    {
+      "question": "Does this include milk in cereal or tea?",
+      "answer": "Yes, if the pet can reach it. The source’s concern is dairy-based products generally, not just a plain glass of milk. A bowl of cereal, a mug left on the table or a plate with milky leftovers can all count as exposure if the pet licks them."
+    },
+    {
+      "question": "Is lactose-free milk a safe swap?",
+      "answer": "That is not established in the source, so it should not be treated as an approved pet food. The page only explains that regular milk and other dairy-based products can upset digestion because of lactose. If a food is not specifically meant for pets, it is better not to assume it is safe."
+    },
+    {
+      "question": "What is the real risk with milk for cats?",
+      "answer": "For cats, the source highlights the same lactose problem seen in other pets: milk can lead to diarrhoea or digestive upset. The issue is not a unique cat poison here. It is mainly a matter of a cat’s digestive system not being set up to handle dairy well."
+    }
+  ],
+  "related": [
+    "cheese",
+    "ice-cream",
+    "peanut-butter"
+  ]
+}

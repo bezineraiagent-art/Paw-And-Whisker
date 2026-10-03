@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
-import { getPage, SITE_URL } from "@/content/site";
-import { structuredData } from "@/content/structured-data";
+import { getPage, SITE_URL } from "@/content/metadata";
 
 export default function PageSeo() {
   const [location] = useLocation();
   useEffect(() => {
     const page = getPage(location);
     const canonical = SITE_URL + page.path;
+    const serverSchemaMatches = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href === canonical && !!document.head.querySelector("#page-schema");
     document.title = page.title;
     const setMeta = (attribute: "name" | "property", key: string, content: string) => {
       let tag = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
@@ -39,7 +39,14 @@ export default function PageSeo() {
     link.href = canonical;
     let schema = document.head.querySelector<HTMLScriptElement>("#page-schema");
     if (!schema) { schema = document.createElement("script"); schema.id = "page-schema"; schema.type = "application/ld+json"; document.head.appendChild(schema); }
-    schema.textContent = JSON.stringify(structuredData(page.path));
+    // Preserve full server-rendered schema on first load. Load article data only
+    // if an in-app route change actually needs a different schema.
+    if (serverSchemaMatches) return;
+    let active = true;
+    void import("@/content/structured-data").then(({ structuredData }) => {
+      if (active) schema!.textContent = JSON.stringify(structuredData(page.path));
+    }).catch(error => console.error("Could not update route structured data", error));
+    return () => { active = false; };
   }, [location]);
   return null;
 }

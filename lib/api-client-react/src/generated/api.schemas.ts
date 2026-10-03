@@ -26,6 +26,11 @@ export const CompanionInputSpecies = {
 
 export interface CompanionInput {
   /**
+   * Optional transient JPEG, PNG or WebP, never persisted in the app database
+   * @maxLength 4500000
+   */
+  imageDataUrl?: string;
+  /**
    * @minLength 1
    * @maxLength 3000
    */
@@ -52,6 +57,157 @@ export interface CompanionAnswer {
 
 export interface HealthStatus {
   status: string;
+}
+
+export interface VetSearchInput {
+  /**
+   * @minLength 2
+   * @maxLength 120
+   */
+  query?: string;
+  /**
+   * @minimum -85
+   * @maximum 85
+   */
+  latitude?: number;
+  /**
+   * @minimum -180
+   * @maximum 180
+   */
+  longitude?: number;
+  urgent?: boolean;
+  openNow?: boolean;
+  emergencyOnly?: boolean;
+}
+
+export type VetClinicOpeningStatus =
+  (typeof VetClinicOpeningStatus)[keyof typeof VetClinicOpeningStatus];
+
+export const VetClinicOpeningStatus = {
+  open: "open",
+  closed: "closed",
+  unknown: "unknown",
+} as const;
+
+export interface VetClinic {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  distanceKm: number;
+  address: string;
+  phone?: string;
+  website?: string;
+  openingHours?: string;
+  openingStatus: VetClinicOpeningStatus;
+  emergency: boolean;
+  sponsored: boolean;
+}
+
+export interface VetSearchResult {
+  clinics: VetClinic[];
+  latitude: number;
+  longitude: number;
+  area: string;
+  urgent: boolean;
+  source: string;
+  attribution: string;
+  notice: string;
+  radiusKm: number;
+  mapTilesUrl?: string;
+  mapAttribution?: string;
+}
+
+export type ClinicApplicationInputIntent =
+  (typeof ClinicApplicationInputIntent)[keyof typeof ClinicApplicationInputIntent];
+
+export const ClinicApplicationInputIntent = {
+  claim: "claim",
+  featured: "featured",
+  both: "both",
+} as const;
+
+export interface ClinicApplicationInput {
+  /**
+   * @minLength 2
+   * @maxLength 180
+   */
+  clinicName: string;
+  /** @maxLength 120 */
+  contactName?: string;
+  /** @maxLength 254 */
+  contactEmail: string;
+  /**
+   * @minLength 2
+   * @maxLength 120
+   */
+  city: string;
+  /** @maxLength 2048 */
+  website?: string;
+  /**
+   * @minLength 10
+   * @maxLength 4000
+   */
+  message: string;
+  intent?: ClinicApplicationInputIntent;
+  consent: boolean;
+  /** @maxLength 0 */
+  fax?: string;
+}
+
+export type AdvertiserInquiryInputPlacementsItem =
+  (typeof AdvertiserInquiryInputPlacementsItem)[keyof typeof AdvertiserInquiryInputPlacementsItem];
+
+export const AdvertiserInquiryInputPlacementsItem = {
+  "tools-guides": "tools-guides",
+  "product-box": "product-box",
+  newsletter: "newsletter",
+} as const;
+
+export interface AdvertiserInquiryInput {
+  /**
+   * @minLength 2
+   * @maxLength 180
+   */
+  brandName: string;
+  /** @maxLength 120 */
+  contactName?: string;
+  /** @maxLength 254 */
+  contactEmail: string;
+  /** @maxLength 2048 */
+  website?: string;
+  /**
+   * @minLength 10
+   * @maxLength 4000
+   */
+  message: string;
+  /** @maxItems 3 */
+  placements?: AdvertiserInquiryInputPlacementsItem[];
+  consent: boolean;
+  /** @maxLength 0 */
+  fax?: string;
+}
+
+export interface PromotionReceipt {
+  id: number;
+  message: string;
+}
+
+export type ClinicApplication = ClinicApplicationInput & {
+  id: number;
+  createdAt: string;
+};
+
+export type AdvertiserInquiry = AdvertiserInquiryInput & {
+  id: number;
+  createdAt: string;
+};
+
+export interface PromotionLeads {
+  clinicApplications: ClinicApplication[];
+  advertiserInquiries: AdvertiserInquiry[];
+  clinicTotal: number;
+  advertiserTotal: number;
 }
 
 export interface OpenaiConversation {

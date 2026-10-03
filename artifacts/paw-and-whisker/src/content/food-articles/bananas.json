@@ -1,0 +1,39 @@
+{
+  "slug": "bananas",
+  "verdict": "Banana flesh is generally non-toxic for dogs and cats, but it is still a food that can be awkward in practice. The flesh is soft and sugary, while the peel is the main physical problem because it is hard to digest. For dogs, banana can be a small occasional treat rather than a staple. For cats, it has no nutritional need, so any offering should be tiny and optional. The real decision is less about poisoning and more about whether the piece, peel, and sweetness make sense at all.",
+  "mechanism": "The main issue with banana flesh is not a known poisoning syndrome. The AKC notes that bananas are safe for dogs in moderation, but they are high in sugar, so they belong in the treat category rather than the main diet. The ASPCA’s broader guidance on people foods also points to citrus and dairy as examples where some foods cause irritation or digestive upset rather than true toxicity; banana sits closer to the harmless end of that spectrum. The peel is different: it is not described as toxic, but it is difficult to digest and can create a physical upset if eaten. For cats, the key point is simpler still: they do not need fruit, so banana offers no special benefit and should stay very limited if offered at all.",
+  "preparation": "The practical preparation is straightforward: remove the peel and give only plain banana flesh. That matters because the peel is the part most likely to create a messy, hard-to-digest problem. Keep the piece plain, with no syrup, chocolate, nut butter sweetened with xylitol, or other toppings that change the risk profile. This fruit is also easiest to manage when it is given in a clean, bite-size piece rather than as a big chunk that encourages gulping. Canned banana desserts, banana bread, and anything mixed with sugar or spices are a different question entirely and are not the same as plain flesh.",
+  "signsAndTiming": "Banana flesh is not associated here with a defined poisoning timeline, so there is no established onset window to watch for. If a dog or cat eats too much banana, the problem is more likely to be digestive discomfort from the sugar or a physical issue from the peel. The sources do not set out a banana-specific toxic pattern such as organ damage or delayed collapse. That is important: this food is not in the same category as grapes, xylitol, onion, or macadamia nuts, where the concern is a recognised poisoning syndrome rather than simple stomach upset or blockage risk.",
+  "puppy": "For a puppy, banana flesh can be a soft, easy-to-chew treat if the peel is removed and the piece is kept very small. The sugar content is still the main reason not to make it a habit. A puppy’s curiosity also makes peel access more likely, so bins and dropped skins matter more than the fruit itself.",
+  "dog": "For dogs, banana flesh is one of the safer human foods, but it is still better used sparingly. It is different from fruit such as grapes or raisins, which have established serious risk in dogs. With bananas, the main concerns are sweetness, too much at once, and the peel. Plain flesh is the only part worth sharing.",
+  "cat": "For cats, banana flesh is not a needed food and should not be treated like a cat snack. Unlike some safe dog treats, it does not offer a feline advantage. If you do offer a taste, keep it tiny, plain, and fully peeled. The peel itself is more likely to be a nuisance than the flesh, because cats are poor candidates for fibrous scraps.",
+  "alternatives": "If you want a fruit treat that is easier to portion, blueberries, apple flesh without seeds or core, cucumber, or watermelon flesh are all more practical than banana for many homes. These options still need basic preparation, but they avoid the sticky sweetness and peel issue that make banana feel less tidy.",
+  "faqs": [
+    {
+      "question": "Can dogs eat the banana peel too?",
+      "answer": "No, the peel is the part to skip. It is not presented as a toxin here, but it is difficult to digest and can create a physical stomach or bowel problem. Plain peeled flesh is the safer, simpler choice."
+    },
+    {
+      "question": "Is banana better as frozen pieces or fresh?",
+      "answer": "The sources do not say frozen banana is safer, only that the flesh itself is generally non-toxic. Fresh plain pieces are easiest to judge. Whatever the texture, the peel should be removed and the portion kept small."
+    },
+    {
+      "question": "Can I give banana every day?",
+      "answer": "Banana is not meant to be a daily food. The AKC describes it as a moderate treat for dogs because of its sugar content. For cats, it is even less useful, since they do not need fruit in the first place."
+    },
+    {
+      "question": "What banana products are more risky than plain flesh?",
+      "answer": "Banana bread, banana desserts, and flavoured snacks can bring in sugar, toppings, or other ingredients that change the picture completely. Plain banana flesh is the relevant food here. Once it is baked, sweetened, or mixed, it is no longer the same simple treat."
+    },
+    {
+      "question": "How is banana different from grapes or raisins?",
+      "answer": "Very different. Grapes and raisins are established as dangerous for dogs and can cause serious kidney injury. Banana flesh does not share that recognised poisoning pattern. The practical issue with banana is mostly peel handling and sugar, not a proven toxic syndrome."
+    }
+  ],
+  "related": [
+    "apples",
+    "blueberries",
+    "watermelon",
+    "cucumber"
+  ]
+}

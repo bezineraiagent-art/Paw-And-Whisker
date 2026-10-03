@@ -1,0 +1,642 @@
+[
+  {
+    "path": "/",
+    "title": "Free Puppy Care & AI Pet Help | Paw & Whisker",
+    "heading": "A calmer start to life with your pet",
+    "description": "Free puppy guides, daily AI pet chat, a symptom check and a toxic-food checker. Practical help for puppy, dog and cat families. Not veterinary advice.",
+    "kind": "home",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/about",
+    "title": "About Paul, Lucky, Sugar & Paw & Whisker",
+    "heading": "Made by a pet parent, for pet parents",
+    "description": "Meet Paul and his cats Lucky and Sugar, who inspired Paw & Whisker. Read his story, learn how this pet companion helps and why your vet still matters.",
+    "kind": "about",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides",
+    "title": "Free Puppy Care Guides & Checklists | Paw & Whisker",
+    "heading": "Free guides for your puppy's first days",
+    "description": "Read our new puppy checklist, first 30 days plan and toxic foods guide. Practical, free information to help you prepare for life with your puppy.",
+    "kind": "guides",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides/new-puppy-checklist",
+    "title": "New Puppy Checklist: Before Day One | Paw & Whisker",
+    "heading": "New Puppy Checklist: Everything You Need Before Day One",
+    "description": "Prepare for your puppy with a practical shopping checklist, useful supplies, home setup and things to skip. Read the free guide before bringing them home.",
+    "kind": "guide",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides/puppy-first-30-days",
+    "title": "Your Puppy's First 30 Days | Paw & Whisker",
+    "heading": "Your Puppy's First 30 Days: A Day-by-Day Survival Plan",
+    "description": "Plan your puppy's first month at home with week-by-week expectations, sleep, crying, biting and manageable routines. Read the original first-30-days guide.",
+    "kind": "guide",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides/toxic-foods-for-puppies",
+    "title": "Toxic Foods for Puppies: A Fridge List | Paw & Whisker",
+    "heading": "Toxic Foods for Puppies: The Fridge List That Saves Lives",
+    "description": "Know which household foods can harm puppies and dogs, what information to collect after an exposure and when to call a vet. Read our free food-safety guide.",
+    "kind": "guide",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides/puppy-first-year-cost",
+    "kind": "guide",
+    "title": "Puppy First-Year Costs: A Realistic Budget | Paw & Whisker",
+    "heading": "What does a puppy cost in the first year?",
+    "description": "Build a realistic puppy budget for supplies, food, vet visits, insurance and care. Separate one-off costs from monthly spending and emergency reserves.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides/puppy-crate-sleep",
+    "kind": "guide",
+    "title": "Puppy Crate Training & Better Sleep | Paw & Whisker",
+    "heading": "A gentle plan for puppy crate training and sleep",
+    "description": "Help your puppy settle at night with gradual crate introductions, toilet breaks and a calm routine. Learn when crying or restlessness needs veterinary advice.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/guides/puppy-vaccination-schedule",
+    "kind": "guide",
+    "title": "Puppy Vaccination Schedule Explained | Paw & Whisker",
+    "heading": "Understanding your puppy's vaccination schedule",
+    "description": "Understand puppy vaccine visits, core protection, boosters and safe socialization. Use AAHA guidance to prepare questions for your veterinarian.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/compare",
+    "kind": "compare",
+    "title": "Compare AI Pet-Care Apps | Paw & Whisker",
+    "heading": "Find the right kind of pet-care help",
+    "description": "Compare Paw & Whisker with ChatGPT, Petio and PerkyPet. Examine free tools, record-keeping, current limits and planned features before choosing an AI pet app.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/compare/paw-and-whisker-vs-chatgpt",
+    "kind": "comparison",
+    "title": "Paw & Whisker vs ChatGPT for Pet Care",
+    "heading": "Paw & Whisker vs ChatGPT: focused tools or a general assistant?",
+    "description": "Compare Paw & Whisker's free pet tools with ChatGPT's general-purpose chat. See use cases, limits, privacy questions and the $4.99 Plus plan.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/compare/paw-and-whisker-vs-petio",
+    "kind": "comparison",
+    "title": "Paw & Whisker vs Petio: Pet-Care Tools Compared",
+    "heading": "Paw & Whisker vs Petio: quick web help or connected pet records?",
+    "description": "Compare Paw & Whisker's puppy guides and free tools with Petio's advertised profiles, documents and food scans. Verify current app access before choosing.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/compare/paw-and-whisker-vs-perkypet",
+    "kind": "comparison",
+    "title": "Paw & Whisker vs PerkyPet: A Practical Comparison",
+    "heading": "Paw & Whisker vs PerkyPet: simple resources or ongoing wellness tracking?",
+    "description": "Compare Paw & Whisker's free puppy tools with PerkyPet's advertised wellness tracking. Separate current features from marketing and planned additions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/compare/best-ai-pet-apps",
+    "kind": "comparison",
+    "title": "Best AI Pet Apps? Choose by Your Needs | Paw & Whisker",
+    "heading": "Choosing an AI pet app: a shortlist by task, not a winner",
+    "description": "Choose an AI pet app for your actual needs: puppy guides, general chat, pet records or wellness logs. Compare limits without unsupported medical rankings.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools",
+    "title": "Free Puppy, Dog & Cat Care Tools | Paw & Whisker",
+    "heading": "A useful place to start — always free",
+    "description": "Check food hazards for puppies, dogs and cats, organize a symptom call and ask daily-capped AI questions. Free tools, with clear limits and no diagnosis.",
+    "kind": "tools",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker",
+    "kind": "food-checker",
+    "title": "Toxic-Food Checker for Dogs & Cats | Paw & Whisker",
+    "heading": "Can my pet eat this?",
+    "description": "Search common food hazards for puppies, dogs and cats. Read source-linked warnings, preparation cautions and next steps after a possible exposure.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/symptom-check",
+    "kind": "symptom-check",
+    "title": "Free Five-Question Pet Symptom Check | Paw & Whisker",
+    "heading": "What should you check when your pet acts differently?",
+    "description": "Answer five questions about your pet's symptoms and organize your next steps. Free educational guidance, not diagnosis. Emergency signs mean a vet now.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/symptom-check/results",
+    "kind": "symptom-results",
+    "title": "Pet Symptom-Check Results & Next Steps | Paw & Whisker",
+    "heading": "Understanding your symptom-check results",
+    "description": "Understand symptom-check guidance, what to tell your vet and when to seek immediate help. Results do not diagnose your pet or confirm that waiting is safe.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/chocolate",
+    "kind": "food",
+    "heading": "Chocolate: puppy, dog and cat safety",
+    "title": "Chocolate Safety for Pets | Paw & Whisker",
+    "description": "Chocolate: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/dark-chocolate",
+    "kind": "food",
+    "heading": "Dark chocolate: puppy, dog and cat safety",
+    "title": "Dark chocolate Safety for Pets | Paw & Whisker",
+    "description": "Dark chocolate: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/baking-chocolate",
+    "kind": "food",
+    "heading": "Baking chocolate: puppy, dog and cat safety",
+    "title": "Baking chocolate Safety for Pets | Paw & Whisker",
+    "description": "Baking chocolate: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/cocoa-powder",
+    "kind": "food",
+    "heading": "Cocoa powder: puppy, dog and cat safety",
+    "title": "Cocoa powder Safety for Pets | Paw & Whisker",
+    "description": "Cocoa powder: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/white-chocolate",
+    "kind": "food",
+    "heading": "White chocolate: puppy, dog and cat safety",
+    "title": "White chocolate Safety for Pets | Paw & Whisker",
+    "description": "White chocolate: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/coffee",
+    "kind": "food",
+    "heading": "Coffee: puppy, dog and cat safety",
+    "title": "Coffee Safety for Pets | Paw & Whisker",
+    "description": "Coffee: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/tea",
+    "kind": "food",
+    "heading": "Caffeinated tea: puppy, dog and cat safety",
+    "title": "Caffeinated tea Safety for Pets | Paw & Whisker",
+    "description": "Caffeinated tea: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/energy-drinks",
+    "kind": "food",
+    "heading": "Energy drinks: puppy, dog and cat safety",
+    "title": "Energy drinks Safety for Pets | Paw & Whisker",
+    "description": "Energy drinks: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/grapes",
+    "kind": "food",
+    "heading": "Grapes: puppy, dog and cat safety",
+    "title": "Grapes Safety for Pets | Paw & Whisker",
+    "description": "Grapes: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/raisins",
+    "kind": "food",
+    "heading": "Raisins: puppy, dog and cat safety",
+    "title": "Raisins Safety for Pets | Paw & Whisker",
+    "description": "Raisins: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/currants",
+    "kind": "food",
+    "heading": "Dried Zante currants: puppy, dog and cat safety",
+    "title": "Dried Zante currants Safety for Pets | Paw & Whisker",
+    "description": "Dried Zante currants: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/xylitol",
+    "kind": "food",
+    "heading": "Xylitol: puppy, dog and cat safety",
+    "title": "Xylitol Safety for Pets | Paw & Whisker",
+    "description": "Xylitol: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/sugar-free-gum",
+    "kind": "food",
+    "heading": "Sugar-free gum: puppy, dog and cat safety",
+    "title": "Sugar-free gum Safety for Pets | Paw & Whisker",
+    "description": "Sugar-free gum: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/onions",
+    "kind": "food",
+    "heading": "Onions: puppy, dog and cat safety",
+    "title": "Onions Safety for Pets | Paw & Whisker",
+    "description": "Onions: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/garlic",
+    "kind": "food",
+    "heading": "Garlic: puppy, dog and cat safety",
+    "title": "Garlic Safety for Pets | Paw & Whisker",
+    "description": "Garlic: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/chives",
+    "kind": "food",
+    "heading": "Chives: puppy, dog and cat safety",
+    "title": "Chives Safety for Pets | Paw & Whisker",
+    "description": "Chives: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/leeks",
+    "kind": "food",
+    "heading": "Leeks: puppy, dog and cat safety",
+    "title": "Leeks Safety for Pets | Paw & Whisker",
+    "description": "Leeks: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/shallots",
+    "kind": "food",
+    "heading": "Shallots: puppy, dog and cat safety",
+    "title": "Shallots Safety for Pets | Paw & Whisker",
+    "description": "Shallots: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/alcohol",
+    "kind": "food",
+    "heading": "Alcohol: puppy, dog and cat safety",
+    "title": "Alcohol Safety for Pets | Paw & Whisker",
+    "description": "Alcohol: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/raw-yeast-dough",
+    "kind": "food",
+    "heading": "Raw yeast dough: puppy, dog and cat safety",
+    "title": "Raw yeast dough Safety for Pets | Paw & Whisker",
+    "description": "Raw yeast dough: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/macadamia-nuts",
+    "kind": "food",
+    "heading": "Macadamia nuts: puppy, dog and cat safety",
+    "title": "Macadamia nuts Safety for Pets | Paw & Whisker",
+    "description": "Macadamia nuts: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/moldy-food",
+    "kind": "food",
+    "heading": "Moldy food: puppy, dog and cat safety",
+    "title": "Moldy food Safety for Pets | Paw & Whisker",
+    "description": "Moldy food: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/hops",
+    "kind": "food",
+    "heading": "Hops: puppy, dog and cat safety",
+    "title": "Hops Safety for Pets | Paw & Whisker",
+    "description": "Hops: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/wild-mushrooms",
+    "kind": "food",
+    "heading": "Wild mushrooms: puppy, dog and cat safety",
+    "title": "Wild mushrooms Safety for Pets | Paw & Whisker",
+    "description": "Wild mushrooms: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/salt",
+    "kind": "food",
+    "heading": "Salt and salty snacks: puppy, dog and cat safety",
+    "title": "Salt and salty snacks Safety for Pets | Paw & Whisker",
+    "description": "Salt and salty snacks: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/cooked-bones",
+    "kind": "food",
+    "heading": "Cooked bones: puppy, dog and cat safety",
+    "title": "Cooked bones Safety for Pets | Paw & Whisker",
+    "description": "Cooked bones: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/raw-meat",
+    "kind": "food",
+    "heading": "Raw meat: puppy, dog and cat safety",
+    "title": "Raw meat Safety for Pets | Paw & Whisker",
+    "description": "Raw meat: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/raw-eggs",
+    "kind": "food",
+    "heading": "Raw eggs: puppy, dog and cat safety",
+    "title": "Raw eggs Safety for Pets | Paw & Whisker",
+    "description": "Raw eggs: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/avocado",
+    "kind": "food",
+    "heading": "Avocado: puppy, dog and cat safety",
+    "title": "Avocado Safety for Pets | Paw & Whisker",
+    "description": "Avocado: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/citrus",
+    "kind": "food",
+    "heading": "Citrus peel and plants: puppy, dog and cat safety",
+    "title": "Citrus peel and plants Safety for Pets | Paw & Whisker",
+    "description": "Citrus peel and plants: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and food-specific FAQs.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/milk",
+    "kind": "food",
+    "heading": "Milk: puppy, dog and cat safety",
+    "title": "Milk Safety for Pets | Paw & Whisker",
+    "description": "Milk: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/cheese",
+    "kind": "food",
+    "heading": "Cheese: puppy, dog and cat safety",
+    "title": "Cheese Safety for Pets | Paw & Whisker",
+    "description": "Cheese: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/ice-cream",
+    "kind": "food",
+    "heading": "Ice cream: puppy, dog and cat safety",
+    "title": "Ice cream Safety for Pets | Paw & Whisker",
+    "description": "Ice cream: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/fatty-scraps",
+    "kind": "food",
+    "heading": "Fatty table scraps: puppy, dog and cat safety",
+    "title": "Fatty table scraps Safety for Pets | Paw & Whisker",
+    "description": "Fatty table scraps: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/walnuts",
+    "kind": "food",
+    "heading": "Walnuts: puppy, dog and cat safety",
+    "title": "Walnuts Safety for Pets | Paw & Whisker",
+    "description": "Walnuts: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/almonds",
+    "kind": "food",
+    "heading": "Almonds: puppy, dog and cat safety",
+    "title": "Almonds Safety for Pets | Paw & Whisker",
+    "description": "Almonds: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/peach-pits",
+    "kind": "food",
+    "heading": "Peach and apricot pits: puppy, dog and cat safety",
+    "title": "Peach and apricot pits Safety for Pets | Paw & Whisker",
+    "description": "Peach and apricot pits: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and food-specific FAQs.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/cherries",
+    "kind": "food",
+    "heading": "Cherries with pits: puppy, dog and cat safety",
+    "title": "Cherries with pits Safety for Pets | Paw & Whisker",
+    "description": "Cherries with pits: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/peanut-butter",
+    "kind": "food",
+    "heading": "Peanut butter: puppy, dog and cat safety",
+    "title": "Peanut butter Safety for Pets | Paw & Whisker",
+    "description": "Peanut butter: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/apples",
+    "kind": "food",
+    "heading": "Apple flesh: puppy, dog and cat safety",
+    "title": "Apple flesh Safety for Pets | Paw & Whisker",
+    "description": "Apple flesh: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/carrots",
+    "kind": "food",
+    "heading": "Carrots: puppy, dog and cat safety",
+    "title": "Carrots Safety for Pets | Paw & Whisker",
+    "description": "Carrots: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/bananas",
+    "kind": "food",
+    "heading": "Banana flesh: puppy, dog and cat safety",
+    "title": "Banana flesh Safety for Pets | Paw & Whisker",
+    "description": "Banana flesh: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/blueberries",
+    "kind": "food",
+    "heading": "Blueberries: puppy, dog and cat safety",
+    "title": "Blueberries Safety for Pets | Paw & Whisker",
+    "description": "Blueberries: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/cucumber",
+    "kind": "food",
+    "heading": "Cucumber: puppy, dog and cat safety",
+    "title": "Cucumber Safety for Pets | Paw & Whisker",
+    "description": "Cucumber: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/pumpkin",
+    "kind": "food",
+    "heading": "Plain pumpkin: puppy, dog and cat safety",
+    "title": "Plain pumpkin Safety for Pets | Paw & Whisker",
+    "description": "Plain pumpkin: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/green-beans",
+    "kind": "food",
+    "heading": "Green beans: puppy, dog and cat safety",
+    "title": "Green beans Safety for Pets | Paw & Whisker",
+    "description": "Green beans: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/watermelon",
+    "kind": "food",
+    "heading": "Watermelon flesh: puppy, dog and cat safety",
+    "title": "Watermelon flesh Safety for Pets | Paw & Whisker",
+    "description": "Watermelon flesh: puppy, dog and cat safety, ingredient warnings, preparation, signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/tools/toxic-food-checker/strawberries",
+    "kind": "food",
+    "heading": "Strawberries: puppy, dog and cat safety",
+    "title": "Strawberries Safety for Pets | Paw & Whisker",
+    "description": "Strawberries: puppy, dog and cat safety, ingredient warnings, preparation, possible signs and timing, safer alternatives and answers to common food questions.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/pricing",
+    "title": "Free Pet Chat & Subscription Pricing | Paw & Whisker",
+    "heading": "Start free. Upgrade only if you want to.",
+    "description": "Try your first two AI pet questions free, browse free puppy guides or take the free symptom check. The optional paid plan is $4.99 per month.",
+    "kind": "pricing",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/puppy-kit/",
+    "title": "New Puppy Survival Kit: 7 Printable Guides | Paw & Whisker",
+    "heading": "The New Puppy Survival Kit",
+    "description": "A printable plan for your puppy's first 30 days: schedule, shopping checklist, housetraining tracker, health record and emergency sheet. One-time $12.",
+    "kind": "kit",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/privacy",
+    "title": "Privacy Policy Draft | Paw & Whisker",
+    "heading": "Privacy policy",
+    "description": "Learn what Paw & Whisker collects, how chat and pet information is used, and how to request a data export or deletion. Plain-English privacy draft.",
+    "kind": "legal",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/terms",
+    "title": "Terms of Service Draft | Paw & Whisker",
+    "heading": "Terms of service",
+    "description": "Plain-English terms for Paw & Whisker: educational pet information, responsible use, Stripe billing, cancellation and refunds within seven days.",
+    "kind": "legal",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/refund",
+    "title": "7-Day Refund Policy Draft | Paw & Whisker",
+    "heading": "Refund and cancellation policy",
+    "description": "Request a Paw & Whisker refund within 7 days of a charge. Learn how to cancel a Stripe-billed subscription and contact us for practical billing help.",
+    "kind": "legal",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/medical-disclaimer",
+    "title": "Medical Disclaimer: Not Veterinary Advice | Paw & Whisker",
+    "heading": "Medical disclaimer",
+    "description": "Paw & Whisker offers general pet information, not veterinary advice. AI never replaces a vet. Seek an emergency veterinarian for urgent signs.",
+    "kind": "legal",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/find-a-vet",
+    "kind": "find-vet",
+    "title": "Find a Vet Near You, Open Now & Emergency | Paw & Whisker",
+    "heading": "Find a vet near you",
+    "description": "Search nearby vets and emergency clinics by city, postcode or your location. Straight-line distances, listed hours and tap-to-call. Always call ahead.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/for-vets",
+    "kind": "for-vets",
+    "title": "Free Clinic Listing for Vets | Paw & Whisker",
+    "heading": "Claim your clinic listing, free",
+    "description": "Vet clinics can claim a free listing in our vet finder or apply for a labelled Featured placement. Requests are reviewed by hand and nothing auto-publishes.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/advertise",
+    "kind": "advertise",
+    "title": "Advertise With Us: Request the Media Kit | Paw & Whisker",
+    "heading": "Request the media kit",
+    "description": "Request the Paw & Whisker media kit. Rates are shared on request, every paid placement is labelled and sponsors never affect health or emergency advice.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/sponsorship-policy",
+    "kind": "policy",
+    "title": "Sponsorship & Advertising Policy | Paw & Whisker",
+    "heading": "Sponsorship and advertising policy",
+    "description": "How paid placements work here: always labelled, kept apart from health advice, never in urgent vet search and never able to change AI or emergency guidance.",
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/admin/promotions",
+    "title": "Promotion Leads | Paw & Whisker",
+    "heading": "Promotion leads",
+    "description": "Private Paw & Whisker promotion leads list for authorized administrators to review clinic and advertiser requests. Not intended for public search results.",
+    "noindex": true,
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/chat",
+    "title": "Your Private AI Pet Chat | Paw & Whisker",
+    "heading": "Pet chat",
+    "description": "Ask general pet-care questions in your Paw & Whisker chat. AI information is not veterinary advice. Contact an emergency vet for urgent signs.",
+    "noindex": true,
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/success",
+    "title": "Subscription Next Steps | Paw & Whisker",
+    "heading": "Subscription next steps",
+    "description": "Continue to your Paw & Whisker pet chat and find support after checkout. For billing or cancellation questions, contact Paw & Whisker support.",
+    "noindex": true,
+    "updated": "2026-10-03"
+  },
+  {
+    "path": "/admin/analytics",
+    "title": "Private Analytics Dashboard | Paw & Whisker",
+    "heading": "Analytics",
+    "description": "Private Paw & Whisker analytics dashboard for authorized administrators to inspect site activity. This page is not intended for public search results.",
+    "noindex": true,
+    "updated": "2026-10-03"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "slug": "shallots",
+  "verdict": "Shallots are an Allium food to keep away from pets. The issue is not the size of the piece or whether it is cooked, powdered, or tucked into a sauce: the plant group can damage red blood cells. Dogs are at risk, though cats are especially vulnerable to Allium foods. Because shallots appear in so many prepared dishes and seasoning blends, the practical rule is to treat every form as unsafe for pets and to prevent access to leftovers, trimmings, and compost.",
+  "mechanism": "Shallots belong to the same Allium family as onions, garlic, chives, and leeks. The concern is red blood cell damage, which can lead to anaemia. ASPCA notes that Allium species can also cause gastrointestinal irritation. For dogs, the risk depends on how much is eaten, but there is no safe ‘small amount’ to aim for. Cats are especially susceptible, so even casual exposure matters. The source material does not identify a special mechanism for raw versus cooked shallots; the practical point is that preparation does not make them pet-safe.",
+  "preparation": "Shallots become a hidden risk when they are minced into sauces, roasted with meat, fried into casseroles, or dried into flakes and powders. They also show up in stock cubes, seasoning mixes, salad dressings, gravy, takeaways, and leftovers scraped from plates. Because the flavour is mild, people often miss them in food that looks harmless. The safest approach is to read ingredient lists rather than judge by smell or by whether the dish tastes strongly of onion. If the label includes shallot, allium, onion, or garlic, do not share it with pets.",
+  "signsAndTiming": "The source extracts say Allium poisoning can cause gastrointestinal irritation and red blood cell damage, but they do not give a precise timeline for shallots in particular. In cats, signs may be delayed for days. For dogs, the exact onset is not established in the provided material. That means a pet can seem ordinary after eating a shallot-containing food and still be at risk later. The more important practical fact is that cooked or mixed-in shallots are still exposure, not a safer form of the same ingredient.",
+  "puppy": "Puppies should not be given shallots, even in tiny tastes from the pan or plate. Their food is often prepared in human-style portions that hide shallots in gravy, stuffing, roast vegetables, and sauces. For a young dog, the issue is accidental snacking on leftovers and dropped scraps, not deliberate feeding.",
+  "dog": "For dogs, shallots are unsafe whether raw, cooked, chopped, sautéed, or dried. A roast dinner, a curry base, or a savoury biscuit may contain shallot even when it is not obvious. Dogs are at risk of red blood cell damage and stomach upset from Allium foods, so the best choice is to keep the dish out of reach entirely.",
+  "cat": "Cats are especially vulnerable to Allium foods, including shallots. That matters because cats may lick gravy, nibble a cooked slice, or investigate a bin liner with leftover oniony food. The source material says signs in cats can be delayed for days, so a quiet cat after exposure does not mean the meal was harmless.",
+  "alternatives": "If you want a pet-safe flavour boost for your own meal, keep the pet portion plain before adding shallot to yours. For the animal, choose the usual complete pet food or an approved treat rather than human leftovers. The practical difference here is not about ‘safe vegetables’; it is about avoiding Allium ingredients altogether.",
+  "faqs": [
+    {
+      "question": "Are cooked shallots safer for pets than raw ones?",
+      "answer": "No. The supplied sources do not support a safer cooked version. Shallots are still an Allium food, and Allium species can damage red blood cells. Cooking may change the texture and smell, but it does not turn shallots into a pet-safe ingredient."
+    },
+    {
+      "question": "Does a tiny bit of shallot in gravy matter?",
+      "answer": "It can. The issue with shallots is that they are often hidden in mixed foods, not just served as a visible slice. Because there is no established safe amount in the provided sources, gravy, sauce, and pan juices containing shallot should be treated as unsafe."
+    },
+    {
+      "question": "How can I spot shallots on a label?",
+      "answer": "Look for the word shallot first, but also check for allium-based ingredient lists and savoury blends where it may be buried. It can appear in stocks, seasoning, dressings, and ready meals. If the packet lists it, assume the food is not suitable for pets."
+    },
+    {
+      "question": "Are cats really more at risk than dogs?",
+      "answer": "Yes. The source material explicitly says cats are especially susceptible to Allium foods. Dogs are also at risk, but the cat warning is stronger. That is why even a small lick of a shallot-containing sauce deserves attention, not a shrug."
+    },
+    {
+      "question": "What about a pet that only ate food cooked with shallots, not the shallot itself?",
+      "answer": "That still counts as exposure if the ingredient was part of the dish. Shallots are commonly cooked into sauces, stocks, and pan juices, so the flavouring may be spread through the whole portion. The practical decision is to treat the entire dish as unsafe for pets."
+    }
+  ],
+  "related": [
+    "onions",
+    "garlic",
+    "chives",
+    "leeks"
+  ]
+}

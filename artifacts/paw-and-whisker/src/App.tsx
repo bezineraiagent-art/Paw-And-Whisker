@@ -1,20 +1,27 @@
+import { lazy, Suspense } from "react";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
 import PublicHome from "@/pages/PublicHome";
-import PublicPricing from "@/pages/PublicPricing";
-import PublicAbout from "@/pages/PublicAbout";
-import FoodChecker from "@/pages/FoodChecker";
-import SymptomCheck from "@/pages/SymptomCheck";
-import Success from "@/pages/Success";
-import Chat from "@/pages/Chat";
-import AdminAnalytics from "@/pages/AdminAnalytics";
-import ContentPage from "@/pages/ContentPage";
 import SiteFooter from "@/components/SiteFooter";
 import PageSeo from "@/components/PageSeo";
-import { pages } from "@/content/site";
+import { pageMetadata as pages } from "@/content/metadata";
+
+const PublicPricing = lazy(() => import("@/pages/PublicPricing"));
+const PublicAbout = lazy(() => import("@/pages/PublicAbout"));
+const FoodChecker = lazy(() => import("@/pages/FoodChecker"));
+const SymptomCheck = lazy(() => import("@/pages/SymptomCheck"));
+const FindVet = lazy(() => import("@/pages/FindVet"));
+const ForVets = lazy(() => import("@/pages/ForVets"));
+const Advertise = lazy(() => import("@/pages/Advertise"));
+const SponsorshipPolicy = lazy(() => import("@/pages/SponsorshipPolicy"));
+const AdminPromotions = lazy(() => import("@/pages/AdminPromotions"));
+const Success = lazy(() => import("@/pages/Success"));
+const Chat = lazy(() => import("@/pages/Chat"));
+const AdminAnalytics = lazy(() => import("@/pages/AdminAnalytics"));
+const ContentPage = lazy(() => import("@/pages/ContentPage"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient();
 
@@ -27,6 +34,11 @@ function Router() {
       <Route path="/tools/toxic-food-checker" component={FoodChecker} />
       <Route path="/tools/symptom-check"><SymptomCheck /></Route>
       <Route path="/tools/symptom-check/results"><SymptomCheck results /></Route>
+      <Route path="/find-a-vet" component={FindVet} />
+      <Route path="/for-vets" component={ForVets} />
+      <Route path="/advertise" component={Advertise} />
+      <Route path="/sponsorship-policy" component={SponsorshipPolicy} />
+      <Route path="/admin/promotions" component={AdminPromotions} />
       <Route path="/success" component={Success} />
       <Route path="/chat" component={Chat} />
       <Route path="/admin/analytics" component={AdminAnalytics} />
@@ -44,7 +56,7 @@ function App() {
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <PageSeo />
-          <Router />
+          <Suspense fallback={<main className="pw pw-section" aria-busy="true"><div className="pw-wrap"><p role="status">Loading your page…</p></div></main>}><Router /></Suspense>
           <SiteFooter />
         </WouterRouter>
         <Toaster />

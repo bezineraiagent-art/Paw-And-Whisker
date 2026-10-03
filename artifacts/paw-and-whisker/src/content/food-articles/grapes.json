@@ -1,0 +1,39 @@
+{
+  "slug": "grapes",
+  "verdict": "Grapes are a clear no for dogs. The problem is not just the fresh fruit on a plate: raisins, currants, sultanas and Corinthian currants all sit in the same risk group, and the amount needed to cause trouble is not predictable. For cats, the established kidney-injury pattern is not proven in the same way, but grapes still should not be treated as a safe snack. In a home with pets, the practical choice is to keep all grape products out of reach and not use them as training treats.",
+  "mechanism": "For dogs, the established concern is kidney injury after eating fruit from Vitis species. Pet Poison Helpline notes that the relationship between how much is eaten and how badly a dog is affected is unpredictable, which is why there is no dependable household safe amount. The source material also points to tartaric acid as the suspected toxic component in grapes and raisins, with dogs apparently unable to process it properly. The exact reason some dogs are affected and others are not has not been pinned down in the supplied sources. For cats, the same kidney syndrome is not proven, so the evidence should not be overstated; nevertheless, grapes are still an avoid item rather than a casual treat.",
+  "preparation": "With grapes, preparation matters because the risk is tied to the fruit itself, not only to a neatly cut serving. Fresh grapes, dried raisins, sultanas, Zante currants and Corinthian currants all belong in the same caution zone for dogs. That means trail mix, mince pies, hot cross bun fillings, fruit loaves, breakfast cereals, snack bars and baked goods can matter as much as a bowl of fruit on the counter. Pips, skins and ‘natural’ or ‘unsweetened’ labels do not make them pet-friendly. Compost bins, lunchboxes, dropped grapes under a high chair and a child’s forgotten snack are all practical exposure points in a busy home.",
+  "signsAndTiming": "In dogs, the source describes gastrointestinal upset first, followed closely by kidney injury. That ordering is useful, but it is not a reliable safety window and should not be treated as one. The sources provided do not establish a precise latency for grape poisoning, so it is better to say the change can develop without a predictable household timeline. Signs of kidney injury are not listed in the source extract, so they should not be invented here. For cats, no same-syndrome pattern is established in the supplied material, which is exactly why grape exposures should be taken seriously rather than casually judged by the absence of immediate change.",
+  "puppy": "Puppies should not be offered grapes at all. Their size makes a small piece feel like a tiny mistake, but the dog evidence does not support any safe-count rule. For a puppy, the bigger issue is also access: dropped grapes, dried fruit in snack mixes and sticky baked fillings are easy to miss.",
+  "dog": "For dogs, grapes are one of those foods where the packaging can be misleading. Fresh fruit, dried raisins and currants all matter, so a “healthy” snack for people can become a problem in a dog’s reach. Keep them out of treat jars, lunchboxes and countertop fruit bowls.",
+  "cat": "Cats do not have the same established grape-to-kidney syndrome proven in the supplied sources, but that is not the same as being a good idea. Cats should not be fed grapes or grape-containing foods. A cat who steals fruit salad, bakery fillings or trail mix should be treated as having an unsafe exposure, not a harmless nibble.",
+  "alternatives": "If you want a fruit snack that is easier to manage around dogs, choose foods with known pet-safe preparation, such as plain apple slices with seeds and core removed, blueberries or seedless watermelon flesh. These are very different from grapes because the concern is mostly about choking pieces, seeds or rind rather than a specific grape toxin. For cats, fruit is usually unnecessary as food, so the safer practical choice is to avoid sharing sweet snacks altogether.",
+  "faqs": [
+    {
+      "question": "Are raisins, sultanas and currants different from grapes for dogs?",
+      "answer": "No. The supplied sources place grapes, raisins, sultanas and Corinthian or Zante currants in the same toxic group for dogs. Drying does not make them a safer pet food. They should all be kept away from dogs, including in baked goods and trail mixes."
+    },
+    {
+      "question": "Does the size of the grape matter?",
+      "answer": "The problem is not a simple size rule. The source material says the relationship between amount eaten and risk is unpredictable in dogs. That means a small grape can still be an unsafe exposure, and there is no reliable household number that makes it okay."
+    },
+    {
+      "question": "Are grape-flavoured foods a concern too?",
+      "answer": "Food labels need checking carefully. The main risk is the fruit itself, but grape pieces can turn up in fruit salads, cereals, snack bars, muffins and festive baking. If a product lists grapes, raisins, sultanas or currants, it belongs in the no category for dogs."
+    },
+    {
+      "question": "What about grape juice or a few soft pieces from dessert?",
+      "answer": "The sources provided do not establish a safe processed form for dogs. If the food still contains grape ingredients, it should not be treated as harmless. Juice, fillings, sauces and dessert scraps can all be part of the same exposure problem because they still come from the grape family."
+    },
+    {
+      "question": "Should I feed grapes to my cat if cats are not proven to get the same kidney syndrome?",
+      "answer": "No. The lack of a proven same-syndrome pattern in cats does not make grapes a good cat snack. The practical decision is still to avoid them, because the food has a clear toxicity concern in dogs and no benefit for cats."
+    }
+  ],
+  "related": [
+    "raisins",
+    "currants",
+    "apples",
+    "blueberries"
+  ]
+}

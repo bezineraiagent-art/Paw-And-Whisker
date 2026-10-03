@@ -1,0 +1,39 @@
+{
+  "slug": "garlic",
+  "verdict": "Garlic is not a safe shared food for pets. It belongs to the Allium family, which can harm dogs and cats by damaging red blood cells and causing stomach upset. Cooking does not change that, and garlic powder can be just as relevant as fresh cloves because it is still garlic. Be careful with seasoning mixes, savoury leftovers, breads, sauces and “natural” flea products that use garlic as a selling point.",
+  "mechanism": "The concern with garlic is not a simple “too spicy” problem. Garlic is an Allium, the same family as onions, chives, leeks and shallots, and that family is poisonous to dogs, cats and livestock. Pet Poison Helpline states that poisonous amounts can damage red blood cells and lead to anaemia, while also causing gastrointestinal distress. Cats are especially susceptible, and some dog breeds, including Japanese breeds such as Akitas and Shiba Inus, are noted as more sensitive to Alliums. The exact reason for this blood-cell damage is not established in the supplied sources.",
+  "preparation": "With garlic, preparation matters because many everyday forms are easy to overlook. Fresh cloves are obvious, but garlic powder, garlic salt, seasoning blends, jarred sauces, stuffed roast fillings, pizza crusts and leftover meats can all contain it. Cooking does not make garlic pet-safe, and a “small amount” in a family recipe may still be enough to matter when a pet gets the scraps. Garlic supplements marketed as natural flea prevention are also a problem, because they are still garlic in another form. Label-reading has to be broad: if garlic is listed, it should be treated as an exposure, not a garnish.",
+  "signsAndTiming": "The source material links garlic exposure to gastrointestinal distress and red blood cell damage that can lead to anaemia. The ASPCA notes that Allium poisoning can cause vomiting, diarrhoea, stomach pain and nausea in dogs, and that cats are more susceptible than dogs. Pet Poison Helpline also says signs may be delayed in Allium exposures, with cats especially vulnerable. That delayed pattern means a pet may not look immediately unwell after eating garlic, so the lack of instant symptoms should not be read as reassurance.",
+  "puppy": "Garlic is not a puppy-safe flavouring. Puppies may get into crumbs, gravy, roast drippings or seasoned training treats, and those “little” tastes can still matter because garlic is toxic rather than merely irritating. Garlic powder in snacks, powders on chips, or seasoning on cooked meat all count if the label includes garlic.",
+  "dog": "For dogs, garlic should stay off the menu whether it is fresh, powdered or baked into food. The risk is not limited to raw cloves. Leftover takeaways, garlic bread, flavoured butter, roast pan juices and “healthy” dog supplements may all hide it. Some dogs, especially Japanese breeds, are more sensitive than others.",
+  "cat": "Cats are especially vulnerable to garlic and other Alliums. A bit of garlic in a shared meal, a lick of sauce, or a supplement mixed into food is not a harmless mistake. Cats can also be exposed through foods meant for humans, where garlic is used for flavour rather than as an obvious ingredient. Allium-related signs in cats can be delayed.",
+  "alternatives": "If you want a savoury aroma without garlic, use pet-safe foods that are not built around strong seasoning. Plain cooked meat, plain vegetables such as carrots or green beans, or an unseasoned spoonful of regular pet food can keep a pet interested without introducing Allium risk. Avoid imitation “garlic-flavoured” treats.",
+  "faqs": [
+    {
+      "question": "Is garlic powder safer than fresh garlic for pets?",
+      "answer": "No. Garlic powder is still garlic, just concentrated and easier to miss on a label. It can turn up in seasoning blends, rubs, breading, snacks and savoury leftovers. For pets, the form matters less than the fact that garlic is present at all."
+    },
+    {
+      "question": "Does cooking garlic make it safe for dogs or cats?",
+      "answer": "No. The supplied source says cooking does not make garlic pet-safe. Cooked cloves, roasted pieces, garlic butter and foods cooked with garlic all still count as garlic exposures. That is why label-reading and ingredient checking matter as much as seeing the food itself."
+    },
+    {
+      "question": "What foods commonly hide garlic in the kitchen?",
+      "answer": "Garlic often hides in sauces, soups, gravy, stuffing, pizza, garlic bread, roast vegetables, deli meats, flavoured butter and seasoning mixes. Pets may also reach leftovers, crumbs or pan drippings. It is worth checking both the recipe and the packet, not just the obvious cloves."
+    },
+    {
+      "question": "Are all pets affected the same way by garlic?",
+      "answer": "No. The sources say cats are especially susceptible, and some dogs are more sensitive too, including Japanese breeds such as Akitas and Shiba Inus. That means garlic is not a “safe in small amounts” ingredient for any pet, even if one animal seems unfazed."
+    },
+    {
+      "question": "Why is garlic sometimes sold in flea products if it is risky?",
+      "answer": "Because marketing can focus on “natural” ingredients rather than pet safety. The source specifically says to avoid supplements promoted as natural flea prevention that contain garlic. A product being sold for pets does not make garlic a safe ingredient, so the label still needs checking."
+    }
+  ],
+  "related": [
+    "onions",
+    "chives",
+    "leeks",
+    "shallots"
+  ]
+}

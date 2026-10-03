@@ -1,0 +1,39 @@
+{
+  "slug": "dark-chocolate",
+  "verdict": "Dark chocolate is one of the more concerning human treats to leave out around pets because it contains more methylxanthines than milk chocolate, and the risk rises as the cacao percentage goes up. For a dog, even a neat square can matter more than a crumbly sweet snack. For cats, the same product is also a problem, but cats are far less likely to choose chocolate on their own. Keep the bar, wrapper and cocoa percentage together, because that label information is genuinely useful if the food has been eaten.",
+  "mechanism": "The concern with dark chocolate is not sugar alone, but methylxanthines, a group of compounds that includes theobromine and caffeine. These are the reason chocolate, coffee and caffeine appear together on poison lists. In pets, they can upset the stomach and affect the nervous system and heart. The ASPCA notes that the darker the chocolate, the higher the cacao percentage and the greater the risk. Baking chocolate and cocoa powder are higher still, which is why the exact product matters so much when a pet gets into a cupboard or baking tin.",
+  "preparation": "Dark chocolate shows up in a few practical forms, and they are not all equal. A plain chocolate bar, baking squares, brownie mix, truffles, dessert shards, icing, and cocoa powder all deserve different attention because the cacao content is not the same. Labels matter more than brand names here. If the wrapper says dark, bittersweet, semisweet or cocoa-rich, treat it as a stronger exposure than milk chocolate. Homemade bakes can be misleading too, because a small piece may contain concentrated chocolate, not just a sweet coating. Cocoa powder is especially easy to spill and lick from the floor or baking counter.",
+  "signsAndTiming": "The ASPCA lists vomiting, diarrhoea, panting, excessive thirst and urination, hyperactivity, abnormal heart rhythm, tremors and seizures among the possible effects of methylxanthines. It also says alcohol-like compounds and other food toxins can act quickly in some cases, but it does not give a precise dark-chocolate timeline. So the safe point is not to guess a wait window. What matters is what kind of chocolate was eaten, how much, and whether the dog or cat also reached wrappers, baking ingredients or coffee-flavoured fillings.",
+  "puppy": "A puppy and dark chocolate are a poor mix because puppies are small, curious and quick to steal from handbags, low tables and dropped baking ingredients. Dark chocolate, cocoa powder and baking chocolate are the versions to watch most closely. A puppy’s exposure may come from a nibble of a bar, not a full dessert, so packaging and cocoa percentage matter.",
+  "dog": "For dogs, dark chocolate is riskier than milk chocolate because it carries more methylxanthines. That means a little dark chocolate is more concerning than a similar-looking sweet snack. Dogs are also the pets most likely to investigate trays, cooled brownies and rubbish bins, so wrappers, cake crumbs and cocoa dust are part of the exposure picture.",
+  "cat": "Cats are not the main audience for chocolate theft, but dark chocolate is still not a cat-safe food. The same methylxanthines are the issue, and cats should be treated separately from dogs rather than assumed to react in exactly the same way. In practice, cats are more likely to brush past chocolate than seek it out, so spilled cocoa, cake icing and dessert remnants are the real household hazards.",
+  "alternatives": "If you want a pet-friendly sharing moment, choose foods that are built for pets rather than trying to make dark chocolate work. For dogs, plain pieces of fruit or vegetables that are already known to be dog-safe are far better than chocolate-flavoured human snacks. For cats, stick to cat-appropriate treats instead of any human dessert. The practical decision with dark chocolate is simple: keep it for people only, and store baking ingredients where pets cannot reach them.",
+  "faqs": [
+    {
+      "question": "Is dark chocolate worse than milk chocolate for pets?",
+      "answer": "Yes. The source states that the darker the chocolate, or the higher the cacao percentage, the greater the risk for toxicity. Dark chocolate therefore carries more concern than milk chocolate because it contains more methylxanthines."
+    },
+    {
+      "question": "Why does the cocoa percentage on the wrapper matter?",
+      "answer": "Because it helps indicate how concentrated the chocolate is. Higher cacao generally means higher methylxanthine content. If a pet has eaten the food, the wrapper can help a vet or poison line understand whether it was a mild sweet or a stronger exposure."
+    },
+    {
+      "question": "Are cocoa powder and baking chocolate treated the same as a dark chocolate bar?",
+      "answer": "No. The ASPCA specifically says baking chocolate and cocoa powder have the highest methylxanthine concentrations. That makes them especially important to separate from a regular dark bar when you are working out what a pet may have eaten."
+    },
+    {
+      "question": "What in dark chocolate makes pets ill?",
+      "answer": "The problem is methylxanthines, a group of compounds found in chocolate, coffee and caffeine. These can affect the stomach, heart and nervous system in pets, which is why chocolate is a bigger concern than many other sweet foods."
+    },
+    {
+      "question": "Do dogs and cats face the same dark chocolate risk?",
+      "answer": "They both should avoid it, but they often reach it differently. Dogs are more likely to gulp down bars, brownies or wrappers. Cats are less likely to eat chocolate intentionally, yet they can still be exposed through spilled cocoa, icing or dropped dessert pieces."
+    }
+  ],
+  "related": [
+    "chocolate",
+    "baking-chocolate",
+    "cocoa-powder",
+    "coffee"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "peanut-butter",
+  "verdict": "Plain peanut butter is not automatically a problem for dogs, but the label matters far more than the jar’s familiar look. A xylitol-free product is the starting point, because xylitol is a serious concern for dogs and can turn an ordinary pantry snack into an emergency exposure. Even without xylitol, peanut butter is rich and calorie-dense, so it is best treated as an occasional taste rather than a routine food. For cats, the better decision is usually simple avoidance: it is sticky, unnecessary, and easy to overdo.",
+  "mechanism": "The main issue with peanut butter is not the peanuts themselves but what may be added during processing. Some peanut butters are plain, while others may include sugar-free sweeteners, and xylitol is the one that changes the risk completely for dogs. Pet Poison Helpline notes that xylitol is used in a wide range of products and can cause severe problems in dogs, including life-threatening low blood sugar and liver failure. Cats are not described with the same established xylitol syndrome in the supplied sources, so the dog evidence should not be assumed to carry over in the same way. Separate from sweetness, peanut butter is a concentrated fatty food, which can make it an awkward choice for pets that only need tiny extras, if any.",
+  "preparation": "Good peanut butter decisions start before the tin opener comes out. Read the ingredient list rather than relying on the front label, because sugar-free products can contain xylitol, and xylitol is specifically flagged as dangerous for dogs. The safer choice is a plain, xylitol-free peanut butter with no unnecessary extras. Even then, the food is dense and sticky, so it is easy for a pet to get more than intended. That physical stickiness matters: it clings to the mouth and can turn a small lick into a much larger mouthful than you meant to offer. Peanut butter is also not a food that cats need, so checking the label matters most after accidental access rather than as a planned treat.",
+  "signsAndTiming": "For dogs, xylitol exposure is the peanut-butter-specific concern that stands out. Pet Poison Helpline says enough xylitol can cause life-threatening low blood sugar very quickly, even within a short time after ingestion, and it can also lead to acute liver failure. The source list includes vomiting, lethargy and loss of coordination as initial signs, with progression to seizures. The ASPCA also notes that liver damage may appear later and can bring abnormal bleeding. For plain peanut butter without xylitol, the expected issue is not a poison syndrome but rather digestive upset or general dietary excess from a fatty food. In cats, there is no established peanut-butter poisoning pattern in the supplied sources; the concern is practical misuse and accidental ingredient exposure, especially if the product is sugar-free.",
+  "puppy": "Puppies and peanut butter are a poor match unless the jar is confirmed xylitol-free and the amount is very small. Puppies are more likely to gulp sticky foods and get more than expected, so the ingredient list matters even more. A plain product is less concerning than one with sweetener, but it is still rich and not a necessary puppy food.",
+  "dog": "For dogs, peanut butter is only as sensible as its label. Plain, xylitol-free peanut butter may be an occasional extra, but sugar-free versions are the bigger danger because xylitol is specifically toxic to dogs. Check the jar every time, especially if the peanut butter came from a new brand or flavour.",
+  "cat": "For cats, peanut butter is best avoided. It is sticky, calorie-dense and not a useful cat food. The main practical issue is accidental access to a spread that contains xylitol or other ingredients a cat does not need. If a cat has taken some, the label matters more than the peanut itself.",
+  "alternatives": "If you want a safer routine treat, a pet-safe food with a cleaner ingredient list is usually easier to manage than peanut butter. For dogs, that means something without sugar-free sweeteners, excess salt or extra fillings. For cats, the simplest alternative is usually no human spread at all.",
+  "faqs": [
+    {
+      "question": "Is peanut butter safe for dogs if it is plain?",
+      "answer": "Plain peanut butter may be okay for some dogs in small amounts, but only if it is xylitol-free. The ingredient list matters more than the brand name. Because it is rich and sticky, it is better kept as an occasional extra than a regular snack."
+    },
+    {
+      "question": "Why is xylitol such a problem in peanut butter for dogs?",
+      "answer": "Xylitol is a sweetener that can be present in sugar-free products. In dogs, it is linked with life-threatening low blood sugar and acute liver failure. That is why a sugar-free peanut butter should not be treated as a safer version of the same food."
+    },
+    {
+      "question": "Do cats have the same peanut butter risk as dogs?",
+      "answer": "The supplied sources do not establish the same xylitol syndrome in cats that is described for dogs. Even so, peanut butter is still a poor choice for cats because it is sticky, calorie-dense and unnecessary, and accidental ingredient exposure remains a concern."
+    },
+    {
+      "question": "What should I check on the label before offering peanut butter?",
+      "answer": "Look for xylitol first, especially in sugar-free or reduced-sugar products. After that, consider the overall recipe: peanut butter can be high in calories and may contain extras a pet does not need. A plain, xylitol-free jar is the safer option for a dog."
+    },
+    {
+      "question": "Why does peanut butter come up so often in pet poisoning warnings?",
+      "answer": "Because the jar itself may be harmless-looking while the ingredients are not. Peanut butter appears in homes so often that it is an easy hiding place for xylitol exposure. The risk is less about peanuts and more about buying the wrong type without checking the label."
+    }
+  ],
+  "related": [
+    "xylitol",
+    "sugar-free-gum",
+    "fatty-scraps",
+    "cheese"
+  ]
+}

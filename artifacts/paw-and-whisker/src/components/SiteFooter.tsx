@@ -1,23 +1,36 @@
+import { Moon, Paw } from "@/components/Art";
+
+const cols = [
+  { h: "Free tools", l: [["/tools/symptom-check", "Symptom check"], ["/tools/toxic-food-checker", "Toxic food checker"], ["/#free-chat", "Free chat"], ["/find-a-vet", "Find a vet"], ["/tools", "All tools"]] },
+  { h: "Read", l: [["/guides", "Guides"], ["/compare", "Compare"], ["/puppy-kit/", "Puppy Kit"], ["/pricing", "Pricing"]] },
+  { h: "About", l: [["/about", "Paul and the cats"], ["/privacy", "Privacy"], ["/terms", "Terms"], ["/refund", "Refunds"], ["/medical-disclaimer", "Medical disclaimer"], ["/sponsorship-policy", "Sponsorship policy"]]},
+  { h: "Business", l: [["/for-vets", "For vets"], ["/advertise", "Advertise"], ["/sponsorship-policy", "Sponsorship policy"]] },
+];
+
 export default function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
-        <a href="/" className="site-wordmark">Paw &amp; Whisker</a>
-        <nav aria-label="Footer navigation">
-          <a href="/guides">Guides</a>
-          <a href="/tools/symptom-check">Symptom check</a>
-          <a href="/tools/toxic-food-checker">Toxic food checker</a>
-          <a href="/compare">Compare</a>
-          <a href="https://pawandwhisker.net/puppy-kit/">Puppy Kit</a>
-          <a href="/pricing">Pricing</a>
-          <a href="/about">About</a>
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
-          <a href="/refund">Refunds</a>
-          <a href="/medical-disclaimer">Medical disclaimer</a>
-        </nav>
-        <p>General pet information, not veterinary advice. AI can make mistakes and never replaces a vet. For urgent signs or suspected poisoning, go to an emergency vet immediately.</p>
-        <p><a href="mailto:paul@pawandwhisker.net">Contact Paul</a> · © 2026 Paw &amp; Whisker</p>
+        <div className="sf-top">
+          <div className="sf-brand">
+            <Moon className="sf-moon" />
+            <a href="/" className="site-wordmark">Paw &amp; Whisker</a>
+            <p>A calm place to start when something about your pet worries you. Made by Paul, a pet parent, not a veterinarian.</p>
+          </div>
+          <nav aria-label="Footer navigation" className="sf-cols">
+            {cols.map(c => (
+              <div key={c.h}>
+                <h2>{c.h}</h2>
+                <ul>{c.l.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
+              </div>
+            ))}
+          </nav>
+        </div>
+        <div className="sf-urgent" role="note">
+          <Paw className="sf-paw" />
+          <p><strong>Urgent signs or a suspected poisoning?</strong> General pet information, not veterinary advice. AI can make mistakes and never replaces a vet. Go to an emergency vet immediately.</p>
+        </div>
+        <p className="sf-fine"><span>Any paid placement is labelled Sponsored and never affects health advice. <a href="/sponsorship-policy">Policy</a></span> · <a href="mailto:paul@pawandwhisker.net">Contact Paul</a> · © 2026 Paw &amp; Whisker</p>
       </div>
     </footer>
   );

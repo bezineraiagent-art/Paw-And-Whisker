@@ -1,0 +1,39 @@
+{
+  "slug": "xylitol",
+  "verdict": "Xylitol is one of the most important label-reading hazards for dogs because it can turn up in places people do not think of as food at all: gum, mints, toothpaste, chewable vitamins, some sauces, jams and even personal care products. For dogs, the key issue is not just sweetness but how quickly it can cause a severe reaction and possible liver damage. For cats, the evidence for the same syndrome is not established, but that does not make exposure harmless because another ingredient or a swallowed product can still be a problem.",
+  "mechanism": "In dogs, xylitol is linked to a rapid blood sugar drop and can also cause liver damage. The source material notes that the low blood sugar effect may happen very quickly after eating it, and liver injury can follow later. That means xylitol is not treated like a simple upset stomach ingredient. Product risk is not fixed either: the same brand of gum, for example, can contain different amounts across flavours, and xylitol is also found in items people may not expect to share with pets, such as oral products, supplements and some cosmetics. The practical problem is hidden exposure, not just a sweet treat left on the counter.",
+  "preparation": "With xylitol, “preparation” is really about product form and label reading. It appears in sugar-free gum, bubble gum, mints, toothpaste, chewable vitamins, nasal sprays, puddings, gelatin snacks, sauces, syrups, jams, candies and some essential oil products. It can also show up under names such as sugar alcohol or birch sugar. Some products contain only a little, while others contain a lot, so the ingredient list matters more than the food category. For homes with dogs, it is worth checking wrappers, bathroom shelves, handbags, coat pockets, kitchen jars and the bins where gum, supplements or empty tubes are thrown away.",
+  "signsAndTiming": "The source evidence for dogs includes vomiting, lethargy and loss of coordination as initial signs, with seizures possible if the reaction progresses. Liver damage is also described, and it may develop within about a day. The blood sugar drop can be very rapid. For cats, the same severe syndrome is not proven from the source material, so it should not be assumed that a cat would react in exactly the same way. Even so, a cat who eats a xylitol-containing product may still be at risk from the product itself or from another ingredient in it.",
+  "puppy": "Puppies are small, curious and more likely to investigate dropped gum, torn supplement packets or toothpaste caps. With xylitol, that matters because the main danger in dogs is tied to the ingredient itself, not to whether it was eaten as a snack or swallowed from the floor. Puppy-proofing needs to include handbags, bedside tables and bathroom bins, not only kitchen cupboards.",
+  "dog": "For dogs, xylitol is a true label problem as much as a pantry problem. Sugar-free gum, mints, peanut butter-style spreads, baked goods, syrups and dental products can all be relevant, and some brands change formulas. Because the amount varies so much, a “looks small” exposure is not a reliable guide to risk.",
+  "cat": "Cats should not be treated as safe with xylitol. The strongest poisoning evidence is in dogs, and the source does not prove the same syndrome in cats. But cats may still lick toothpaste, chew a dropped mint or sample a product that contains other harmful ingredients, so xylitol items still need keeping away from them.",
+  "alternatives": "For homes that want a safer routine, the main alternative is product control rather than a substitute sweetener for pets. Keep sugar-free gum, mints and toothpaste out of reach, choose pet-specific oral products, and store supplements and pantry items with clear ingredient labels. For shared treats, use products made for pets rather than assuming a human “sugar-free” item is suitable.",
+  "faqs": [
+    {
+      "question": "Why is xylitol different from ordinary sugar-free ingredients?",
+      "answer": "Because the concern is not just that it is sweetener-free, but that in dogs it can trigger a severe reaction. It is found in many everyday products, so the label may not look dangerous until you spot the ingredient name or one of its aliases."
+    },
+    {
+      "question": "Where do owners most often miss xylitol exposure?",
+      "answer": "In places that are not obvious foods: gum in bags or cars, toothpaste on bathroom counters, chewable vitamins, nasal sprays, mints, and even some makeup or personal lubricants. It can also hide in sauces, jams and syrups, so kitchen jars deserve a look too."
+    },
+    {
+      "question": "Does one brand of gum always have the same xylitol amount?",
+      "answer": "No. The source says amounts vary widely, and even one brand can have different amounts in different flavours. That is why looking only at the brand name is not enough; the ingredient list and product type matter as well."
+    },
+    {
+      "question": "Is birch sugar just another name for xylitol?",
+      "answer": "Yes, birch sugar is listed as an alias. The same ingredient may also appear under broader terms such as sugar alcohol, so pet owners need to check more than the word xylitol alone when reading labels."
+    },
+    {
+      "question": "What about cats if they lick toothpaste or chew a mint?",
+      "answer": "Cats do not have the same established xylitol poisoning syndrome as dogs in the source material, but that does not make the item safe. The product may contain other ingredients that are harmful, and toothpaste, mints or gums are not meant for pets at all."
+    }
+  ],
+  "related": [
+    "sugar-free-gum",
+    "peanut-butter",
+    "cheese",
+    "milk"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "chocolate",
+  "verdict": "Chocolate is not a safe sharing food for pets, and the type matters as much as the amount. The dark, concentrated baking and cocoa forms carry more methylxanthines than milk or white chocolate, but all chocolate products can create trouble, especially when they also contain other risky ingredients such as raisins, macadamia nuts or xylitol. For dogs, the practical decision is simple: keep it out of reach, check labels on baked goods and festive sweets, and treat any swallowed chocolate as an exposure worth acting on.",
+  "mechanism": "Chocolate contains methylxanthines, mainly theobromine and caffeine. These compounds are the reason chocolate can affect the heart, circulation and nervous system. The source links chocolate poisoning in pets with stomach upset, a faster heart rate, high blood pressure, hyperactivity, tremors and seizures. Risk changes with the kind of chocolate, the amount eaten and the animal’s size and health status. Labels matter too, because chocolate candy and baked goods may bring in other hazards at the same time, which changes the exposure from a single ingredient to a mixed one.",
+  "preparation": "Chocolate is not just a bar in a wrapper. The source lists bakers’ chocolate, chocolate candy, chocolate milk, syrup, hot cocoa, fudge, cocoa powder and chocolate baked goods such as brownies and cakes. It also flags chocolate-covered nuts or espresso beans, which add extra concerns, and cocoa mulch, which is an outdoor exposure many people overlook. White chocolate has the lowest methylxanthine content, while baking chocolate and cocoa powder have the highest. That means the packaging, recipe and add-ins matter just as much as the flavour name on the front.",
+  "signsAndTiming": "The source describes gastrointestinal, cardiovascular and neurological signs, including vomiting, diarrhoea, elevated heartrate, high blood pressure, hyperactivity, tremor and seizure. It also notes that alcohol-containing baked goods and yeast dough can create separate problems, so the label should be checked carefully when chocolate is part of a recipe. A precise symptom timeline for chocolate itself is not established in the supplied sources, so there is no safe waiting period to use. Because white chocolate still appears in the source list, it should not be treated as harmless simply because it is paler or sweeter.",
+  "puppy": "Puppies are smaller, so even a small scrap of chocolate, brownie edge or hot cocoa spill can matter more than it would for a bigger dog. Sticky hands, dropped sweets and holiday baking trays are common puppy exposures. Brownies, fudge and cakes are especially messy because they can hide other risky ingredients alongside chocolate.",
+  "dog": "For dogs, chocolate risk depends on the type and the exact food, not just whether it tastes sweet. Baking chocolate, cocoa powder and dark chocolate are the most concerning forms in the source, while white chocolate carries less methylxanthine. Dog owners also need to think about wrappers, nuts, raisins and xylitol in mixed recipes.",
+  "cat": "Cats are not given separate chocolate data in the supplied sources, so the safest reading is simple: chocolate still contains methylxanthines, and cats should not be allowed to lick, chew or steal it. Pay attention to tiny exposures such as dessert crumbs, cocoa powder dust or milk-based drinks left within reach.",
+  "alternatives": "If you are choosing something to hand over instead of chocolate, pick a pet-safe treat rather than another human sweet. The practical difference is that chocolate, cocoa powder, brownie batter and chocolate-coated snacks can carry methylxanthines and extra mix-ins, while plain treats avoid that label problem entirely.",
+  "faqs": [
+    {
+      "question": "Is white chocolate safe because it has less chocolate in it?",
+      "answer": "Not safe is not the same as most dangerous. White chocolate has the lowest methylxanthine content in the source, but it is still listed as a chocolate exposure. It is better treated as off-limits, not as a harmless substitute just because it looks pale."
+    },
+    {
+      "question": "Why are brownies and cakes a bigger worry than plain chocolate sometimes?",
+      "answer": "Because the label may hide more than cocoa. The source points out that chocolate baked goods can also contain raisins, macadamia nuts or xylitol. So a brownie or cake is not just a chocolate issue; it can be a mixed exposure with several problems in one bite."
+    },
+    {
+      "question": "Does cocoa powder matter if it is only used in baking?",
+      "answer": "Yes. Cocoa powder is one of the most concentrated forms named in the source. That means a kitchen dusting, baking scoop or spilled tin is not a trivial exposure. It matters because the chocolate ingredient is already highly concentrated before it ever becomes a finished dessert."
+    },
+    {
+      "question": "What should I look for on the label when I am checking chocolate products?",
+      "answer": "Look beyond the word chocolate. The source specifically names cocoa powder, chocolate-covered nuts or espresso beans, chocolate milk, syrup, fudge and baked goods, plus add-ins such as raisins, macadamia nuts and xylitol. A plain-looking sweet can therefore carry several different risks at once."
+    },
+    {
+      "question": "Can cocoa mulch in the garden be a problem too?",
+      "answer": "Yes. Cocoa mulch is listed among chocolate exposures in the source, which is useful because it is easy to overlook outdoors. The issue is not that it is a snack food, but that it still comes from cocoa and can be reached by dogs investigating beds, borders or flowerpots."
+    }
+  ],
+  "related": [
+    "dark-chocolate",
+    "baking-chocolate",
+    "cocoa-powder",
+    "white-chocolate"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "slug": "pumpkin",
+  "verdict": "Plain pumpkin is generally non-toxic for pets, but the version matters far more than the vegetable itself. Plain cooked pumpkin or unsweetened pure canned pumpkin is the sensible choice; pumpkin pie filling is not, because it usually brings along ingredients that do not belong in a pet bowl. For dogs, pumpkin is often discussed as a simple food, but it is not a cure for ongoing tummy trouble. For cats, the same basic rule applies, with even less reason to treat it as a staple.",
+  "mechanism": "The useful distinction with plain pumpkin is not a poison mechanism, but an ingredient one. The plain vegetable itself is not listed as toxic in the supplied sources. What changes the picture is how pumpkin is sold and prepared: pie filling is a dessert product, not plain pumpkin, and can include extra ingredients that make it unsuitable. Another practical point is that pumpkin is a human food, so it should be treated as an occasional add-on rather than something pets need. The sources do not establish a specific poisoning syndrome or timing for pumpkin itself.",
+  "preparation": "Buy or cook pumpkin in its plainest form. The supplied source specifically points to plain cooked pumpkin, roasted pumpkin flesh, or 100% pumpkin puree from a can. Unsweetened pure canned pumpkin is the useful label to look for. Skip pumpkin pie filling, which is a different product altogether. The decision point is simple: if the tin or packet reads like a dessert mix, leave it out of the pet bowl. If it is just pumpkin, with no extra sweeteners or flavourings, it is the safer choice for sharing.",
+  "signsAndTiming": "Plain pumpkin does not have an established toxic syndrome in the supplied sources, so there is no pumpkin-specific poisoning timetable to learn. The concern is usually practical rather than toxic: the wrong product may upset digestion because it contains extra sugar, spices or other additions, or because it is simply too rich for a pet’s stomach. If a pet has eaten pumpkin pie filling rather than plain pumpkin, the label matters more than the clock. The sources do not support a safe-wait window for any concerning exposure.",
+  "puppy": "Puppies should only have Plain pumpkin if it is truly plain cooked pumpkin or unsweetened puree. They are more likely to be affected by messy extras, so pie filling and dessert-style pumpkin products are the ones to avoid. For a young dog, keep the focus on the label, not the vegetable name.",
+  "dog": "For dogs, Plain pumpkin is generally non-toxic, but the product choice matters. Plain cooked pumpkin or 100% puree is different from pumpkin pie filling, which is not a plain food at all. Dogs do not need pumpkin in their diet, and it should not be treated as a fix for a continuing digestive problem.",
+  "cat": "For cats, Plain pumpkin is also best kept to the plain cooked or pure canned version, if offered at all. Cats are not small dogs, and pumpkin should not be treated as a regular part of a cat’s diet. The main risk is choosing pie filling or another sweetened pumpkin product.",
+  "alternatives": "If you want a plain, easy pet-safe snack, the sources also list carrots, cucumber, green beans, blueberries, strawberries and watermelon for dogs when properly prepared. Those foods may suit a pet better than pumpkin if you are simply looking for a shared bite, not a meal ingredient or a digestive shortcut.",
+  "faqs": [
+    {
+      "question": "Is pumpkin pie filling the same as plain pumpkin?",
+      "answer": "No. Pumpkin pie filling is a separate product and should not be treated like plain pumpkin. The useful version for pets is plain cooked pumpkin or 100% pumpkin puree, because it avoids the extra ingredients that turn pumpkin into a dessert mix."
+    },
+    {
+      "question": "Can I use roasted pumpkin from the oven?",
+      "answer": "Yes, the supplied source says roasted pumpkin flesh is an option for dogs, as long as it is plain. That means no butter, sugar, spice mixes or other add-ons. Once it starts looking like a side dish for people, it stops being the plain version you want."
+    },
+    {
+      "question": "Why do people talk about pumpkin so often for dogs?",
+      "answer": "Because it is a simple food that is generally non-toxic and easy to find. But the source material does not make it a cure-all. It is better thought of as a plain vegetable you can share in the right form, not a fix for persistent digestive trouble."
+    },
+    {
+      "question": "Is canned pumpkin okay, or should it be fresh?",
+      "answer": "Canned pumpkin is fine if it is 100% pumpkin puree. The label is the key issue, not the can itself. Fresh pumpkin can also be used once cooked plainly, but anything with added sugar, spice or pie-filling style ingredients is the version to skip."
+    },
+    {
+      "question": "Does plain pumpkin help with stomach issues?",
+      "answer": "The supplied summary says plain pumpkin is not a treatment for persistent vomiting, diarrhoea or constipation, so it should not be used as a stand-in for veterinary advice. The article is about choosing the plain, non-toxic food itself, not using it as a remedy."
+    }
+  ],
+  "related": [
+    "carrots",
+    "green-beans",
+    "blueberries",
+    "watermelon"
+  ]
+}

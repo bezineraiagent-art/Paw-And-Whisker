@@ -1,0 +1,39 @@
+{
+  "slug": "almonds",
+  "verdict": "Almonds are not a good pet snack. The main concerns are practical rather than a unique poison: their fat content, added salt or flavourings, and the chance of a choking or blockage problem if pieces are swallowed. The bigger trap is the package, not just the nut itself. Flavoured nuts, chocolate-coated almonds, trail mix and almond butter with extra ingredients need separate checking because the label can change the risk completely.",
+  "mechanism": "The source material does not describe almond-specific poisoning chemistry. What it does support is that nuts, including almonds, are high in oils and fats, which can upset digestion and may contribute to pancreatitis in some pets. Salted almonds bring an extra issue from excess salt. Whole almonds are also a physical hazard because they are hard, irregular and easy to gulp, especially if a pet grabs several from a bowl or dropped snack. In mixed products, the risk may come from another ingredient entirely, such as chocolate, xylitol or excess salt.",
+  "preparation": "Preparation matters more than people often realise. Plain almonds are still a poor choice, but the risk rises when they are smoked, salted, spiced, honey-roasted, candied or coated in chocolate. Almond butter is not automatically safer, because some jars contain sugar, salt or sweeteners, and a sticky spoonful can still be swallowed in one go. Whole almonds from a snack bowl, baking supplies, festive mixes and toppled treat jars are the situations that most often create accidental exposure. If a product is a blend, the label has to be read for every ingredient, not just the almond content.",
+  "signsAndTiming": "The source extract links almond and nut exposure mainly to vomiting, diarrhoea and possible pancreatitis, but it does not give a precise almond-only symptom pattern or timing. Salted products can also cause issues linked with too much salt. Because almonds are often eaten as part of mixed snacks, signs may reflect whichever ingredient was involved, rather than the almond itself. A pet that has eaten a large amount, chewed a hard piece badly, or raided a mixed nut product may develop digestive upset or a swallowing problem from the shape and texture.",
+  "puppy": "For puppies, almonds are especially awkward because a small mouth and a fast bite make choking more likely. Plain almonds are still not a sensible puppy treat, and flavoured or salted versions are worse. Puppy-safe snacks should be soft and sized appropriately; an almond is none of those things.",
+  "dog": "For dogs, almonds are best left out of the treat jar. The main issue is not a special almond toxin but the fat, salt and hard texture. Dogs that bolt food may swallow them whole, while trail mix or coated almonds can bring extra ingredients into play. The label matters as much as the nut.",
+  "cat": "For cats, almonds are also a bad idea. Cats are not known to have an almond-specific poisoning syndrome from the source material, but the same practical problems remain: a hard nut can be difficult to chew, may be swallowed badly, and the fats and salt are unnecessary for them. Mixed nut snacks are especially unhelpful for cats.",
+  "alternatives": "If you want a crunchy food-like reward, choose something that is already covered as cat- or dog-safe rather than trying to make almonds work. For dogs, plain vegetables or fruits listed as safe are a better fit than nuts. For cats, stick to species-appropriate treats rather than human snack foods. The simplest practical rule is that almonds are a pantry item, not a pet snack.",
+  "faqs": [
+    {
+      "question": "Are plain almonds safer than flavoured almonds for pets?",
+      "answer": "Plain almonds avoid extra ingredients, but they are still not a good pet snack. The nut itself is high in oils and fats, and the hard shape can be a choking or swallowing problem. Flavoured, salted or sweet-coated almonds simply add more things to worry about."
+    },
+    {
+      "question": "What is the biggest risk if my dog steals a few almonds?",
+      "answer": "The main concern is usually digestive upset from the fat, plus the chance of a hard piece going down badly. If the almonds were salted or part of a mixed snack, the label matters because the real problem may be chocolate, xylitol or another added ingredient."
+    },
+    {
+      "question": "Is almond butter any better than whole almonds?",
+      "answer": "Not necessarily. Almond butter removes the choking risk from the whole nut, but it can still be fatty, and some jars contain salt, sugar or sweeteners. A sticky spoonful can also be swallowed quickly, so the ingredients list is still important."
+    },
+    {
+      "question": "Can cats eat almonds if they seem interested?",
+      "answer": "Cats should not be given almonds. The source material does not point to a cat-specific almond poison, but almonds are still a poor fit because of their fat, hardness and possible salt or flavouring. Cats do better with cat-appropriate treats rather than human snack foods."
+    },
+    {
+      "question": "What should I check on the packet if almonds are in a mixed snack?",
+      "answer": "Check every added ingredient, not just the almonds. Chocolate, cocoa, xylitol, excess salt and other flavourings can change the risk completely. Trail mix, coated nuts and baking toppings are worth reading carefully because the almond may not be the main concern at all."
+    }
+  ],
+  "related": [
+    "walnuts",
+    "peanut-butter",
+    "chocolate",
+    "salt"
+  ]
+}

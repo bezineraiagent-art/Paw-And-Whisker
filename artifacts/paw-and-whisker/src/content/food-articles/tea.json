@@ -1,0 +1,39 @@
+{
+  "slug": "tea",
+  "verdict": "Caffeinated tea is a problem for pets for two separate reasons: the caffeine in black and green tea, and the tea bag itself if it is swallowed. The ASPCA lists tea among caffeinated exposures that can trigger serious signs in pets, and also notes that tea bags can create an obstruction risk. Because the label matters and tea products vary widely, the safest practical step is to keep the packet, tin, or box and use it when asking for advice about the exact product involved.",
+  "mechanism": "The source material groups tea with coffee and other caffeine-containing products because the concern is methylxanthines. In pets, that group can lead to vomiting, diarrhoea, panting, excessive thirst and urination, hyperactivity, abnormal heart rhythm, tremors, seizures and even death. Tea can be more or less risky depending on how much caffeine the product contains, and black and green tea are both included. There is a second, separate issue: a swallowed tea bag may sit as a physical foreign body and cause an obstruction rather than a caffeine reaction.",
+  "preparation": "Preparation matters with tea because pets are not usually exposed to a neat cup of plain brew alone. The source specifically names black tea and green tea, but tea may also show up as loose leaves, an unfinished mug, a teabag from the bin, iced tea, powdered tea mixes, or flavoured drinks with caffeine added. A tea bag is not just packaging; if a dog or cat eats one, the bag itself can be the problem. Keep the container, note the flavour and format, and check whether the product was tea, a tea drink, or another caffeinated item.",
+  "signsAndTiming": "The source does not give a precise onset time for tea poisoning. It does say methylxanthines can cause vomiting and diarrhoea, panting, excessive thirst and urination, hyperactivity, abnormal heart rhythm, tremors, seizures and even death. If a tea bag was swallowed, the concern is also obstruction, which is a different kind of problem from caffeine toxicity. Because timing is not established here, it should not be treated as a safe waiting period or used to judge whether the exposure is harmless.",
+  "puppy": "For puppies, caffeinated tea is risky because a small body can be affected by the caffeine in black or green tea, and puppies are also more likely to chew and swallow the tea bag. Loose tea leaves, cold tea left in a mug, and teabags from the bin all count as practical exposures.",
+  "dog": "In dogs, caffeinated tea is not just about a drink bowl. Black tea and green tea both contain caffeine, and the tea bag can add a choking or obstruction concern if swallowed. A dog that got into brewed tea, tea leaves, or a discarded bag needs the exact product kept aside for advice.",
+  "cat": "Cats should be treated separately from dogs here: caffeinated tea is still a concern because the source includes pets generally, and cats can also swallow a tea bag while investigating a cup or bin. Do not assume a cat exposure is minor because the amount looked small; the product form still matters.",
+  "alternatives": "If you want a warm drink to share the moment, keep it pet-free rather than offering tea. For pets, a bowl of fresh water is the practical alternative. The important distinction with tea is that the beverage itself can contain caffeine, while the bag can become a separate physical hazard. That combination is why the label and packaging matter.",
+  "faqs": [
+    {
+      "question": "Does decaffeinated tea remove the risk completely?",
+      "answer": "No. The source focuses on caffeine risk, so decaffeinated tea may lower that concern, but it does not remove the possibility of other ingredients, flavourings, or a swallowed tea bag creating a physical obstruction. The exact product still matters."
+    },
+    {
+      "question": "Is black tea worse than green tea for pets?",
+      "answer": "The source names both black and green tea as caffeinated risks, but it does not rank them against each other. What matters most here is that both contain caffeine and both can be dangerous, especially if a pet also eats the tea bag."
+    },
+    {
+      "question": "What if my pet only licked a little brewed tea?",
+      "answer": "A small lick may still count as exposure because brewed tea can contain caffeine. The source does not provide a harmless amount or a safe cut-off, so the label and the exact product are more useful than guessing by volume."
+    },
+    {
+      "question": "Can a tea bag cause trouble even if the tea was weak?",
+      "answer": "Yes. The tea bag is a separate issue from caffeine. If swallowed, it may cause an obstruction, which is why the source specifically mentions tea bags as a hazard alongside the caffeine concern."
+    },
+    {
+      "question": "Why does the label matter so much with tea?",
+      "answer": "Because not all tea-related products are the same. Black tea, green tea, flavoured tea drinks, loose leaves, and bags from different tins or boxes may expose a pet to different caffeine levels or extra ingredients. Keeping the label helps identify the exact product involved."
+    }
+  ],
+  "related": [
+    "coffee",
+    "energy-drinks",
+    "chocolate",
+    "dark-chocolate"
+  ]
+}

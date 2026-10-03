@@ -113,6 +113,8 @@ export const GetCompanionUsageResponse = zod.object({
 /**
  * @summary Ask a general pet question within the daily allowance
  */
+export const askCompanionBodyImageDataUrlMax = 4500000;
+
 export const askCompanionBodyQuestionMax = 3000;
 
 export const askCompanionBodyPetNameMax = 60;
@@ -120,6 +122,13 @@ export const askCompanionBodyPetNameMax = 60;
 export const askCompanionBodyAgeMax = 40;
 
 export const AskCompanionBody = zod.object({
+  imageDataUrl: zod
+    .string()
+    .max(askCompanionBodyImageDataUrlMax)
+    .optional()
+    .describe(
+      "Optional transient JPEG, PNG or WebP, never persisted in the app database",
+    ),
   question: zod.string().min(1).max(askCompanionBodyQuestionMax),
   petName: zod.string().max(askCompanionBodyPetNameMax).optional(),
   species: zod.enum(["puppy", "dog", "cat"]).optional(),
@@ -131,4 +140,293 @@ export const AskCompanionResponse = zod.object({
   remaining: zod.number(),
   limit: zod.number(),
   resetsAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Find nearby clinics without persisting a visitor location
+ */
+export const searchVetsBodyQueryMin = 2;
+export const searchVetsBodyQueryMax = 120;
+
+export const searchVetsBodyLatitudeMin = -85;
+export const searchVetsBodyLatitudeMax = 85;
+
+export const searchVetsBodyLongitudeMin = -180;
+export const searchVetsBodyLongitudeMax = 180;
+
+export const searchVetsBodyUrgentDefault = false;
+export const searchVetsBodyOpenNowDefault = false;
+export const searchVetsBodyEmergencyOnlyDefault = false;
+
+export const SearchVetsBody = zod.object({
+  query: zod
+    .string()
+    .min(searchVetsBodyQueryMin)
+    .max(searchVetsBodyQueryMax)
+    .optional(),
+  latitude: zod
+    .number()
+    .min(searchVetsBodyLatitudeMin)
+    .max(searchVetsBodyLatitudeMax)
+    .optional(),
+  longitude: zod
+    .number()
+    .min(searchVetsBodyLongitudeMin)
+    .max(searchVetsBodyLongitudeMax)
+    .optional(),
+  urgent: zod.boolean().default(searchVetsBodyUrgentDefault),
+  openNow: zod.boolean().default(searchVetsBodyOpenNowDefault),
+  emergencyOnly: zod.boolean().default(searchVetsBodyEmergencyOnlyDefault),
+});
+
+export const SearchVetsResponse = zod.object({
+  clinics: zod.array(
+    zod.object({
+      id: zod.string(),
+      name: zod.string(),
+      latitude: zod.number(),
+      longitude: zod.number(),
+      distanceKm: zod.number(),
+      address: zod.string(),
+      phone: zod.string().optional(),
+      website: zod.string().optional(),
+      openingHours: zod.string().optional(),
+      openingStatus: zod.enum(["open", "closed", "unknown"]),
+      emergency: zod.boolean(),
+      sponsored: zod.boolean(),
+    }),
+  ),
+  latitude: zod.number(),
+  longitude: zod.number(),
+  area: zod.string(),
+  urgent: zod.boolean(),
+  source: zod.string(),
+  attribution: zod.string(),
+  notice: zod.string(),
+  radiusKm: zod.number(),
+  mapTilesUrl: zod.string().optional(),
+  mapAttribution: zod.string().optional(),
+});
+
+export const createClinicApplicationBodyClinicNameMin = 2;
+export const createClinicApplicationBodyClinicNameMax = 180;
+
+export const createClinicApplicationBodyContactNameMax = 120;
+
+export const createClinicApplicationBodyContactEmailMax = 254;
+
+export const createClinicApplicationBodyCityMin = 2;
+export const createClinicApplicationBodyCityMax = 120;
+
+export const createClinicApplicationBodyWebsiteMax = 2048;
+
+export const createClinicApplicationBodyMessageMin = 10;
+export const createClinicApplicationBodyMessageMax = 4000;
+
+export const createClinicApplicationBodyIntentDefault = `claim`;
+export const createClinicApplicationBodyFaxMax = 0;
+
+export const CreateClinicApplicationBody = zod.object({
+  clinicName: zod
+    .string()
+    .min(createClinicApplicationBodyClinicNameMin)
+    .max(createClinicApplicationBodyClinicNameMax),
+  contactName: zod
+    .string()
+    .max(createClinicApplicationBodyContactNameMax)
+    .optional(),
+  contactEmail: zod
+    .string()
+    .email()
+    .max(createClinicApplicationBodyContactEmailMax),
+  city: zod
+    .string()
+    .min(createClinicApplicationBodyCityMin)
+    .max(createClinicApplicationBodyCityMax),
+  website: zod.string().max(createClinicApplicationBodyWebsiteMax).optional(),
+  message: zod
+    .string()
+    .min(createClinicApplicationBodyMessageMin)
+    .max(createClinicApplicationBodyMessageMax),
+  intent: zod
+    .enum(["claim", "featured", "both"])
+    .default(createClinicApplicationBodyIntentDefault),
+  consent: zod.boolean(),
+  fax: zod.string().max(createClinicApplicationBodyFaxMax).optional(),
+});
+
+export const createAdvertiserInquiryBodyBrandNameMin = 2;
+export const createAdvertiserInquiryBodyBrandNameMax = 180;
+
+export const createAdvertiserInquiryBodyContactNameMax = 120;
+
+export const createAdvertiserInquiryBodyContactEmailMax = 254;
+
+export const createAdvertiserInquiryBodyWebsiteMax = 2048;
+
+export const createAdvertiserInquiryBodyMessageMin = 10;
+export const createAdvertiserInquiryBodyMessageMax = 4000;
+
+export const createAdvertiserInquiryBodyPlacementsMax = 3;
+
+export const createAdvertiserInquiryBodyFaxMax = 0;
+
+export const CreateAdvertiserInquiryBody = zod.object({
+  brandName: zod
+    .string()
+    .min(createAdvertiserInquiryBodyBrandNameMin)
+    .max(createAdvertiserInquiryBodyBrandNameMax),
+  contactName: zod
+    .string()
+    .max(createAdvertiserInquiryBodyContactNameMax)
+    .optional(),
+  contactEmail: zod
+    .string()
+    .email()
+    .max(createAdvertiserInquiryBodyContactEmailMax),
+  website: zod.string().max(createAdvertiserInquiryBodyWebsiteMax).optional(),
+  message: zod
+    .string()
+    .min(createAdvertiserInquiryBodyMessageMin)
+    .max(createAdvertiserInquiryBodyMessageMax),
+  placements: zod
+    .array(zod.enum(["tools-guides", "product-box", "newsletter"]))
+    .max(createAdvertiserInquiryBodyPlacementsMax)
+    .optional(),
+  consent: zod.boolean(),
+  fax: zod.string().max(createAdvertiserInquiryBodyFaxMax).optional(),
+});
+
+export const GetPromotionLeadsHeader = zod.object({
+  "x-admin-token": zod.string(),
+});
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneClinicNameMin = 2;
+export const getPromotionLeadsResponseClinicApplicationsItemOneClinicNameMax = 180;
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneContactNameMax = 120;
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneContactEmailMax = 254;
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneCityMin = 2;
+export const getPromotionLeadsResponseClinicApplicationsItemOneCityMax = 120;
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneWebsiteMax = 2048;
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneMessageMin = 10;
+export const getPromotionLeadsResponseClinicApplicationsItemOneMessageMax = 4000;
+
+export const getPromotionLeadsResponseClinicApplicationsItemOneIntentDefault = `claim`;
+export const getPromotionLeadsResponseClinicApplicationsItemOneFaxMax = 0;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneBrandNameMin = 2;
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneBrandNameMax = 180;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneContactNameMax = 120;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneContactEmailMax = 254;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneWebsiteMax = 2048;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneMessageMin = 10;
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneMessageMax = 4000;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOnePlacementsMax = 3;
+
+export const getPromotionLeadsResponseAdvertiserInquiriesItemOneFaxMax = 0;
+
+export const GetPromotionLeadsResponse = zod.object({
+  clinicApplications: zod.array(
+    zod
+      .object({
+        clinicName: zod
+          .string()
+          .min(getPromotionLeadsResponseClinicApplicationsItemOneClinicNameMin)
+          .max(getPromotionLeadsResponseClinicApplicationsItemOneClinicNameMax),
+        contactName: zod
+          .string()
+          .max(getPromotionLeadsResponseClinicApplicationsItemOneContactNameMax)
+          .optional(),
+        contactEmail: zod
+          .string()
+          .email()
+          .max(
+            getPromotionLeadsResponseClinicApplicationsItemOneContactEmailMax,
+          ),
+        city: zod
+          .string()
+          .min(getPromotionLeadsResponseClinicApplicationsItemOneCityMin)
+          .max(getPromotionLeadsResponseClinicApplicationsItemOneCityMax),
+        website: zod
+          .string()
+          .max(getPromotionLeadsResponseClinicApplicationsItemOneWebsiteMax)
+          .optional(),
+        message: zod
+          .string()
+          .min(getPromotionLeadsResponseClinicApplicationsItemOneMessageMin)
+          .max(getPromotionLeadsResponseClinicApplicationsItemOneMessageMax),
+        intent: zod
+          .enum(["claim", "featured", "both"])
+          .default(
+            getPromotionLeadsResponseClinicApplicationsItemOneIntentDefault,
+          ),
+        consent: zod.boolean(),
+        fax: zod
+          .string()
+          .max(getPromotionLeadsResponseClinicApplicationsItemOneFaxMax)
+          .optional(),
+      })
+      .and(
+        zod.object({
+          id: zod.number(),
+          createdAt: zod.coerce.date(),
+        }),
+      ),
+  ),
+  advertiserInquiries: zod.array(
+    zod
+      .object({
+        brandName: zod
+          .string()
+          .min(getPromotionLeadsResponseAdvertiserInquiriesItemOneBrandNameMin)
+          .max(getPromotionLeadsResponseAdvertiserInquiriesItemOneBrandNameMax),
+        contactName: zod
+          .string()
+          .max(
+            getPromotionLeadsResponseAdvertiserInquiriesItemOneContactNameMax,
+          )
+          .optional(),
+        contactEmail: zod
+          .string()
+          .email()
+          .max(
+            getPromotionLeadsResponseAdvertiserInquiriesItemOneContactEmailMax,
+          ),
+        website: zod
+          .string()
+          .max(getPromotionLeadsResponseAdvertiserInquiriesItemOneWebsiteMax)
+          .optional(),
+        message: zod
+          .string()
+          .min(getPromotionLeadsResponseAdvertiserInquiriesItemOneMessageMin)
+          .max(getPromotionLeadsResponseAdvertiserInquiriesItemOneMessageMax),
+        placements: zod
+          .array(zod.enum(["tools-guides", "product-box", "newsletter"]))
+          .max(getPromotionLeadsResponseAdvertiserInquiriesItemOnePlacementsMax)
+          .optional(),
+        consent: zod.boolean(),
+        fax: zod
+          .string()
+          .max(getPromotionLeadsResponseAdvertiserInquiriesItemOneFaxMax)
+          .optional(),
+      })
+      .and(
+        zod.object({
+          id: zod.number(),
+          createdAt: zod.coerce.date(),
+        }),
+      ),
+  ),
+  clinicTotal: zod.number(),
+  advertiserTotal: zod.number(),
 });

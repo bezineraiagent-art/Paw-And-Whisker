@@ -122,6 +122,45 @@ test("all public pages, including home and interactive tools, have full initial 
   assert.ok(results.includes("What the results mean") && results.includes("What to tell your vet"));
 });
 
+test("Phase 4 public pages render forms and disclosures, while promotion admin is private", async () => {
+  const expectations = {
+    "/find-a-vet": ["Find a vet near you", "City or postcode", "Use my location", "call ahead"],
+    "/for-vets": ["Claim", "clinicName", "contactEmail", "consent"],
+    "/advertise": ["media kit", "brandName", "contactEmail", "consent"],
+    "/sponsorship-policy": ["Sponsored", "emergency", "independent"],
+  };
+  for (const [path, expected] of Object.entries(expectations)) {
+    const response = await fetch(base + path);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    for (const text of expected) assert.ok(html.toLowerCase().includes(text.toLowerCase()), `${path}: ${text}`);
+    assert.ok(html.includes(`href="https://pawandwhisker.net${path}"`), `${path}: canonical`);
+    assert.ok(html.includes("application/ld+json"));
+    assert.ok(!html.includes("leaflet-container"), "Leaflet never renders during SSR");
+    assert.ok(!html.includes("Reviewed by a licensed veterinarian"));
+  }
+  assert.ok(privatePaths.includes("/admin/promotions"));
+  const admin = await fetch(base + "/admin/promotions");
+  assert.equal(admin.headers.get("x-robots-tag"), "noindex, follow");
+  const adminHtml = await admin.text();
+  assert.ok(adminHtml.includes('name="robots" content="noindex, follow"'));
+  const sitemap = await (await fetch(base + "/sitemap.xml")).text();
+  assert.ok(!sitemap.includes("/admin/promotions"));
+});
+
+test("founder experience is factual and food emergencies enter the sponsorship-free urgent flow", async () => {
+  for (const path of ["/", "/about"]) {
+    const html = await (await fetch(base + path)).text();
+    assert.ok(html.includes("Lucky") && html.includes("Sugar"), path);
+    assert.ok(/infection/.test(html), path);
+    assert.ok(!/\bsister\b/i.test(html), path);
+    assert.ok(/cannot diagnose|can&#x27;t diagnose|not a diagnosis/i.test(html), path);
+  }
+  for (const page of pages.filter(p => p.path.startsWith("/foods/"))) {
+    assert.ok(page.html.includes('/find-a-vet?urgent=1'), page.path);
+  }
+});
+
 test("three new sourced guides exceed 1,200 words while recovered copy remains intact", () => {
   for (const path of ["/guides/puppy-first-year-cost", "/guides/puppy-crate-sleep", "/guides/puppy-vaccination-schedule"]) {
     const page = pages.find(p => p.path === path);
@@ -138,7 +177,58 @@ test("food reference includes at least 40 foods with conservative species-specif
   assert.equal(riskFor(foods.find(f => f.slug === "grapes"), "cat"), "avoid");
   assert.equal(riskFor(foods.find(f => f.slug === "xylitol"), "puppy"), "toxic");
   assert.equal(riskFor(foods.find(f => f.slug === "onions"), "cat"), "toxic");
-  assert.equal(pages.filter(p => p.kind === "food").length, foods.length * 3);
+  assert.equal(pages.filter(p => p.kind === "food").length, foods.length);
+  assert.ok(!pages.some(p => /^\/tools\/toxic-food-checker\/(puppy|dog|cat)\//.test(p.path)));
+  for (const food of foods) {
+    const page = pages.find(p => p.path === `/tools/toxic-food-checker/${food.slug}`);
+    assert.ok(page.html.replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length >= 500, food.slug);
+    assert.ok(page.description.length >= 140 && page.description.length <= 158, food.slug);
+    for (const species of ["puppy", "dog", "cat"]) assert.ok(page.html.includes(`id="${species}"`), food.slug + ":" + species);
+  }
+});
+
+test("48 food articles have substantial distinct copy, visible FAQs and one canonical URL each", async () => {
+  const foodPages = pages.filter(page => page.kind === "food");
+  assert.equal(foodPages.length, 48);
+  const faqQuestions = new Set();
+  for (const page of foodPages) {
+    const slug = page.path.split("/").pop();
+    const article = JSON.parse(await readFile(new URL(`../src/content/food-articles/${slug}.json`, import.meta.url), "utf8"));
+    const substantive = [article.verdict, article.mechanism, article.preparation, article.signsAndTiming, article.puppy, article.dog, article.cat, article.alternatives].join(" ");
+    assert.ok(substantive.split(/\s+/).length >= 500, `${slug}: copy excluding FAQs and boilerplate`);
+    assert.ok(article.faqs.length >= 4 && article.faqs.length <= 6, slug);
+    for (const faq of article.faqs) {
+      assert.ok(!faqQuestions.has(faq.question.toLowerCase()), `${slug}: repeated FAQ question`);
+      faqQuestions.add(faq.question.toLowerCase());
+    }
+    const html = await (await fetch(base + page.path)).text();
+    const schema = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
+    const faqSchema = schema.find(item => item["@type"] === "FAQPage");
+    assert.equal(faqSchema?.mainEntity.length, article.faqs.length, slug);
+    assert.ok(html.includes(`<link rel="canonical" href="https://pawandwhisker.net${page.path}">`), slug);
+    const block = page.html.match(/<aside class="emergency-notice food-emergency">([\s\S]*?)<\/aside>/)?.[1];
+    assert.ok(block && block.replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length < 80, slug);
+    for (const species of ["puppy", "dog", "cat"]) {
+      const res = await fetch(`${base}/tools/toxic-food-checker/${species}/${slug}?ref=legacy`, { redirect: "manual" });
+      assert.equal(res.status, 301);
+      assert.equal(res.headers.get("location"), page.path + "?ref=legacy");
+    }
+  }
+});
+
+test("public descriptions and expanded decision pages satisfy the requested SEO bounds", () => {
+  for (const page of pages.filter(page => !page.noindex)) {
+    assert.ok(page.title.length < 60, `${page.path}: title`);
+    assert.ok(page.description.length >= 140 && page.description.length <= 158, `${page.path}: description ${page.description.length}`);
+    if (["about", "pricing", "compare", "comparison"].includes(page.kind)) {
+      const count = page.html.replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
+      assert.ok(count >= (["compare", "comparison"].includes(page.kind) ? 700 : 500), page.path);
+      if (["compare", "comparison"].includes(page.kind)) {
+        assert.ok(page.html.includes("<table"), `${page.path}: honest comparison table`);
+        assert.ok(/not.*(?:test|independent)|not hands-on|haven.t.*test/i.test(page.html), `${page.path}: testing limitation`);
+      }
+    }
+  }
 });
 
 test("symptom answers are validated and no combination produces an all-clear", () => {

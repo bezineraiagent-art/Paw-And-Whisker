@@ -1,0 +1,39 @@
+{
+  "slug": "raw-yeast-dough",
+  "verdict": "Raw yeast dough is dangerous for both dogs and cats, but for two linked reasons: it can swell in the stomach and it can ferment, producing alcohol. That means a pet may face belly distension, pain and a broader alcohol poisoning picture from the same exposure. Pizza dough, bread dough and sourdough starter all matter here, especially when they still contain active yeast and have not been baked. It is not a food to “see how it goes”; the practical choice is to treat any exposure as urgent.",
+  "mechanism": "The problem starts with active yeast. In unbaked dough, the yeast keeps working on sugars and makes carbon dioxide gas and alcohol. The gas is what causes bread to rise, but inside a pet’s stomach that same expansion can make the stomach bloated and distended. In some cases, the stomach can twist, which is known as GDV or bloat. The alcohol is absorbed into the bloodstream and can cause poisoning. The source does not establish a neat safe amount or a reliable delay, so the real issue is that one exposure can create both a physical expansion problem and a chemical intoxication problem.",
+  "preparation": "What makes this food risky is its state, not the finished loaf. Raw yeast dough, unbaked bread dough, pizza dough with active yeast and sourdough starter are the main exposures. A ready-to-eat baked crust is different from a bowl of rising dough on the counter, because baking stops the fermentation process that creates gas and alcohol in the stomach. In a home kitchen, the danger is often the mixture left to proof in a bowl, a pan waiting to rise, or scraps of dough dropped from a worktop. Labels that mention active yeast or dough that is still raw deserve extra caution around pets.",
+  "signsAndTiming": "Signs linked to stomach expansion include vomiting, non-productive retching, a distended abdomen, weakness, an elevated heart rate, collapse and death. Signs linked to alcohol poisoning include vomiting, lethargy, staggering, weakness, coma, seizures and respiratory failure. Alcohol is described as rapidly absorbed, so exposure should not be treated as something to watch and wait on. The source does not give a reliable timeline for when every sign appears, and that unpredictability is part of the risk. A pet can look unwell from belly bloat, intoxication, or both at once.",
+  "puppy": "Puppies can get into dough left to rise on a counter or in a bowl, and their small size leaves less room for any swelling in the stomach. Raw yeast dough is not just a ‘bit of bread mixture’; if it is still active, it can expand and ferment inside the body. For puppies, the mix of curiosity, small size and the food’s rising action makes any exposure a serious concern.",
+  "dog": "In dogs, raw yeast dough is dangerous because it can create a distended stomach and also alcohol poisoning. That makes pizza dough, bread dough and sourdough starter risky if they are still raw or proofing. Dogs are more likely to show the belly signs described in the source, including non-productive retching and abdominal distension, alongside intoxication signs.",
+  "cat": "Cats are also at risk from raw yeast dough. The same two issues apply: the dough can expand in the stomach, and fermentation can produce alcohol that is absorbed into the blood. Because cats are smaller than many dogs, even a modest amount can be physically awkward in the stomach. The risk is tied to the dough’s active, unbaked state, not to whether it looks like a harmless lump.",
+  "alternatives": "For pets, the practical alternative is not another dough product but keeping rising dough and starter out of reach altogether. If you want a safer kitchen habit, store raw mixtures covered and behind closed doors, then feed only finished, fully baked bread in pet-appropriate contexts. Baked bread itself is not the focus of this page; the hazard is the active, unbaked dough.",
+  "faqs": [
+    {
+      "question": "Is pizza dough as risky as bread dough for pets?",
+      "answer": "Yes, if it is raw and contains active yeast. Pizza dough and bread dough share the same problem: they can expand in the stomach and ferment there. The shape or recipe matters less than whether the dough is still active and unbaked."
+    },
+    {
+      "question": "Does sourdough starter count as a danger too?",
+      "answer": "Yes. The source lists sourdough starter among the alternate names connected with this hazard. The key issue is the active fermentation process, which can create gas and alcohol. A starter is not a harmless kitchen leftover if a pet gets into it."
+    },
+    {
+      "question": "Why is the stomach swelling part such a problem?",
+      "answer": "Because the dough can keep rising in the warm, moist stomach environment. That can leave a pet with a bloated or distended stomach, and in some cases the stomach can twist. The source treats that as a life-threatening emergency, not simple indigestion."
+    },
+    {
+      "question": "If my dog or cat only licked a bit of dough, is that still relevant?",
+      "answer": "The source does not give a safe amount, so it is not possible to label any amount as harmless. The practical point is that the dough contains active yeast and can ferment. Even a small exposure is worth treating seriously, especially if the pet may have swallowed more than it first seemed."
+    },
+    {
+      "question": "What should I look for in the kitchen to spot this risk?",
+      "answer": "Look for anything raw, proofing or labelled with active yeast: dough left in a bowl, dough wrapped to rise, pizza dough waiting to bake, or sourdough starter on the counter. Once it is baked, the fermentation process has been stopped; while the raw version is the concern here."
+    }
+  ],
+  "related": [
+    "alcohol",
+    "hops",
+    "moldy-food",
+    "raw-eggs"
+  ]
+}

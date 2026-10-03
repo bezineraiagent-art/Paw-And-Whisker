@@ -1,0 +1,39 @@
+{
+  "slug": "coffee",
+  "verdict": "Coffee is not a safe shared drink for pets. The concern is caffeine in brewed coffee, espresso, beans and grounds, and used grounds can still matter. Even a small taste may seem harmless, but concentrated forms such as grounds, beans and coffee drinks with extra shots are far more worrying. For both dogs and cats, the practical issue is simple: keep cups, pods, grounds, beans and rubbish bins out of reach, because this is an exposure problem as well as a toxin problem.",
+  "mechanism": "The problem in coffee is caffeine, a methylxanthine. Pets appear more sensitive to caffeine than people, and the source material groups coffee with tea, soda, energy drinks and some supplements. Once eaten, caffeine can affect the stomach, the heart and the nervous system. That means the risk is not just a bit of stomach upset; it can also involve changes in heart rate, rhythm and blood pressure, plus tremors or seizures. Large drinks can be especially awkward because they may contain extra espresso shots, and sweeteners or creams may make them more tempting to drink.",
+  "preparation": "Coffee becomes a pet risk in several everyday forms, not only in a mug. Brewed coffee, espresso, coffee beans, coffee grounds and used grounds can all be involved. That matters because a pet may reach the bin after the coffee has been made, or lick a spilled drink from a cup left on a table. Coffee drinks sold for people may also hide extra espresso shots, and sweeteners or creams can make them more appealing. The safest practical decision is to treat beans, grounds, filters, pods and leftovers as something to secure, not just the finished drink.",
+  "signsAndTiming": "The caffeine reference describes hyperactivity, gastrointestinal upset, changes in heart rate, rhythm and blood pressure, and neurological signs including tremors and seizures. It does not give a firm timeline for when these signs begin, so it is better not to rely on a watch-and-see approach. With coffee, the form matters: brewed drinks differ from concentrated beans, grounds and supplements, but the appearance of a spill cannot establish an individual pet's risk. A large coffee drink may also contain extra caffeine from added espresso shots. Changes in activity after an exposure are not proof that a pet is simply excited.",
+  "puppy": "Puppies are usually more likely to investigate cups, lids and fallen beans with their mouths, so coffee is a household hazard as much as a drink. The main risk is the caffeine in brewed coffee, espresso, grounds and beans. Tiny pets do not have the same margin for error as larger dogs, so a spill on the floor is not trivial.",
+  "dog": "Dogs are specifically mentioned as being more sensitive to caffeine than people. Coffee drinks can be risky even when they are not plain black coffee, especially if they contain extra espresso shots or sweeteners that attract attention. Grounds, beans and tea bags are more concerning than a quick lick from a cup, so bins and counters matter.",
+  "cat": "Cats are also described as more sensitive to caffeine than people. Coffee exposure in cats is not just about drinking from a mug; it can also happen through beans, grounds or a curious lick from a sweetened coffee drink. Because cats often reach counters and bins, storing coffee securely is part of prevention.",
+  "alternatives": "If you want a pet-safe sharing habit, skip coffee entirely and keep the routine about you, not the pet. A plain water bowl in the room, a calm cuddle, or a separate pet treat keeps the moment without risking caffeine exposure. The key difference is that coffee is not a “small indulgence” food for pets; it is a product to keep contained.",
+  "faqs": [
+    {
+      "question": "Is a lick of coffee safe for dogs or cats?",
+      "answer": "A lick is not a reliable safety test. Brew strength, extra espresso, the pet's size and other ingredients all affect the exposure. Coffee is not a pet treat; describe the actual product and what happened to a veterinary professional rather than trying to find a household safe-amount rule."
+    },
+    {
+      "question": "Are used coffee grounds still a problem?",
+      "answer": "Yes. Used coffee grounds are specifically named as a risk. They still contain caffeine, so a bin or compost heap with used grounds is not harmless just because the drink has already been made and poured away."
+    },
+    {
+      "question": "Does espresso pose a different risk from regular coffee?",
+      "answer": "Espresso matters because coffee drinks may include extra “shots” of coffee or espresso. That can raise the caffeine content without looking much bigger. A pet does not need to drink a large volume for the exposure to be more serious than a few licks."
+    },
+    {
+      "question": "What part of coffee is most concerning: the drink or the beans?",
+      "answer": "All of them can matter, but unused beans and grounds are especially worrying because they are concentrated. A spilled cup is one thing; access to a bag of beans, a pouch of grounds or a rubbish bin can turn into a larger exposure."
+    },
+    {
+      "question": "Are coffee drinks with cream or sweetener safer because they taste diluted?",
+      "answer": "No. They may be more tempting because of the added cream or sweetness, and the source notes that large coffee drinks can contain extra shots of coffee or espresso. The appeal goes up, but so does the practical risk of a caffeine exposure."
+    }
+  ],
+  "related": [
+    "tea",
+    "energy-drinks",
+    "chocolate",
+    "cocoa-powder"
+  ]
+}

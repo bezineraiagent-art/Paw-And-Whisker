@@ -1,0 +1,39 @@
+{
+  "slug": "hops",
+  "verdict": "Hops are a brewing ingredient, but the real hazard for pets is usually the discarded plant material, especially used hops from home-brewing. The best-described severe poisoning is in dogs, where it can trigger a fast and dangerous rise in body temperature alongside other serious signs. Cats should not be given brewing waste either, but the most established syndrome is still in dogs. Keep hops, spent hops, and beer-making leftovers well out of reach.",
+  "mechanism": "The source material does not spell out the exact toxic mechanism for hops. What is clear is the practical risk: used hops from brewing can make dogs dangerously ill, with a pattern centred on high fever and signs such as panting, a racing heart, vomiting, seizures and death. This is described as a life-threatening syndrome, not a mild tummy upset. The article source does not establish the same syndrome in cats, so cat exposures are treated as avoid-at-all-costs rather than a proven identical poisoning picture.",
+  "preparation": "For hops, preparation matters more than recipe style. Fresh hops and spent hops from brewing are both the sort of material that can cause trouble, but the source specifically highlights used hops after fermentation. That means the danger may sit in home-brewing waste, hop bags, kettle trub, hop pellets, and anything else left after beer-making, not just a raw bunch of plant material. The practical label issue is that “used,” “spent,” or “brewing waste” should be treated as a warning, not as something made safe because it is no longer going into beer.",
+  "signsAndTiming": "In dogs, the source describes a rapid onset of severe illness. Signs include panting, a racing heart rate, vomiting, seizures and dangerously high fever, with death listed among the possible outcomes. The source does not give a precise latency window, so it is safest not to assume a wait-and-see period. For cats, the main point is prevention and avoidance, because the best-described severe hops syndrome is in dogs and the source does not establish an equivalent cat pattern.",
+  "puppy": "Puppies can be badly affected by the same hops exposure concerns as adult dogs, but the main practical issue is access: a curious puppy may chew discarded brewing waste, hop packets or a forgotten hop bag. Hops are not a treat or chew, and “spent” hops are still a problem.",
+  "dog": "Dogs are the species with the clearest hops poisoning evidence. The source says used hops can cause rapid, life-threatening high fever in dogs. Home-brewing waste is the key household hazard, so keep hop bags, pellets, spent hops and brewing scraps secured where a dog cannot reach them.",
+  "cat": "Cats should not be offered hops or brewing waste, even though the best-described severe hops syndrome is in dogs. The source does not prove the same cat syndrome, but that is not a reason to relax. Treat hops as an avoid item for cats and keep brewing leftovers fully out of reach.",
+  "alternatives": "If you are looking for something to share with a pet, choose a food that is clearly separate from brewing ingredients. Plain dog- or cat-appropriate treats are a better route than anything connected with hops, beer-making or plant waste. For dogs, that means skipping hop pellets, spent hops and even scraps that picked up brewing residue.",
+  "faqs": [
+    {
+      "question": "Are fresh hops and spent hops both a problem for dogs?",
+      "answer": "Yes. The source highlights used hops from brewing as especially dangerous, but it also names hops flowers as the toxic plant material. For a dog, the safe decision is to treat fresh hops, pellets, and spent brewing waste as off-limits."
+    },
+    {
+      "question": "Why are home-brewing leftovers such a big concern?",
+      "answer": "Because the risk is not just the beer itself. Used hops are discarded after fermentation, and that waste is specifically linked with severe illness in dogs. Hop bags, pellets, and any brewing leftovers should be kept inaccessible, not left in bins or on counters."
+    },
+    {
+      "question": "Do hops only matter if a dog drinks beer?",
+      "answer": "No. The source focuses on hops plant material, especially used hops, rather than beer as the only concern. Brewing waste is the practical issue to watch for at home, because a dog may get into discarded hop material without ever touching the finished drink."
+    },
+    {
+      "question": "Are cats known to get the same hops poisoning syndrome as dogs?",
+      "answer": "The source does not establish that severe hops syndrome in cats the way it does in dogs. That does not make hops safe for cats. It means cat exposures should still be avoided, while recognising that the strongest evidence for the dangerous syndrome is in dogs."
+    },
+    {
+      "question": "What label or pantry clues should make me think twice?",
+      "answer": "Anything marked hops, beer hops, common hops, European hops, hop pellets, or brewing waste should raise concern. In a home-brewing setup, spent grain bins and leftover hop bags are as important to secure as the finished beer, because the toxic risk comes from the plant material itself."
+    }
+  ],
+  "related": [
+    "alcohol",
+    "raw-yeast-dough",
+    "macadamia-nuts",
+    "moldy-food"
+  ]
+}

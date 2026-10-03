@@ -21,3 +21,5 @@ export * from "./analytics_events";
 export * from "./conversations";
 export * from "./messages";
 export * from "./subscribers";
+export * from "./clinic-applications";
+export * from "./advertiser-inquiries";

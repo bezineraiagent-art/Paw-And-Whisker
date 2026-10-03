@@ -4,6 +4,10 @@ import SiteFooter from "./components/SiteFooter";
 import PublicHome from "./pages/PublicHome";
 import PublicPricing from "./pages/PublicPricing";
 import PublicAbout from "./pages/PublicAbout";
+import FindVet from "./pages/FindVet";
+import ForVets from "./pages/ForVets";
+import Advertise from "./pages/Advertise";
+import SponsorshipPolicy from "./pages/SponsorshipPolicy";
 import FoodChecker from "./pages/FoodChecker";
 import SymptomCheck from "./pages/SymptomCheck";
 import { structuredData } from "./content/structured-data";
@@ -40,7 +44,7 @@ export function metadata(path: string) {
 
 export function renderPage(path: string) {
   const page = path === "/404" ? notFoundPage : getPage(path);
-  const publicComponent = page.kind === "home" ? <PublicHome /> : page.kind === "pricing" ? <PublicPricing /> : page.kind === "about" ? <PublicAbout /> : page.kind === "food-checker" ? <FoodChecker /> : page.kind === "symptom-check" ? <SymptomCheck /> : page.kind === "symptom-results" ? <SymptomCheck results /> : null;
+  const publicComponent = page.kind === "home" ? <PublicHome /> : page.kind === "pricing" ? <PublicPricing /> : page.kind === "about" ? <PublicAbout /> : page.kind === "find-vet" ? <FindVet /> : page.kind === "for-vets" ? <ForVets /> : page.kind === "advertise" ? <Advertise /> : page.kind === "policy" ? <SponsorshipPolicy /> : page.kind === "food-checker" ? <FoodChecker /> : page.kind === "symptom-check" ? <SymptomCheck /> : page.kind === "symptom-results" ? <SymptomCheck results /> : null;
   if (publicComponent) return renderToStaticMarkup(<>{publicComponent}<SiteFooter /></>);
   // Every public route has full HTML before any browser JavaScript executes.
   if (page.kind) return renderToStaticMarkup(<><ContentDocument page={page} /><SiteFooter /></>);

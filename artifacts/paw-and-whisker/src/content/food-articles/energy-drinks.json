@@ -1,0 +1,39 @@
+{
+  "slug": "energy-drinks",
+  "verdict": "Energy drinks are risky for pets because they can pack concentrated caffeine into a small can, bottle, shot or tablet, sometimes alongside other ingredients that make the exposure harder to judge. Sugar-free versions add extra label uncertainty because they may include sweeteners or other additives. The practical issue is not just the liquid itself, but the format, flavourings and how much was actually swallowed. For both dogs and cats, any meaningful exposure needs prompt attention rather than a “see how they go” approach.",
+  "mechanism": "The concern with energy drinks is caffeine, which pets appear to be more sensitive to than people. These products may also be sold as drinks, shots, tablets, pouches or supplements, so the same-looking “energy” item can hide very different strengths. Pet Poison Helpline notes that caffeine toxicity can affect the stomach, the nervous system and the heart, with signs such as hyperactivity, vomiting, changes in heart rate or rhythm, blood pressure changes, tremors and seizures. Energy drinks can also be mixed with creams or sweeteners, which complicates what was actually eaten.",
+  "preparation": "Energy drinks are not a simple single-ingredient food. They may be carbonated drinks, canned or bottled “energy” beverages, concentrated shots, tablets or pouches, and some are marketed as sugar-free. That matters because the label may mention caffeine in plain terms, but the real issue is the total product: extra espresso shots, added supplements, flavourings and sweeteners can all change the exposure. A pet may lick a spill, drink from an open cup, chew a can, or get into discarded cans or bottles. Leftovers in bins, recycling and car cup holders are all practical risk points.",
+  "signsAndTiming": "The source does not give a precise latency for caffeine signs in pets, so it would be wrong to suggest a safe waiting period. What is established is that energy drink exposure can lead to hyperactivity, stomach upset, changes in heart rate, rhythm and blood pressure, and neurological signs such as tremors and seizures. Because the drink may be concentrated and may contain more than one stimulant source, the amount swallowed and the form matter. The problem is not limited to a “taste”; unused cans, shots and tablets are specifically called out as higher-risk exposures.",
+  "puppy": "Puppies are more likely to get into dropped cans, open cups and rubbish, but the product is still the same concern: caffeine in an energy drink can hit a smaller body harder than a large adult dog. Energy shots and tablets are especially easy to overlook because they are not obviously a drink.",
+  "dog": "For dogs, energy drinks are risky because even a drink that looks ordinary may contain concentrated caffeine or extra shots of espresso. Sugar-free versions can also bring extra label uncertainty. Compared with coffee or tea, the package format matters more here: cans, shots, tablets and pouches can hide a stronger exposure than a few licks.",
+  "cat": "Cats should not be assumed to handle energy drinks any better than dogs. Pet Poison Helpline groups dogs and cats together for caffeine sensitivity, and cats may be exposed by licking cups, bowls, spilt drinks or nibbling at discarded cans. Sugar-free labels do not make the exposure simple or safe.",
+  "alternatives": "There is no pet-safe “energy drink” substitute in the source material. The practical alternative is prevention: keep cans, bottles, shots and supplement-style products out of reach, and avoid sharing any human energy beverage with pets. If you want a treat routine, use food items that are already known to be appropriate for your pet rather than improvising with stimulant drinks.",
+  "faqs": [
+    {
+      "question": "Are energy drinks different from coffee for pets?",
+      "answer": "Yes, mainly because the format changes the risk. Energy drinks may be cans, shots, tablets or pouches, not just a cup of liquid. They can also contain caffeine plus other ingredients, so it is harder to judge what was swallowed from a single sip or lick."
+    },
+    {
+      "question": "Does a sugar-free energy drink make the exposure safer?",
+      "answer": "No. Sugar-free just changes the label, not the caffeine concern. It can add uncertainty because the drink may include other sweeteners or additives, but the key issue remains the stimulant content and the fact that concentrated products are harder to judge by eye."
+    },
+    {
+      "question": "Can a pet be harmed by licking a spill from an energy drink?",
+      "answer": "A lick is not automatically the same as a large swallow, but the source does not set out a safe amount. Because energy drinks may be concentrated and pets are more sensitive to caffeine than people, even small accidental exposures deserve prompt attention rather than a wait-and-see approach."
+    },
+    {
+      "question": "What packaging should I watch for around the house?",
+      "answer": "Cans are only part of it. The source also names energy shots, tablets and pouches, which can be easy to miss in a bag, car, bin or recycling. Discarded containers may still have residue, and some drinks are sold with extra espresso shots or supplements."
+    },
+    {
+      "question": "Why do energy drinks need different handling from other caffeinated foods?",
+      "answer": "Because the risk is not just caffeine in a beverage. Energy drinks may be built as a mixed product with sweeteners, added shots or supplement ingredients, so the label and package matter as much as the taste. That makes accidental exposure harder to estimate than with a simple cup of coffee."
+    }
+  ],
+  "related": [
+    "coffee",
+    "tea",
+    "chocolate",
+    "xylitol"
+  ]
+}

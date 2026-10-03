@@ -1,0 +1,39 @@
+{
+  "slug": "raw-meat",
+  "verdict": "Raw meat is not a simple “natural” treat. The main concern is bacteria such as Salmonella and E. coli, which can affect both pets and people through the food itself, the bowl, and the surfaces used to prepare it. It is also not automatically a complete diet, so a label alone does not make it suitable for everyday feeding. Puppies need a diet that supports growth, which makes casual raw feeding even less practical.",
+  "mechanism": "Raw meat does not work like a classic poison. The risk described in the source is that it can carry bacteria such as Salmonella and E. coli. That means the danger is tied to contamination of the meat, the pet’s mouth and digestive tract, and the way raw food is handled around the home. The source also notes that raw meat is not automatically a balanced diet, which matters when people rely on it as a full meal rather than an occasional exposure.",
+  "preparation": "The practical problem with raw meat is not only what is inside the packet, but how it is stored, portioned, thawed and served. The source points to raw meat and raw eggs as foods that can contain bacteria harmful to pets and humans alike, so the handling side matters just as much as the feeding side. A label saying “raw”, “fresh”, “minced” or “pet food” does not guarantee safety or balance. Packaging for human cooking and packaging for pet feeding are not the same thing, and neither removes the contamination risk.",
+  "signsAndTiming": "The supplied source does not give a precise symptom list or a reliable timeline for raw meat exposure, and it would be wrong to invent one. The main point is that bacterial contamination is the concern, so illness is possible after exposure, but the exact pattern depends on what was present and how much was eaten. Because people and pets can both be affected, the bigger practical issue is recognising that a “small bite” is not the same as a clean, harmless treat, especially when raw food has been handled in the kitchen.",
+  "puppy": "For puppies, raw meat is a poorer fit than it may first appear. The source says puppies have particular growth needs, and raw meat is not automatically a balanced diet. That means it is not just a bacteria question; it is also a nutrition question. A puppy should not be left on a casual raw-only plan simply because it looks meaty or natural.",
+  "dog": "For dogs, raw meat mainly raises hygiene and balance concerns. It may carry bacteria such as Salmonella and E. coli, and the risk is not limited to the dog itself because bowls, hands and counters can also be exposed. The source does not say raw meat is safe as a regular meal, and it is not a built-in complete diet.",
+  "cat": "For cats, raw meat has the same core hygiene problem: bacteria such as Salmonella and E. coli can be present and can affect pets and people. Cats are not given a separate raw-meat exception in the source. The more practical issue is that “raw” is not the same as “complete”, so a cat’s meal still needs to be nutritionally appropriate.",
+  "alternatives": "If the goal is to offer meat, the safer practical route is a complete food made for the species rather than an improvised raw serving. The key difference is that a proper pet food is formulated as a full diet, while raw meat is just an ingredient and may bring contamination into the home.",
+  "faqs": [
+    {
+      "question": "Is raw meat dangerous because it is raw, or because of contamination?",
+      "answer": "The source points to contamination rather than a chemical poison. Raw meat can carry bacteria such as Salmonella and E. coli, so the problem is the organisms on or in the food and how they spread to pets and people during handling."
+    },
+    {
+      "question": "Does a small taste of raw meat mean my pet will definitely get sick?",
+      "answer": "No source says that one raw bite always causes illness. The risk is that raw meat can contain bacteria harmful to pets and people, so even a small amount is an exposure, but the outcome is not guaranteed from one mouthful."
+    },
+    {
+      "question": "Can I rely on the label if the packet says ‘raw pet food’?",
+      "answer": "Not on its own. The source says raw meat is not automatically a balanced diet, so a label alone does not answer the nutrition question. It also does not remove the hygiene concern linked with bacteria such as Salmonella and E. coli."
+    },
+    {
+      "question": "Why does raw meat matter for the household, not just the pet?",
+      "answer": "Because the source says raw meat can be harmful to pets and humans alike. That makes the prep area important: hands, bowls, chopping boards and surfaces can all become part of the exposure, not just the meat in the bowl."
+    },
+    {
+      "question": "Is raw meat the same issue for dogs and cats?",
+      "answer": "The core contamination risk is the same in both species. The source separates them only in the sense that puppies have special growth needs, so raw feeding can be a poor fit for them nutritionally as well as hygienically."
+    }
+  ],
+  "related": [
+    "raw-eggs",
+    "fatty-scraps",
+    "cooked-bones",
+    "milk"
+  ]
+}

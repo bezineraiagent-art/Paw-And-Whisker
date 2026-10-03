@@ -1,4 +1,5 @@
-import { Router, type Request, type Response, type NextFunction } from "express";
+import { Router } from "express";
+import { requireAdminToken } from "../lib/admin-auth";
 import { and, count, countDistinct, eq, gte, lte, sql } from "drizzle-orm";
 import {
   analyticsEvents,
@@ -17,35 +18,6 @@ function parseDate(value: unknown): Date | undefined {
   if (typeof value !== "string" || !value) return undefined;
   const d = new Date(value);
   return Number.isNaN(d.getTime()) ? undefined : d;
-}
-
-function requireAdminToken(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void {
-  const expected = process.env["ANALYTICS_ADMIN_TOKEN"];
-  if (!expected) {
-    req.log.error(
-      "ANALYTICS_ADMIN_TOKEN is not configured; refusing access to analytics summary",
-    );
-    res.status(503).json({
-      error:
-        "Analytics dashboard is not configured. Set ANALYTICS_ADMIN_TOKEN to enable.",
-    });
-    return;
-  }
-
-  const headerToken = req.headers["x-admin-token"];
-  const provided =
-    typeof headerToken === "string" ? headerToken : undefined;
-
-  if (!provided || provided !== expected) {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  }
-
-  next();
 }
 
 router.post("/analytics/events", async (req, res) => {

@@ -1,0 +1,39 @@
+{
+  "slug": "cherries",
+  "verdict": "Whole cherries are not a good shared snack for pets because the pit, leaves and stems are the real problem. The ripe flesh around the seed is the only part not described as toxic, but that does not make the fruit itself a tidy treat. With cherries, the practical risk is often the pit: chewing can release cyanide, while swallowing whole pits raises a blockage concern. In homes with bowls, jars or stone-fruit leftovers, the safest choice is to keep cherries out of reach.",
+  "mechanism": "Cherry trees and shrubs in the Prunus family contain cyanogenic glycosides, which can release cyanide if the pit is chewed and crushed. The source also says that all parts of the plant apart from the ripe pulp around the seed are considered toxic, including the leaves and stems. The main concern is the pit, not the soft flesh. Human cherries usually have lower pit cyanide than wild cherries, but that does not make the pit safe. If a pet swallows a whole pit without chewing it, poisoning is not expected, though a foreign body issue can still occur.",
+  "preparation": "For pet households, cherries are a label-and-prep food rather than a simple yes-or-no snack. The useful distinction is between the flesh and everything else around it. If cherries are being eaten by people, pits need to be fully removed and kept away from counters, compost and bins a pet can reach. Cherry-flavoured products are a separate question from actual cherries; the fruit article does not establish that flavoured items are equivalent, so the ingredients matter. Pitted fruit left on a plate is still risky if stems, stray pits or fragments remain.",
+  "signsAndTiming": "The source gives specific signs for toxic cyanide exposure: dilated pupils, difficulty breathing, inadequate oxygen levels, bright red gums, shock and death. It does not give a precise safe delay or a clear timeline for when signs start, so timing should not be treated as reassuring. A swallowed whole pit is a different issue from a chewed pit. In that case, the concern shifts towards stomach upset and possible gastrointestinal foreign body signs, depending on the size of the pet and how many pits were eaten. The mechanism and the blockage risk are separate problems.",
+  "puppy": "Puppies and cherries are a bad combination mainly because puppies investigate with their mouths. A young dog is more likely to grab a fallen pit, stem or half-eaten cherry from the floor, and the source says whole pits can create stomach upset or a foreign body issue. Keep cherry stones out of reach, not just the fruit bowl.",
+  "dog": "For dogs, the cherry problem is mostly the pit. Chewed pits can release cyanide, while whole pits may pass without poisoning but still create a blockage concern. Dogs are also the species for which cherry exposures are specifically highlighted in pet poison guidance, so discarding pits securely matters as much as what is served.",
+  "cat": "Cats should not be assumed to handle cherries more safely than dogs. The source lists cherries as a mild toxicity concern for both, and the toxic parts are the same: pits, leaves and stems. Because cats are smaller and more likely to nibble odd objects, even a stray pit or stalk on a worktop is worth preventing.",
+  "alternatives": "If you want a fruit-style snack that avoids stone-pit worries, choose foods that do not come with a hard seed or stone to remove. The practical point with cherries is that the danger is built into the way they are served. Safer options are plain fruits that do not leave a chewable pit behind.",
+  "faqs": [
+    {
+      "question": "Can pets eat the flesh of a cherry if the pit is removed?",
+      "answer": "The source says the ripe pulp around the seed is the only part not considered toxic. Even so, the practical issue is whether every pit, stem and leaf fragment has been removed and kept away. A cherry is still a messy food to share compared with simpler fruits."
+    },
+    {
+      "question": "Why are cherry pits a bigger issue than the flesh?",
+      "answer": "Because the pit can release cyanide if it is chewed and crushed. The soft flesh is not the problem described in the source. That is why a cherry dropped on the floor with an intact pit is not the same as properly pitted fruit."
+    },
+    {
+      "question": "Are wild cherries more dangerous than supermarket cherries?",
+      "answer": "The source says cherries bought for human consumption typically contain less cyanide in the pits than wild cherries. That still does not make the pit safe. Wild cherry trees and shrubs also include toxic leaves and stems, so for pets, both settings need caution."
+    },
+    {
+      "question": "What if my dog swallowed a whole cherry pit?",
+      "answer": "If the pit goes down whole and is not chewed, poisoning is not expected from cyanide release. The remaining concern is physical: stomach upset or a possible gastrointestinal foreign body, depending on the pet and how many pits were swallowed."
+    },
+    {
+      "question": "Do cherry stems and leaves matter, or only the pit?",
+      "answer": "They matter too. The source states that all parts of cherry trees and shrubs other than the ripe pulp around the seed are considered toxic. That includes stems and leaves, so a bowl with decorative sprigs or yard clippings should be kept away from pets."
+    }
+  ],
+  "related": [
+    "peach-pits",
+    "apples",
+    "berries",
+    "watermelon"
+  ]
+}

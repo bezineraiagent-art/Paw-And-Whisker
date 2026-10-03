@@ -1,0 +1,39 @@
+{
+  "slug": "ice-cream",
+  "verdict": "Ice cream is usually a poor choice for pets because it combines dairy, sugar and fat, which can upset digestion. The bigger issue is the label: some tubs, cones and toppings hide chocolate, coffee, raisins or xylitol, turning a sweet snack into something much more serious. Even “plain” vanilla still brings dairy and fat. For both dogs and cats, the practical question is not whether ice cream tastes harmless to humans, but whether every ingredient and topping is pet-safe.",
+  "mechanism": "Most of the concern starts with what ice cream is made from. Dairy-based ice cream can cause digestive upset because pets do not have much lactase, the enzyme that breaks down lactose. The fat content can also lead to vomiting, diarrhoea and general stomach upset. Sugar adds no benefit. The real risk changes with flavour and mix-ins: chocolate and coffee contain methylxanthines, xylitol can cause severe poisonings in dogs, and raisins are a problem for dogs. Alcohol-based desserts are a separate danger if they are part of the product or a topping.",
+  "preparation": "Ice cream is one of those foods where the label matters more than the word on the tub. Plain vanilla is not the same as a chocolate ripple, coffee flavour, cookie dough mix, or a dessert with raisins, brownie pieces, caramel sauce or sugar-free ingredients. Cones can also be an issue if they carry chocolate coatings or sugary fillings. Leftover bowls, dropped scoops and melted puddles on the floor are worth treating as the whole product, not just the obvious scoop. If you are checking a tub, read the ingredient list first, then the toppings and add-ins, rather than assuming the main flavour tells the full story.",
+  "signsAndTiming": "What happens after exposure depends on the ingredients. Dairy and fat are most likely to cause stomach upset such as vomiting and diarrhoea, but the timing can vary and is not predictable enough to use as a safe guide. If the ice cream contains chocolate or coffee, signs linked with methylxanthines can include vomiting and diarrhoea, panting, restlessness, tremors, abnormal heart rhythm and seizures. Xylitol is a separate concern in dogs and can lead to vomiting, lethargy, loss of coordination and more serious effects. Alcohol-containing desserts can act quickly because alcohol is rapidly absorbed.",
+  "puppy": "For puppies, ice cream is a bad match because young dogs can be especially sensitive to rich foods and dairy upset. A puppy also has less room for error if the dessert contains chocolate, coffee, xylitol or raisins hidden in the mix. A lick from a cone is not just “a tiny treat” if the tub has extra ingredients.",
+  "dog": "For dogs, plain ice cream is still a poor food choice because the fat and dairy can upset the stomach. The risk rises sharply if the flavour or topping includes chocolate, coffee, raisins or xylitol. Check the full ingredient list, not just the flavour name, because “sugar-free” or “cookies and cream” can hide the problem.",
+  "cat": "For cats, ice cream is not a safe little indulgence. Dairy can cause digestive upset, and cats are especially vulnerable to Allium ingredients in mixed desserts or flavourings, such as onion or garlic in savoury-inspired ice creams. Chocolate, coffee and xylitol are also concerns if they appear in the product.",
+  "alternatives": "If you want a cold treat, choose something that does not bring dairy, added sugar or hidden sweeteners into the bowl. For dogs, that usually means offering a pet-specific frozen treat rather than human ice cream. For cats, it is best to keep cold snacks simple and species-appropriate rather than sharing dessert-style foods.",
+  "faqs": [
+    {
+      "question": "Can my pet lick a spoon after I have eaten plain ice cream?",
+      "answer": "A quick lick is not the same as a whole serving, but it still depends on what was in the dessert. If the spoon carried chocolate, coffee, xylitol, raisins or alcohol-based toppings, the exposure is no longer “plain” and should be treated carefully."
+    },
+    {
+      "question": "Is vanilla ice cream safer than chocolate ice cream?",
+      "answer": "Vanilla is generally less risky only because it usually lacks chocolate or coffee. It is not harmless, though, because it still contains dairy, sugar and fat. The safest choice is based on the full ingredient list, not the flavour name on the tub."
+    },
+    {
+      "question": "What about ice cream cones and wafers?",
+      "answer": "The cone itself may be plain, but many are coated, filled or dusted with chocolate or other sugary ingredients. Wafers can also carry flavoured fillings. If a pet gets the cone, the question is what the cone contains, not just whether it is crunchy."
+    },
+    {
+      "question": "Why are sugar-free ice creams a concern for dogs?",
+      "answer": "Sugar-free does not mean pet-safe. Some sugar-free products use xylitol, which is a known problem in dogs and can cause severe effects. That is why “diet”, “no sugar added” and “sugar-free” labels need the same careful reading as chocolate or coffee flavours."
+    },
+    {
+      "question": "Are the risks the same for cats and dogs?",
+      "answer": "No. Dogs have a known serious problem with xylitol, and grapes or raisins are a concern for dogs rather than proven the same way in cats. Cats are especially vulnerable to Allium ingredients, so an ice cream with onion, garlic or similar flavouring is a bigger cat-specific worry."
+    }
+  ],
+  "related": [
+    "milk",
+    "cheese",
+    "chocolate",
+    "xylitol"
+  ]
+}

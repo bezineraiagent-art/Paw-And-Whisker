@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "X93_rsGY6WSL5r65J1XFP"
+uri = "file://.local/reports/phase4-verification.html"
+type = "html"
+title = "Phase 4 verification & launch requirements"
+description = "Build/test results, browser evidence, limitations and requirements before publishing. Nothing has been published."
+logical_id = "6594b6fb-e048-4616-9b98-8dfaa528f46c"
+content_hash = "sha256:109e5702ff3ee725022a3230e1bd3b286e89ff8a27eb58087a5224de6d919c6e"
+size = 282896
+mtime_ms = 1791062026275
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:ae8d0c6f-615f-405f-9a53-a5b4b902be1d/6594b6fb-e048-4616-9b98-8dfaa528f46c/ea3c5308-d71c-419d-85b2-5931a133c42e"
+storage_version_token = "1791062165388298"
+content_type = "text/html"

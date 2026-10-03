@@ -1,0 +1,39 @@
+{
+  "slug": "cooked-bones",
+  "verdict": "Cooked bones are not a harmless chew or a tidy way to use leftovers. The problem is physical, not toxic: once bone has been cooked, it can splinter and create sharp pieces that may choke a pet or damage the mouth, throat, stomach or intestines. A bone that looks small or ordinary on the plate can still be risky once it has been handled, eaten around, or buried in scraps. Because of that, cooked bones are best kept off the menu for both dogs and cats.",
+  "mechanism": "The main danger with cooked bones is what they do inside the body, not any poison in the bone itself. Cooking changes the structure of the bone and makes splintering more likely. Those sharp fragments can get stuck while a pet is chewing or swallowing, or move further along the digestive tract and cause injury or blockage. The size, shape and brittleness of the bone matter more than the type of meat it came from. That is why a chicken bone, rib bone or any other cooked bone should be treated as a mechanical hazard.",
+  "preparation": "For cooked bones, preparation is the whole issue. Roasted, boiled, baked and barbecued bones all count once they have been cooked, especially if they have been stripped down after a meal and left in a bowl, on a plate or in the bin. Labels such as “leftovers”, “carcass”, “stock bones” or “for broth” can make them seem useful, but they are still splinter-prone. If a meal includes bone-in meat, the safest practical decision is to keep the cooked bones out of reach before pets can raid the kitchen, counter or rubbish.",
+  "signsAndTiming": "No predictable poisoning timeline is established for cooked bones because the concern is injury or blockage rather than toxicity. Problems may show up straight away if a splinter catches in the mouth or throat, or later if a fragment moves through the gut and causes damage or obstruction. The exact timing depends on where the bone piece is, how large it is and whether it has caused a tear or a blockage. Because of that uncertainty, a pet should not be left to “see what happens” after eating a cooked bone.",
+  "puppy": "Puppies are often quicker to snatch food from laps, counters and bins, so cooked bones can be an extra problem. Smaller mouths and less careful chewing make splintering and swallowing more likely. A puppy that finds a cooked chicken wing, chop bone or roast joint scrap needs the same caution as an adult dog, but with even less room for guessing.",
+  "dog": "For dogs, cooked bones are a mechanical hazard rather than a digestible treat. Some dogs will crunch through them, while others try to gulp large pieces. Either way, the risk is broken teeth, choking, or sharp fragments moving into the stomach or intestines. Bone from dinner plates, barbecue leftovers and rubbish bags all matters because cooking, not the meat source, is what makes splintering a concern.",
+  "cat": "Cats may be offered tiny bone-in scraps or may steal them from the kitchen, but cooked bones are still a poor fit for them. Cats are smaller, so a fragment can be more dangerous in relation to their size, and their delicate chewing pattern does not make splintered bone safer. Any cooked bone, even from a small bird or fish serving, can be a choking or injury risk.",
+  "alternatives": "If the aim is a chew, cooked bone is the wrong texture. Safer options are food items that are meant for pets and do not splinter into hard shards. For a leftover-based reward, plain meat stripped fully away from bone is less risky than handing over the bone itself, provided the food is otherwise suitable and free of seasoning, sauce or other problem ingredients.",
+  "faqs": [
+    {
+      "question": "Why are cooked bones worse than raw bones?",
+      "answer": "The key difference is how cooking changes the bone. Once heated, bone becomes more likely to splinter into sharp pieces. Those fragments are what create choking, mouth injury, or damage further down the digestive tract."
+    },
+    {
+      "question": "Are chicken bones the main concern, or are all cooked bones risky?",
+      "answer": "All cooked bones are risky. Chicken bones are often mentioned because they are common in kitchens, but the hazard comes from the cooked, brittle nature of the bone itself. Any cooked bone can break into sharp fragments."
+    },
+    {
+      "question": "Can a dog safely chew a big cooked bone if it seems sturdy?",
+      "answer": "No bone is truly safe just because it looks large or solid. Dogs can crack pieces off while chewing, and a fragment can still choke them or injure the gut. The outside size does not remove the splintering risk."
+    },
+    {
+      "question": "What if the bone came from broth or stock and feels soft?",
+      "answer": "Softened bones are still not a good pet snack. They may crumble rather than stay intact, which still creates pieces that can be swallowed in an unsafe way. A bone used for stock should not be treated as a chew toy."
+    },
+    {
+      "question": "Does the risk change if the bone is hidden in food scraps or rubbish?",
+      "answer": "The risk is the same, but the exposure is easier to miss. Cooked bones in leftovers, plates, compost or rubbish can be scavenged unexpectedly. Once a pet gets to them, the hazard is still choking, splintering, obstruction or injury."
+    }
+  ],
+  "related": [
+    "raw-meat",
+    "raw-eggs",
+    "fatty-scraps",
+    "moldy-food"
+  ]
+}

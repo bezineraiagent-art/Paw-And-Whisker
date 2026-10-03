@@ -1,0 +1,39 @@
+{
+  "slug": "moldy-food",
+  "verdict": "Moldy food is one of those household problems that looks like a simple clean-up but can carry a real toxin risk for pets. The concern is not the mould itself alone, but fungus-produced toxins that can be present in items such as old bread, pasta, cheese, nuts and compost. Dogs and cats can both be exposed, yet the practical risk often starts with where the food was found: bin, counter, garden or compost heap. The safest choice is to keep pets away from the item and the source.",
+  "mechanism": "The source material describes fungus-produced toxins in mouldy food as tremorgenic mycotoxins, and also lists other mycotoxin names associated with mouldy food. These toxins are linked with stomach upset, nervous system signs, fever and organ injury. In plain terms, a pet may not just react to a spoiled smell or taste; the mouldy item can contain compounds that affect the body more broadly. The exact amount, type of mould and the food involved can all change the outcome, so there is no single predictable pattern from one mouldy bite to the next.",
+  "preparation": "This hazard is less about cooking and more about storage and access. Trouble can come from forgotten bread at the back of a cupboard, an old take-away container, cheese left too long in the fridge, nuts that have gone off, pasta in the bin, or compost that includes decaying food scraps. For practical decisions, the main question is not whether the item looked only a little mouldy, but whether your pet could reach it. Compost is especially easy to overlook because it is still “food” in a pet’s mind even when it is no longer fit for people.",
+  "signsAndTiming": "The source lists vomiting, drooling, agitation, incoordination, tremors, seizures, fever, and possible liver or kidney failure. It does not give one fixed timeline, and it should not be treated as if there is a safe waiting period. The same mouldy item can behave differently depending on the food, the amount eaten and the pet. Because signs can involve both the gut and the nervous system, a pet that seems briefly unsettled can still have a more serious toxin exposure. Dogs and cats should be considered separately when thinking about what they may have eaten and where the food came from.",
+  "puppy": "Puppies are more likely to investigate bins, dropped crumbs and compost with their mouths, so mouldy bread, pasta or cheese left within reach is a practical risk. Because puppies are small and still learning boundaries, even a small amount can matter more than it would for a larger dog. Keep special attention on low cupboards, counters and garden compost.",
+  "dog": "Dogs are the best-documented species for this page, and mouldy food is a known problem for them. The source specifically mentions garbage and compost pile exposure in dogs, with mouldy bread, pasta, cheese and nuts as examples. Dogs may also get into rubbish bins quickly, so the access point is often the real issue, not just the food itself.",
+  "cat": "Cats are also listed as at risk from mouldy food and compost, but the source does not separate a cat-only syndrome. That means cat exposure should be treated seriously without assuming it will look exactly like a dog case. Cats may reach discarded meat scraps, dairy leftovers or compost through bins and counters, so the location matters as much as the ingredient.",
+  "alternatives": "There is no “safe mouldy version” of a food. If you are deciding whether to keep or discard something, the practical line is simple: if it is mouldy enough that you would not eat it yourself, it should not be shared with a pet. For pets, a fresh, properly stored version of the same food is the only sensible alternative.",
+  "faqs": [
+    {
+      "question": "Is mould on bread the same problem as mould on cheese for pets?",
+      "answer": "No, but both can be a problem. The source names bread and cheese as examples of mouldy food exposure. The pet issue is not a nice or a nasty-looking mould pattern; it is the possibility of fungus-produced toxins in spoiled food."
+    },
+    {
+      "question": "Can compost be dangerous even if it is mostly garden waste?",
+      "answer": "Yes. The source specifically includes compost as an exposure source. Compost often contains decaying food matter such as bread, pasta, cheese or other scraps, so it is not just a gardening issue. A pet getting into it may be exposed to mouldy leftovers."
+    },
+    {
+      "question": "Does the age of the food matter if there is only a small patch of mould?",
+      "answer": "The source does not give a safe line based on size of the mould patch. It focuses on the food source itself and the toxins mould can produce. A small visible spot does not guarantee the rest of the item is harmless for a pet."
+    },
+    {
+      "question": "Are dogs and cats affected in exactly the same way?",
+      "answer": "The source says both dogs and cats are at risk, but it does not describe a cat-specific syndrome. Dogs have the clearer evidence here. For cats, the practical point is that mouldy food and compost are still exposure sources and should not be treated casually."
+    },
+    {
+      "question": "What food types should I be thinking about first in the fridge or bin?",
+      "answer": "The source names mouldy bread, pasta, cheese and nuts, plus decaying matter like compost. Those are the most relevant household examples on this page. The key decision is whether the pet could reach spoiled food, not whether it was once intended for people."
+    }
+  ],
+  "related": [
+    "raw-yeast-dough",
+    "wild-mushrooms",
+    "cheese",
+    "walnuts"
+  ]
+}

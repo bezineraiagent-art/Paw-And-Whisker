@@ -1,0 +1,39 @@
+{
+  "slug": "cheese",
+  "verdict": "Cheese is not a classic poison, but it is still a poor casual snack for pets. Its main issues are fat, salt and lactose, which can upset the stomach. The bigger hidden risk is flavouring: garlic, onion, chives and similar Allium ingredients can turn an ordinary cheese product into a dangerous one, especially for cats. Plain cheese is therefore a label-reading food, not a grab-and-go treat.",
+  "mechanism": "Cheese causes problems mainly through what it contains, not through a special toxin of its own. ASPCA lists it as fatty, salty and possibly containing lactose. Pets do not have the same lactase supply as people, so dairy can lead to digestive upset. The fat content is a separate concern because rich foods can be hard on the gut. Another issue is seasoning: cheese spreads, sauces, baked snacks and flavoured slices may include onion, garlic, chives or leeks, which are part of the Allium family and are far more worrying than plain cheese itself.",
+  "preparation": "The form of cheese matters a lot. A plain cube, a shred from a block, and a processed cheese triangle are not the same thing. The first is usually just dairy; the last may carry more salt, more fat and extra ingredients. Flavoured cheeses are the biggest label trap, especially herb, onion, garlic, chive, leek, smoked or mixed seasoning blends. Cheese on pizza, in pastry, in crackers or inside filled snacks also brings other ingredients into play, so the cheese is only one part of the problem. Rinds, mould-ripened varieties and stringy pieces can also be awkward to swallow whole.",
+  "signsAndTiming": "The most likely problem from plain cheese is digestive upset, not an immediate poisoning syndrome. That means loose stools, vomiting or general stomach discomfort can follow dairy or rich foods. Saltier cheese products may create more thirst, and very rich servings may sit badly in the stomach. If the cheese contains Allium ingredients, the concern changes: onion, garlic and chives can damage red blood cells, and cats are especially vulnerable. The source material does not give a precise timeline for cheese itself, so it should not be treated as a food with a safe waiting period. Any exposed pet that ate a flavoured cheese product needs prompt attention.",
+  "puppy": "Puppies and cheese do not always mix well. Young dogs have small stomachs, and the fat, salt and lactose in cheese can be enough to cause digestive upset. Soft cheese pieces are also easy to gulp, which makes flavoured spreads and stringy snacks a messy fit for puppies.",
+  "dog": "For dogs, plain cheese is more of a rich human snack than a true poison. Small amounts may still cause stomach upset because of lactose, fat and salt. The label matters most: cheese with onion, garlic, chives or leeks is a very different problem and should be treated cautiously.",
+  "cat": "Cats are less forgiving with cheese, especially if it is flavoured. ASPCA notes that cats are particularly susceptible to Allium plants, so cheese with onion, garlic, chives or leek seasoning is a bigger concern for them than plain dairy. Even plain cheese may upset a cat’s digestion.",
+  "alternatives": "If you want a safer bite to share, choose foods that do not rely on dairy or seasoning. Plain apple slices, blueberries, cucumber, carrots, green beans or watermelon flesh are simpler options when they are prepared properly. These avoid the hidden salt-and-flavouring problem that makes many cheese products tricky.",
+  "faqs": [
+    {
+      "question": "Is plain cheese toxic to dogs?",
+      "answer": "Plain cheese is not listed as a poison. The concern is that it is fatty, salty and may contain lactose, so it can upset the stomach. It is best thought of as an occasional rich food, not a routine treat."
+    },
+    {
+      "question": "Can cats eat cheese?",
+      "answer": "Cats may be tempted by cheese, but they are not a good match for it. Dairy can be hard to digest, and flavoured cheese is especially risky if it contains onion, garlic, chives or leeks. Cats are particularly vulnerable to Allium ingredients."
+    },
+    {
+      "question": "Which cheese labels are the biggest red flags?",
+      "answer": "Look closely at flavoured, seasoned or mixed-ingredient products. Onion, garlic, chives and leeks are the main label words to avoid. Cheese in dips, spreads, crackers, stuffed snacks and pizza can hide those ingredients even when the base cheese seems plain."
+    },
+    {
+      "question": "Does the type of cheese matter?",
+      "answer": "Yes. Plain block cheese, processed slices, soft spreads and cooked cheese snacks are not identical. Processed and flavoured versions are more likely to bring salt, extra fat or Allium seasoning into the picture, which makes them less suitable for pets."
+    },
+    {
+      "question": "Why is cheese more of a problem for some pets than others?",
+      "answer": "Individual pets vary in how well they handle rich foods. Smaller pets and those with sensitive stomachs may react more strongly to fat, salt or lactose. Cats also deserve extra caution because Allium ingredients in flavoured cheese are especially concerning for them."
+    }
+  ],
+  "related": [
+    "milk",
+    "fatty-scraps",
+    "ice-cream",
+    "peanut-butter"
+  ]
+}

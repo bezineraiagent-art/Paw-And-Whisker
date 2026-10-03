@@ -1,0 +1,39 @@
+{
+  "slug": "onions",
+  "verdict": "Onions are unsafe for dogs and cats in every familiar form: raw, cooked, dried, powdered, and hidden inside sauces or ready meals. The problem is not just a visible slice on top of dinner; onion can be part of soup, gravy, stuffing, baby food, or seasoning blends. Cats are especially vulnerable, but dogs are at risk too. Because onion exposure can damage red blood cells, even ordinary-looking leftovers deserve attention, especially when the ingredient list is vague or incomplete.",
+  "mechanism": "Onions belong to the Allium family, which includes chives, garlic, leeks, green onions, and shallots. The concern is not a simple stomach upset alone. Poisonous amounts can irritate the digestive system and also damage red blood cells, which may lead to anaemia. That makes onion different from many other kitchen scraps: the risk is not only from the flavour or the smell, but from the plant compounds themselves. Cats are described as especially susceptible, and certain Japanese dog breeds are also more sensitive.",
+  "preparation": "The practical issue with onions is how often they appear as an ingredient rather than a standalone vegetable. Raw rings, fried toppings, cooked pieces from a curry, onion salt, onion powder, soup bases, stock cubes, sauces, gravy, stuffing, takeaway food, and baby food can all bring onion into a pet’s bowl. Dehydrated or powdered forms matter because the onion is concentrated and easy to miss on a label. Leftover pizza, roast dinners, and sandwich fillings can hide onion in plain sight, so ingredient lists matter more than the serving style.",
+  "signsAndTiming": "The source describes two broad effects: gastrointestinal irritation and red blood cell damage. That means a pet may show vomiting or diarrhoea, and the blood-cell effect can lead to anaemia. One difficult part of onion exposure is that the signs are not always obvious from the food itself; a cooked sauce or mixed dish can be enough to matter, while the onion may not stand out at all. Cats are especially susceptible, so a small-looking exposure still needs to be taken seriously rather than assumed harmless.",
+  "puppy": "Puppies should not be given onions as a “tiny taste” from the table. Onion powder in gravy, shredded onion from a burger, or onion-heavy leftovers are all poor choices for young dogs because the risk is toxic, not just messy. For puppies, the issue is often accidental access during family meals.",
+  "dog": "For dogs, onions are unsafe whether they are raw, fried, roasted, simmered, dried, or powdered. The biggest practical mistake is thinking cooked onion is somehow safe because it is soft or mixed into food. It is still onion. Be careful with seasonings, sauce sachets, and takeout leftovers, where the ingredient may be easy to overlook.",
+  "cat": "Cats are especially vulnerable to Allium toxicity, so onion exposure is a bigger concern for them than many people realise. A cat may eat only a little of a mixed dish, yet still be exposed through onion broth, mashed potato seasoning, or a spoonful of sauce. With cats, the hidden-ingredient problem is often the real danger.",
+  "alternatives": "If you want a pet-safe “savoury” feel, use plain foods that do not rely on onion for flavour. For dogs and cats, that means choosing the onion-free parts of a meal, not the seasoned version. Read labels on stocks, gravies, seasoning mixes, and ready meals with extra care.",
+  "faqs": [
+    {
+      "question": "Is cooked onion safer than raw onion for pets?",
+      "answer": "No. Cooking does not make onion safe for dogs or cats. Raw, cooked, dried, and powdered onion are all part of the same Allium risk. The format changes the appearance, not the fact that onion compounds can still be present in the food."
+    },
+    {
+      "question": "Why are onion powders and seasonings a problem?",
+      "answer": "Because onion is easy to miss when it is ground into a powder or blended into a seasoning mix. A small shake over chips, meat, or vegetables can still put onion into food. That is why labels matter as much as obvious onion pieces."
+    },
+    {
+      "question": "What kinds of human foods commonly hide onion?",
+      "answer": "Soup, sauce, gravy, stuffing, stock, takeaway food, savoury ready meals, and some baby foods may contain onion. Leftovers are a common source because onion is often used to build flavour, not as a visible ingredient on the plate."
+    },
+    {
+      "question": "Are dogs and cats affected by onions in the same way?",
+      "answer": "Both species are at risk because onion belongs to the toxic Allium family. The difference is that cats are described as especially susceptible, so even a modest exposure in a mixed dish deserves extra caution. Dogs are also clearly at risk depending on what was eaten."
+    },
+    {
+      "question": "What is the main physical danger of onion exposure?",
+      "answer": "The main concern is red blood cell damage, which can lead to anaemia. Onion can also irritate the gut and cause vomiting or diarrhoea. That combination makes onion different from many foods that are only a digestive nuisance."
+    }
+  ],
+  "related": [
+    "garlic",
+    "chives",
+    "leeks",
+    "shallots"
+  ]
+}

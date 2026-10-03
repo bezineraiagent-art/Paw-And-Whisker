@@ -1,12 +1,12 @@
 import SiteHeader from "@/components/SiteHeader";
-import { STRIPE_PAYMENT_LINK } from "@/content/site";
+import { STRIPE_PAYMENT_LINK, getPage } from "@/content/site";
 
 export default function PublicPricing() {
   return (
     <div className="pw">
       <SiteHeader />
-      <main>
-        <section className="pw-hero">
+      <main id="main">
+        <section className="pw-hero pw-sky small">
           <div className="pw-wrap pw-narrow pw-reveal">
             <p className="pw-eyebrow">Pricing</p>
             <h1>Start free. Upgrade only if you want to.</h1>
@@ -41,6 +41,7 @@ export default function PublicPricing() {
             </div>
           </div>
         </section>
+        <section className="pw-section"><div className="pw-wrap pw-narrow"><article className="content-copy" dangerouslySetInnerHTML={{ __html: getPage("/pricing").html ?? "" }} /></div></section>
         <section className="pw-section alt">
           <div className="pw-wrap pw-narrow">
             <span className="pw-tag soon">Planned, coming soon</span>
@@ -57,7 +58,7 @@ export default function PublicPricing() {
           <div className="pw-wrap pw-narrow">
             <h2>Puppy Survival Kit</h2>
             <p>Printable guides for the first 30 days. A separate one-time purchase, not included in Plus.</p>
-            <p><a className="pw-btn ghost" href="https://pawandwhisker.net/puppy-kit/">Explore the Puppy Kit</a></p>
+            <p><a className="pw-btn ghost" href="/puppy-kit/">Explore the Puppy Kit</a></p>
             <p className="pw-disc">General pet information, not veterinary advice. AI can make mistakes. For urgent signs, go to an emergency vet immediately.</p>
           </div>
         </section>

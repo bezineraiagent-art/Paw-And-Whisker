@@ -31,4 +31,13 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.use("/api", router);
 
+// Body-parser errors can contain parts of a submitted body. Do not log those,
+// especially transient photos and visitor coordinates.
+app.use((error: unknown, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const status = error && typeof error === "object" && "status" in error ? Number(error.status) : 500;
+  req.log.warn({ status }, "Request failed; submitted content omitted");
+  res.status(status === 413 ? 413 : status === 400 ? 400 : 500).json({
+    error: status === 413 ? "That request is too large. Please choose a smaller photo." : status === 400 ? "Invalid request body." : "The request could not be completed.",
+  });
+});
 export default app;

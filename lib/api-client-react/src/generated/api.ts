@@ -17,6 +17,8 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
+  AdvertiserInquiryInput,
+  ClinicApplicationInput,
   CompanionAnswer,
   CompanionInput,
   CompanionUsage,
@@ -28,7 +30,11 @@ import type {
   OpenaiMessage,
   OpenaiMessageInput,
   PdfAccess,
+  PromotionLeads,
+  PromotionReceipt,
   SubscriberInput,
+  VetSearchInput,
+  VetSearchResult,
 } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
@@ -874,3 +880,319 @@ export const useAskCompanion = <
 > => {
   return useMutation(getAskCompanionMutationOptions(options));
 };
+
+/**
+ * @summary Find nearby clinics without persisting a visitor location
+ */
+export const getSearchVetsUrl = () => {
+  return `/api/vets/search`;
+};
+
+export const searchVets = async (
+  vetSearchInput: VetSearchInput,
+  options?: RequestInit,
+): Promise<VetSearchResult> => {
+  return customFetch<VetSearchResult>(getSearchVetsUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(vetSearchInput),
+  });
+};
+
+export const getSearchVetsMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof searchVets>>,
+    TError,
+    { data: BodyType<VetSearchInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof searchVets>>,
+  TError,
+  { data: BodyType<VetSearchInput> },
+  TContext
+> => {
+  const mutationKey = ["searchVets"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof searchVets>>,
+    { data: BodyType<VetSearchInput> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return searchVets(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type SearchVetsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof searchVets>>
+>;
+export type SearchVetsMutationBody = BodyType<VetSearchInput>;
+export type SearchVetsMutationError = ErrorType<void>;
+
+/**
+ * @summary Find nearby clinics without persisting a visitor location
+ */
+export const useSearchVets = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof searchVets>>,
+    TError,
+    { data: BodyType<VetSearchInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof searchVets>>,
+  TError,
+  { data: BodyType<VetSearchInput> },
+  TContext
+> => {
+  return useMutation(getSearchVetsMutationOptions(options));
+};
+
+export const getCreateClinicApplicationUrl = () => {
+  return `/api/promotion/clinic-applications`;
+};
+
+export const createClinicApplication = async (
+  clinicApplicationInput: ClinicApplicationInput,
+  options?: RequestInit,
+): Promise<PromotionReceipt> => {
+  return customFetch<PromotionReceipt>(getCreateClinicApplicationUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(clinicApplicationInput),
+  });
+};
+
+export const getCreateClinicApplicationMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createClinicApplication>>,
+    TError,
+    { data: BodyType<ClinicApplicationInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createClinicApplication>>,
+  TError,
+  { data: BodyType<ClinicApplicationInput> },
+  TContext
+> => {
+  const mutationKey = ["createClinicApplication"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof createClinicApplication>>,
+    { data: BodyType<ClinicApplicationInput> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createClinicApplication(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateClinicApplicationMutationResult = NonNullable<
+  Awaited<ReturnType<typeof createClinicApplication>>
+>;
+export type CreateClinicApplicationMutationBody =
+  BodyType<ClinicApplicationInput>;
+export type CreateClinicApplicationMutationError = ErrorType<unknown>;
+
+export const useCreateClinicApplication = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createClinicApplication>>,
+    TError,
+    { data: BodyType<ClinicApplicationInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createClinicApplication>>,
+  TError,
+  { data: BodyType<ClinicApplicationInput> },
+  TContext
+> => {
+  return useMutation(getCreateClinicApplicationMutationOptions(options));
+};
+
+export const getCreateAdvertiserInquiryUrl = () => {
+  return `/api/promotion/advertiser-inquiries`;
+};
+
+export const createAdvertiserInquiry = async (
+  advertiserInquiryInput: AdvertiserInquiryInput,
+  options?: RequestInit,
+): Promise<PromotionReceipt> => {
+  return customFetch<PromotionReceipt>(getCreateAdvertiserInquiryUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(advertiserInquiryInput),
+  });
+};
+
+export const getCreateAdvertiserInquiryMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createAdvertiserInquiry>>,
+    TError,
+    { data: BodyType<AdvertiserInquiryInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createAdvertiserInquiry>>,
+  TError,
+  { data: BodyType<AdvertiserInquiryInput> },
+  TContext
+> => {
+  const mutationKey = ["createAdvertiserInquiry"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof createAdvertiserInquiry>>,
+    { data: BodyType<AdvertiserInquiryInput> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createAdvertiserInquiry(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateAdvertiserInquiryMutationResult = NonNullable<
+  Awaited<ReturnType<typeof createAdvertiserInquiry>>
+>;
+export type CreateAdvertiserInquiryMutationBody =
+  BodyType<AdvertiserInquiryInput>;
+export type CreateAdvertiserInquiryMutationError = ErrorType<unknown>;
+
+export const useCreateAdvertiserInquiry = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createAdvertiserInquiry>>,
+    TError,
+    { data: BodyType<AdvertiserInquiryInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createAdvertiserInquiry>>,
+  TError,
+  { data: BodyType<AdvertiserInquiryInput> },
+  TContext
+> => {
+  return useMutation(getCreateAdvertiserInquiryMutationOptions(options));
+};
+
+export const getGetPromotionLeadsUrl = () => {
+  return `/api/promotion/leads`;
+};
+
+export const getPromotionLeads = async (
+  options?: RequestInit,
+): Promise<PromotionLeads> => {
+  return customFetch<PromotionLeads>(getGetPromotionLeadsUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetPromotionLeadsQueryKey = () => {
+  return [`/api/promotion/leads`] as const;
+};
+
+export const getGetPromotionLeadsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getPromotionLeads>>,
+  TError = ErrorType<void>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getPromotionLeads>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetPromotionLeadsQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getPromotionLeads>>
+  > = ({ signal }) => getPromotionLeads({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getPromotionLeads>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetPromotionLeadsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getPromotionLeads>>
+>;
+export type GetPromotionLeadsQueryError = ErrorType<void>;
+
+export function useGetPromotionLeads<
+  TData = Awaited<ReturnType<typeof getPromotionLeads>>,
+  TError = ErrorType<void>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getPromotionLeads>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetPromotionLeadsQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}

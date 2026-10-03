@@ -6,6 +6,12 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./advertiserInquiry";
+export * from "./advertiserInquiryInput";
+export * from "./advertiserInquiryInputPlacementsItem";
+export * from "./clinicApplication";
+export * from "./clinicApplicationInput";
+export * from "./clinicApplicationInputIntent";
 export * from "./companionAnswer";
 export * from "./companionInput";
 export * from "./companionInputSpecies";
@@ -18,4 +24,10 @@ export * from "./openaiError";
 export * from "./openaiMessage";
 export * from "./openaiMessageInput";
 export * from "./pdfAccess";
+export * from "./promotionLeads";
+export * from "./promotionReceipt";
 export * from "./subscriberInput";
+export * from "./vetClinic";
+export * from "./vetClinicOpeningStatus";
+export * from "./vetSearchInput";
+export * from "./vetSearchResult";

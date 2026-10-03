@@ -1,6 +1,7 @@
 import { getPage, SITE_URL } from "./site";
+import { faqs as homeFaqs } from "../components/faqData";
 
-const text = (html: string) => html.replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+const text = (html: string) => html.replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&#(?:39|x27);/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
 export function structuredData(path: string) {
   const page = getPage(path);
   if (page.noindex) return [];
@@ -25,6 +26,7 @@ export function structuredData(path: string) {
   }
   // Only encode FAQs which are actually visible as question/answer pairs in the page.
   const faq = [...(page.html ?? "").matchAll(/<h3>([^<]*\?)<\/h3><p>([\s\S]*?)<\/p>/g)].map(match => ({ "@type": "Question", name: text(match[1]), acceptedAnswer: { "@type": "Answer", text: text(match[2]) } }));
+  if (page.path === "/") faq.push(...homeFaqs.map(item => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })));
   if (page.kind === "food-checker") faq.push(
     { "@type": "Question", name: "Does a green label mean completely safe?", acceptedAnswer: { "@type": "Answer", text: "No. Preparation, swallowing ability, amount, allergies and the rest of your pet's diet all matter. Cats do not need fruit or vegetables as treats." } },
     { "@type": "Question", name: "Should I wait until my pet looks ill?", acceptedAnswer: { "@type": "Answer", text: "No. Suspected poisoning needs prompt professional advice even without symptoms." } },

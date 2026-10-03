@@ -10,7 +10,7 @@ import {
   getGetOpenaiConversationQueryKey,
 } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { STRIPE_PAYMENT_LINK as STRIPE_LINK } from "@/content/site";
+import { STRIPE_PAYMENT_LINK as STRIPE_LINK } from "@/content/settings";
 const FREE_LIMIT = 2;
 const FREE_COUNT_KEY = "paw_free_count";
 const SUBSCRIBED_KEY = "paw_subscribed";
@@ -776,7 +776,7 @@ export default function Chat() {
                       {msg.imageUrl && (
                         <div className="px-4 pt-3 pb-1">
                           <span className="text-xs font-bold text-white/80 tracking-wide uppercase flex items-center gap-1">
-                            📸 Photo sent
+                            Photo sent
                           </span>
                         </div>
                       )}
@@ -849,6 +849,9 @@ export default function Chat() {
           )}
         </div>
 
+        <div className="px-4 pt-3 text-xs text-muted-foreground max-w-3xl mx-auto">
+          This chat cannot diagnose and a photo cannot rule out infection or an emergency. For urgent signs, never wait for AI: call a vet now. <a className="underline" href="/find-a-vet" data-testid="link-find-a-vet">Find a vet near you</a>.
+        </div>
         {/* Input area */}
         <div className="border-t border-border p-4 bg-card/50 backdrop-blur-sm">
           <div className="max-w-3xl mx-auto">
@@ -859,7 +862,7 @@ export default function Chat() {
                 disabled={isStreaming}
                 className="flex items-center gap-1.5 bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200 text-purple-700 font-bold text-xs px-3.5 py-2 rounded-xl hover:from-purple-200 hover:to-pink-200 transition-all disabled:opacity-40 shadow-sm"
               >
-                📸 <span>Upload photo</span>
+                <span>Upload photo</span>
               </button>
               <input
                 type="file"

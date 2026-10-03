@@ -1,0 +1,39 @@
+{
+  "slug": "cocoa-powder",
+  "verdict": "Cocoa powder is one of the most concentrated cocoa ingredients, so even a small-looking spill matters. The ASPCA classifies it with chocolate and caffeine because its risk comes from methylxanthines, not from sweetness or fat. In a kitchen, that means loose powder on a counter, a dusting in a mixing bowl, or cocoa left in a baking tin can all be relevant exposures. Practical choices hinge on the label, the recipe, and whether your pet reached the ingredient before it was baked in.",
+  "mechanism": "Cocoa powder is a concentrated source of methylxanthines, the same group of compounds that makes chocolate and caffeine risky for pets. The ASPCA notes that cocoa powder and baking chocolate have the highest methylxanthine concentrations in this food family. That concentration matters because the product is usually dry, easy to spill, and easy for a pet to lick from surfaces or inhale from a contaminated paw or snout. The source does not give a separate mechanism for cats versus dogs, but both are covered under the general methylxanthine warning.",
+  "preparation": "For cocoa powder, the real issue is usually how it is handled, not whether it is served as a finished food. It may be scattered during baking, left in a sifter, dusted over a cake, or mixed into batter before cooking. A pet may meet it as a spoonful, a smear on a worktop, or a packet torn open in a bin. The label matters because “cocoa powder” is not the same as a lightly flavoured product; the concentrated powder is the part flagged by the source as high risk.",
+  "signsAndTiming": "The ASPCA says methylxanthines can cause vomiting and diarrhoea, panting, excessive thirst and urination, hyperactivity, an abnormal heart rhythm, tremors, seizures and even death. It also says darker chocolate and higher caffeine content carry greater risk, and cocoa powder sits at the high end of that scale. The source does not give a precise onset window for cocoa powder, so there is no safe waiting period to assume it was harmless. For a spill or stolen ingredient, the amount and the exact product are the details that matter most.",
+  "puppy": "Puppies are likely to get into cocoa powder by investigation rather than intent: a paw in a baking bowl, a nose in a flour sack, or a lick from a worktop. With cocoa powder, the dry, dusty form can cling to fur and mouths more easily than a neat bar of chocolate. That makes clean-up as important as the recipe itself.",
+  "dog": "In dogs, cocoa powder is one of the more concerning pantry ingredients because it is highly concentrated. A dog that raids a baking area may not eat a finished dessert at all; it may simply find the loose powder, the spoon, or the bowl. That is why the source treats cocoa powder as higher risk than milk chocolate.",
+  "cat": "Cats are also covered by the methylxanthine warning, but the source does not separate out a cat-only cocoa-powder syndrome. For cats, the practical problem is similar: a small body, a curious lick of a mixing spoon, or cocoa residue on fur after grooming can create an exposure that is easy to miss at first.",
+  "alternatives": "For pet households, the cleanest alternative is to keep cocoa powder out of reach during baking and store it in a sealed container. If you want a pet-safe treat for the kitchen counter, choose something that is clearly cocoa-free rather than a product with a dark colour or chocolate smell. The label should be read for cocoa powder, cocoa, chocolate, and caffeine-related ingredients.",
+  "faqs": [
+    {
+      "question": "Is cocoa powder more concerning than a chocolate-flavoured baked item?",
+      "answer": "Often, yes. Cocoa powder is specifically described as one of the highest methylxanthine ingredients in the chocolate family. Once it is baked into a food, the exact risk depends on the recipe, but the loose powder itself is a concentrated exposure that is easy for pets to reach while you are cooking."
+    },
+    {
+      "question": "What makes cocoa powder different from hot cocoa mix?",
+      "answer": "The source only names cocoa powder as a concentrated ingredient, so the key distinction is concentration, not the drink format. A mix may contain other ingredients, but cocoa powder itself is the part that carries the methylxanthine concern. For a pet exposure, the label and the recipe both matter."
+    },
+    {
+      "question": "Could a dusting of cocoa powder on a counter matter?",
+      "answer": "Yes, because the issue is the ingredient’s concentration and your pet’s access to it. Cocoa powder can be spilled, smeared, or stuck to utensils. A pet does not need to chew a whole cake for the powder to be relevant; the exact amount eaten is the detail to record."
+    },
+    {
+      "question": "Do dogs and cats react to cocoa powder in the same way?",
+      "answer": "The source groups cocoa powder under the broader chocolate and caffeine warning for pets, but it does not give a separate cocoa-powder pattern for cats. So it is safest to treat both species as at risk from the same methylxanthine ingredient, while avoiding assumptions about cat-specific signs."
+    },
+    {
+      "question": "Should I treat cocoa powder in baking as safer once it is mixed in?",
+      "answer": "Mixing it into batter does not make the ingredient harmless. It may reduce how easy it is to scoop up, but the source still lists cocoa powder among the highest-risk methylxanthine ingredients. If a pet reaches batter, frosting, or a prepared mixture, the cocoa content still matters."
+    }
+  ],
+  "related": [
+    "chocolate",
+    "dark-chocolate",
+    "baking-chocolate",
+    "coffee"
+  ]
+}
