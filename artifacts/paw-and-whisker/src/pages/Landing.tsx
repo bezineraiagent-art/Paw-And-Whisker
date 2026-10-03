@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
-
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002";
+import { STRIPE_PAYMENT_LINK } from "@/content/site";
 const MAX_FREE_QUESTIONS = 2;
 const PREVIEW_CHAT_STORAGE_KEY = "pw-preview-chat-v1";
 const PREVIEW_CHAT_TTL_MS = 24 * 60 * 60 * 1000;
@@ -596,7 +595,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
           </div>
           <div className="flex-1 min-w-0">
             <span className="text-white font-black text-base block leading-tight">Paw And Whisker AI</span>
-            <span className="text-white/85 text-xs font-medium">Ask anything about your pet 🐾</span>
+            <span className="text-white/85 text-xs font-medium">Ask about your puppy</span>
           </div>
           <span className="flex items-center gap-1.5 text-xs text-white/95 bg-white/15 px-2.5 py-1 rounded-full font-semibold">
             <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
@@ -611,12 +610,12 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
               <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
             </div>
             <div>
-              <p className="text-base font-black text-slate-800">👋 Hi! I'm here to help.</p>
-              <p className="text-sm text-slate-500 mt-1">Ask me anything about your pet — I'll answer in seconds.</p>
+              <p className="text-base font-black text-slate-800">Hi! I'm here to help.</p>
+              <p className="text-sm text-slate-500 mt-1">Ask a general question about your puppy. Not medical advice; for urgent signs, see an emergency vet now.</p>
             </div>
             <p className="text-xs font-bold text-purple-600 uppercase tracking-wider mt-1">Try one of these</p>
             <div className="flex flex-wrap gap-2 justify-center">
-              {["My cat stopped eating — should I worry?", "My dog is limping, what should I do?", "Why is my cat hiding suddenly?"].map((q) => (
+              {["How do I start potty training?", "Why does my puppy bite so much?", "How often should a puppy eat?"].map((q) => (
                 <button
                   key={q}
                   onClick={() => send(q)}
@@ -642,7 +641,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                   {m.imageUrl && (
                     <img src={m.imageUrl} alt="Pet photo" className="w-full max-h-40 object-cover rounded-t-2xl" />
                   )}
-                  {m.imageUrl && <p className="text-xs text-white/70 px-4 pt-2">📸 Photo sent</p>}
+                  {m.imageUrl && <p className="text-xs text-white/70 px-4 pt-2">Photo sent</p>}
                   <p className="px-4 py-3">{m.content}</p>
                 </>
               ) : (
@@ -684,7 +683,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
             <div className="rounded-2xl rounded-tl-sm text-sm max-w-[82%] shadow-sm overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 text-slate-700">
               <div className="px-4 py-3 leading-relaxed">
                 <p className="mb-2">
-                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetReference(messages, serverPetName, serverPetSpecies)}</strong>? I can keep going as long as you need 🐾
+                  Want me to keep helping with <strong className="font-bold text-slate-800">{detectPetReference(messages, serverPetName, serverPetSpecies)}</strong>? I can keep going with general information.
                 </p>
                 <a
                   href={STRIPE_PAYMENT_LINK}
@@ -710,8 +709,8 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
 
         {locked ? (
           <div className="p-5 border-t border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50 text-center">
-            <p className="text-base font-black text-slate-800 mb-1">Get unlimited answers when you need them most</p>
-            <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions · Image analysis · Available 24/7</p>
+            <p className="text-base font-black text-slate-800 mb-1">Want to keep chatting?</p>
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed">Unlimited questions and photo upload. General information only.</p>
             <CtaButton
               className="text-sm py-3 px-6 rounded-xl w-full justify-center"
               label="Start for $4.99/month →"
@@ -768,7 +767,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                     ×
                   </button>
                 </div>
-                <p className="text-xs text-purple-600 font-medium">📸 Photo ready to send</p>
+                <p className="text-xs text-purple-600 font-medium">Photo ready to send</p>
               </div>
             )}
             {/* Upload + input row */}
@@ -779,7 +778,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                 className="flex items-center gap-1.5 text-sm font-bold text-purple-600 bg-purple-50 border-2 border-purple-200 px-3 py-3 rounded-xl hover:bg-purple-100 hover:border-purple-300 transition-all disabled:opacity-50 flex-shrink-0"
                 aria-label="Add photo"
               >
-                📸
+                Photo
               </button>
               <input
                 ref={fileInputRef}
@@ -804,7 +803,7 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && send()}
-                placeholder="Type your question about your pet..."
+                placeholder="Type your question about your puppy..."
                 className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3 text-base outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-100 focus:bg-white transition-all placeholder:text-slate-400"
                 disabled={isStreaming}
               />
@@ -823,9 +822,30 @@ function FreePreviewChat({ onReady }: { onReady?: (sendFn: (msg: string) => void
   );
 }
 
+const QUIZ_URL = "https://quiz.pawandwhisker.net";
+
+const FAQS = [
+  {
+    q: "Does this replace my vet?",
+    a: "No. Paw & Whisker gives general information only and never replaces a veterinarian. It can't examine your puppy or diagnose anything. If you see urgent signs such as trouble breathing, collapse, seizures, repeated vomiting, a swollen belly, pale gums, possible poisoning or a serious injury, contact an emergency vet now instead of using chat.",
+  },
+  {
+    q: "What does it cost?",
+    a: "The AI chat is free to try: your first 2 questions need no signup. The symptom check is free too. If you want to keep chatting and send photos, it's $4.99/month and you can cancel anytime.",
+  },
+  {
+    q: "Is my data private?",
+    a: "We only collect what's needed to run the chat and understand how the site is used. Avoid sharing details you wouldn't want stored. You can ask for an export or deletion of your data any time by emailing paul@pawandwhisker.net.",
+  },
+];
+
 export default function Landing() {
   const chatSectionRef = useRef<HTMLDivElement>(null);
   const chatSendRef = useRef<((msg: string) => void) | null>(null);
+
+  const scrollToChat = useCallback(() => {
+    chatSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
 
   const handleCardClick = useCallback((message: string) => {
     chatSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -834,21 +854,67 @@ export default function Landing() {
     }, 450);
   }, []);
 
+  const primaryBtn =
+    "inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold px-7 py-4 rounded-2xl shadow-md hover:shadow-xl hover:opacity-95 active:scale-[0.98] transition-all duration-150";
+  const outlineBtn =
+    "inline-flex items-center justify-center bg-white border-2 border-purple-300 text-purple-700 font-semibold px-6 py-3 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 active:scale-[0.98] transition-all duration-150";
+
+  const FreeChatBtn = ({ source, className = "" }: { source: CtaSource; className?: string }) => (
+    <button
+      type="button"
+      data-testid={`button-free-chat-${source}`}
+      onClick={() => {
+        trackEvent("cta_click", source, { label: "Try the free AI chat", target: "free_chat" });
+        scrollToChat();
+      }}
+      className={`${primaryBtn} ${className}`}
+    >
+      Try the free AI chat
+    </button>
+  );
+
+  const QuizLink = ({ source, className = "" }: { source: CtaSource; className?: string }) => (
+    <a
+      href={QUIZ_URL}
+      data-testid={`link-free-quiz-${source}`}
+      onClick={() => trackEvent("cta_click", source, { label: "Free symptom check", target: "quiz" })}
+      className={`${outlineBtn} ${className}`}
+    >
+      Free symptom check
+      <span aria-hidden="true" className="ml-2">→</span>
+    </a>
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-800" style={{ fontFamily: "'Inter', 'Nunito', sans-serif" }}>
 
       {/* Nav */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden flex-shrink-0 shadow-md ring-2 ring-purple-100">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden flex-shrink-0 shadow-md ring-2 ring-purple-100">
               <img src="/app-logo.png" alt="Paw And Whisker" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
             </div>
-            <span className="font-black text-xl sm:text-2xl tracking-tight bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+            <span className="hidden sm:inline font-black text-xl tracking-tight bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
               Paw And Whisker
             </span>
           </div>
-          <CtaButton className="text-sm py-2.5 px-5 rounded-xl" source="header_nav" />
+          <nav className="flex items-center gap-3 sm:gap-5 text-sm font-semibold text-slate-600" aria-label="Main">
+            <a href="/guides" data-testid="link-nav-guides" className="hover:text-purple-700">Guides</a>
+            <a href="https://pawandwhisker.net/puppy-kit/" data-testid="link-nav-puppy-kit" className="hover:text-purple-700">Puppy Kit</a>
+            <a href="/pricing" data-testid="link-nav-pricing" className="hover:text-purple-700">Pricing</a>
+            <button
+              type="button"
+              data-testid="button-nav-free-chat"
+              onClick={() => {
+                trackEvent("cta_click", "header_nav", { label: "Try free chat", target: "free_chat" });
+                scrollToChat();
+              }}
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold text-sm px-4 py-2.5 rounded-xl shadow-md hover:shadow-lg active:scale-[0.98] transition-all"
+            >
+              Try free chat
+            </button>
+          </nav>
         </div>
       </header>
 
@@ -858,260 +924,194 @@ export default function Landing() {
         <section className="max-w-3xl mx-auto px-5 pt-16 pb-14 text-center">
           <div className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-8 border border-purple-100">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
-            Used by pet owners when something feels off
+            For new puppy owners
           </div>
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight mb-5">
-            Worried about your pet?{" "}
+            New puppy, endless questions?{" "}
             <span className="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-              Get answers instantly.
+              Start with free, friendly answers.
             </span>
           </h1>
-          <p className="text-xl text-slate-500 max-w-xl mx-auto mb-10 leading-relaxed">
-            No guessing. No stress. Just clear guidance when you need it most.
+          <p className="text-lg sm:text-xl text-slate-500 max-w-xl mx-auto mb-4 leading-relaxed">
+            Ask about feeding, potty training, sleep, chewing and everyday puppy worries. Plain-language general information, free to try.
           </p>
-          <div className="flex flex-col items-center gap-3">
-            <a
-              href="https://quiz.pawandwhisker.net"
-              className="inline-flex items-center justify-center gap-2 bg-white border-2 border-purple-300 text-purple-700 font-semibold px-6 py-3 rounded-xl shadow-sm hover:shadow-md hover:border-purple-400 hover:bg-purple-50 active:scale-[0.98] transition-all duration-150 text-sm"
-            >
-              <span>Is My Pet OK? Free Check</span>
-              <span aria-hidden="true">→</span>
-            </a>
-            <CtaButton className="text-lg px-10 py-4 rounded-2xl" source="hero" />
+          <p className="text-sm text-slate-500 max-w-lg mx-auto mb-10">
+            General information only, not medical advice, and never a replacement for your vet. If you see urgent signs, call an emergency vet now.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <FreeChatBtn source="hero" className="text-lg px-9" />
+            <QuizLink source="hero" className="py-4 rounded-2xl" />
           </div>
-          <p className="mt-4 text-sm text-slate-400">Cancel anytime · No commitment</p>
+          <p className="mt-4 text-sm text-slate-500">
+            Both are free. Want more later?{" "}
+            <a
+              href={STRIPE_PAYMENT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="link-hero-paid"
+              onClick={() => trackEvent("cta_click", "hero", { label: "Unlimited for $4.99/month", target: "stripe" })}
+              className="text-purple-700 font-semibold underline underline-offset-2"
+            >
+              Unlimited chat is $4.99/month
+            </a>
+          </p>
+        </section>
+
+        {/* URGENT SIGNS */}
+        <section className="max-w-2xl mx-auto px-5 pb-10">
+          <div className="border-2 border-pink-200 bg-pink-50 rounded-2xl px-5 py-4 text-sm text-slate-700 leading-relaxed" data-testid="notice-emergency">
+            <p className="font-black text-pink-700 mb-1">Urgent signs? Call an emergency vet now.</p>
+            Trouble breathing, collapse, seizures, repeated vomiting or diarrhea, a swollen belly, pale gums, suspected poisoning or serious injury. Don't wait on a chat for these.
+          </div>
         </section>
 
         {/* EMOTIONAL TRIGGER */}
         <section className="bg-gradient-to-br from-purple-50 to-pink-50 border-y border-purple-100 py-16">
           <div className="max-w-2xl mx-auto px-5 text-center">
             <h2 className="text-2xl sm:text-3xl font-black mb-6 tracking-tight text-slate-800">
-              You're not alone when something feels wrong
+              Every new puppy owner has these moments
             </h2>
-            <p className="text-slate-500 text-lg leading-relaxed mb-8">Every pet owner has moments of doubt.</p>
+            <p className="text-slate-500 text-lg leading-relaxed mb-8">Is this normal? Should I wait? What do I do next?</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-              {["Is this serious?", "Should I wait?", "What should I do right now?"].map((q) => (
+              {["Is this normal puppy behavior?", "How much should they eat?", "When should I call the vet?"].map((q) => (
                 <div key={q} className="bg-white border border-purple-100 rounded-2xl px-5 py-3 text-sm font-bold text-slate-700 shadow-sm">
                   {q}
                 </div>
               ))}
             </div>
-            <p className="text-base font-bold text-purple-700">Paw And Whisker AI helps you decide in seconds.</p>
+            <p className="text-base font-bold text-purple-700">Get general, approachable information to help you prepare your questions for the vet.</p>
           </div>
         </section>
 
-        {/* REAL USE CASES — fully clickable */}
+        {/* REAL USE CASES */}
         <section className="max-w-4xl mx-auto px-5 py-16">
           <h2 className="text-2xl sm:text-3xl font-black text-center mb-2 tracking-tight">
-            Real situations pet owners face
+            Common puppy questions
           </h2>
-          <p className="text-center text-slate-400 text-sm mb-2">The moments where you need clarity fast — not a Google rabbit hole.</p>
-          <p className="text-center text-purple-600 text-xs font-bold mb-8 flex items-center justify-center gap-1">
-            <span>👇</span> Tap any situation below to try it instantly
-          </p>
-          <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <p className="text-center text-slate-400 text-sm mb-2">Tap one to ask the free chat.</p>
+          <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mt-8">
             {[
-              { icon: "🍽️", text: "My pet suddenly stopped eating", message: "My pet suddenly stopped eating. What should I do?" },
-              { icon: "🐾", text: "My dog is limping", message: "My dog is limping. What should I do?" },
-              { icon: "😶", text: "My cat is hiding all day", message: "My cat is hiding all day. What should I do?" },
-              { icon: "😟", text: "I think something is wrong but I'm not sure", message: "I think something is wrong with my pet but I'm not sure what. What should I do?" },
-            ].map(({ icon, text, message }) => (
+              { text: "My puppy won't stop biting", message: "My puppy won't stop biting. What are some general tips?" },
+              { text: "How do I start potty training?", message: "How do I start potty training my new puppy?" },
+              { text: "My puppy cries at night", message: "My puppy cries at night in the crate. What are some general tips?" },
+              { text: "What should I feed my puppy?", message: "What general things should I know about feeding a new puppy?" },
+            ].map(({ text, message }) => (
               <button
                 key={text}
+                data-testid={`button-puppy-question-${text.slice(0, 12).replace(/\W+/g, "-").toLowerCase()}`}
                 onClick={() => handleCardClick(message)}
-                className="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl px-5 py-4 shadow-sm cursor-pointer text-left transition-all duration-150 hover:scale-[1.02] hover:shadow-lg hover:border-purple-300 active:scale-[0.99]"
-                style={{ boxShadow: undefined }}
-                onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 0 2px rgba(147,51,234,0.25), 0 8px 24px rgba(147,51,234,0.1)")}
-                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "")}
+                className="flex items-center justify-between gap-4 bg-white border border-slate-100 rounded-2xl px-5 py-4 shadow-sm cursor-pointer text-left transition-all duration-150 hover:scale-[1.02] hover:shadow-lg hover:border-purple-300 active:scale-[0.99]"
               >
-                <span className="text-2xl flex-shrink-0">{icon}</span>
-                <div>
-                  <p className="text-sm font-semibold text-slate-700">{text}</p>
-                  <p className="text-xs text-purple-500 font-medium mt-0.5">Tap to ask →</p>
-                </div>
+                <p className="text-sm font-semibold text-slate-700">{text}</p>
+                <span className="text-xs text-purple-500 font-medium flex-shrink-0">Ask →</span>
               </button>
             ))}
           </div>
         </section>
 
-        {/* COMPARISON — rewritten */}
+        {/* HOW IT WORKS */}
         <section className="bg-slate-50 border-y border-slate-100 py-16">
           <div className="max-w-4xl mx-auto px-5">
-            <h2 className="text-2xl sm:text-3xl font-black text-center mb-3 tracking-tight">
-              Why pet owners switch to Paw & Whisker
-            </h2>
-            <p className="text-center text-slate-500 text-sm mb-10">When your pet feels off, you don't want theory. You want clarity.</p>
-
-            <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="bg-white rounded-2xl p-6 border border-slate-200">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">ChatGPT</p>
-                {[
-                  "Too general",
-                  "Too cautious",
-                  "Makes you second-guess yourself",
-                  "Not built for real pet situations",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 mb-3">
-                    <span className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
-                      <span className="text-slate-400 text-xs font-bold">✕</span>
-                    </span>
-                    <p className="text-sm text-slate-500">{item}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 border-2 border-purple-200 shadow-md">
-                <p className="text-xs font-bold text-purple-600 uppercase tracking-widest mb-4">Paw & Whisker AI</p>
-                {[
-                  "Tells you what to do next",
-                  "Clear, simple answers",
-                  "Focused only on pets",
-                  "Helps you decide fast",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 mb-3">
-                    <span className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">✓</span>
-                    </span>
-                    <p className="text-sm text-slate-800 font-semibold">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <p className="text-center text-slate-600 font-bold text-base mt-8">
-              "When your pet feels off, you don't want theory. You want clarity."
-            </p>
-          </div>
-        </section>
-
-        {/* HOW IT WORKS */}
-        <section className="max-w-4xl mx-auto px-5 py-16">
-          <h2 className="text-2xl sm:text-3xl font-black text-center mb-12 tracking-tight">How it works</h2>
-          <div className="grid sm:grid-cols-3 gap-8">
-            {[
-              { step: "1", title: "Describe what you're seeing", desc: "Type what's going on with your pet — or send a photo for instant analysis." },
-              { step: "2", title: "Get a clear answer", desc: "Receive a simple, practical response instantly — no medical jargon." },
-              { step: "3", title: "Act with confidence", desc: "Know exactly what to do next, and when to contact your vet." },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white font-black text-lg flex items-center justify-center mx-auto mb-4 shadow-md">
-                  {item.step}
-                </div>
-                <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* DAILY USE HOOK — fully clickable */}
-        <section className="bg-gradient-to-br from-slate-800 to-slate-900 py-16">
-          <div className="max-w-2xl mx-auto px-5 text-center">
-            <h2 className="text-2xl sm:text-3xl font-black mb-6 tracking-tight text-white">
-              Use it anytime something feels off
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-center mb-12 tracking-tight">How it works</h2>
+            <div className="grid sm:grid-cols-3 gap-8">
               {[
-                { label: "Middle of the night?", emoji: "🌙" },
-                { label: "Weekend?", emoji: "📅" },
-                { label: "No vet available?", emoji: "🏥" },
-              ].map(({ label, emoji }) => (
-                <button
-                  key={label}
-                  onClick={() => handleCardClick("I'm worried about my pet and can't reach a vet right now. What should I do?")}
-                  className="flex items-center justify-center gap-2 bg-white/10 border border-white/20 rounded-2xl px-5 py-3 text-sm font-bold text-white/90 cursor-pointer transition-all duration-150 hover:bg-white/20 hover:border-white/40 hover:scale-[1.03] active:scale-[0.98]"
-                >
-                  <span>{emoji}</span>
-                  <span>{label}</span>
-                </button>
+                { step: "1", title: "Describe what you're seeing", desc: "Type your question, or add a photo, in your own words." },
+                { step: "2", title: "Read general information", desc: "Get a plain-language answer with things to consider. It can be wrong, so double-check what matters." },
+                { step: "3", title: "Talk to your vet", desc: "Use it to prepare questions. For anything worrying or urgent, contact a vet directly." },
+              ].map((item) => (
+                <div key={item.step} className="text-center">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 text-white font-black text-lg flex items-center justify-center mx-auto mb-4 shadow-md">
+                    {item.step}
+                  </div>
+                  <h3 className="font-bold text-slate-800 mb-2">{item.title}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                </div>
               ))}
             </div>
-            <p className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 mb-8">
-              Ask here first.
-            </p>
-            <CtaButton className="text-base px-8 py-3.5 rounded-2xl" label="Get instant answers — $4.99/month" source="daily_use_section" />
           </div>
         </section>
 
-        {/* LIVE CHAT PREVIEW — the centerpiece */}
-        <section ref={chatSectionRef} className="bg-gradient-to-br from-purple-100 via-fuchsia-50 to-pink-100 border-y-2 border-purple-200 py-16 sm:py-20">
+        {/* LIVE CHAT */}
+        <section ref={chatSectionRef} id="free-chat" className="bg-gradient-to-br from-purple-100 via-fuchsia-50 to-pink-100 border-y-2 border-purple-200 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto px-5">
             <div className="text-center mb-10">
               <span className="inline-flex items-center gap-2 bg-white border-2 border-purple-300 text-purple-700 text-xs font-black px-4 py-2 rounded-full shadow-md mb-4 uppercase tracking-wider">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                Try it now — Free, no signup
+                Free, no signup
               </span>
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-800 mb-3">
-                Ask your pet question{" "}
+                Ask your puppy question{" "}
                 <span className="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                   right here
                 </span>
               </h2>
               <p className="text-slate-600 text-base sm:text-lg max-w-md mx-auto">
-                This is the heart of Paw And Whisker — type below and get a real answer in seconds.
+                Type below to get general information in seconds. Your first 2 questions are free.
               </p>
-              <p className="text-purple-600 text-sm font-bold mt-3 flex items-center justify-center gap-1.5">
-                <span className="text-xl animate-bounce motion-reduce:animate-none">👇</span>
-                <span>Start typing — your first 2 questions are free</span>
+              <p className="text-slate-500 text-xs max-w-md mx-auto mt-3">
+                Not medical advice and not a substitute for a vet. For urgent signs, go to an emergency vet now rather than chatting first.
               </p>
             </div>
             <FreePreviewChat onReady={(fn) => { chatSendRef.current = fn; }} />
-            <p className="text-center text-xs text-slate-500 font-semibold mt-5">
-              Free · No signup · Answers in seconds
-            </p>
+            <div className="text-center mt-6">
+              <QuizLink source="daily_use_section" className="text-sm" />
+            </div>
           </div>
         </section>
 
-        {/* MEET THE INSPIRATION */}
-        <section className="bg-white border-y border-slate-100 py-16">
+        {/* COMPARISON */}
+        <section className="bg-slate-50 border-b border-slate-100 py-16">
           <div className="max-w-4xl mx-auto px-5">
-            <h2 className="text-2xl sm:text-3xl font-black text-center mb-12 tracking-tight">Meet the inspiration</h2>
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-full md:w-1/2 flex-shrink-0">
-                <div className="rounded-3xl overflow-hidden shadow-lg border-4 border-white">
-                  <img src="/cats.jpg" alt="Lucky and her sister" className="w-full h-auto" />
-                </div>
-              </div>
-              <div className="flex-1 space-y-4 w-full">
-                <div className="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm">
-                  <div className="flex items-center gap-2.5 mb-2">
-                    <span className="text-xl">🖤</span>
-                    <p className="font-black text-slate-800">Lucky</p>
-                    <span className="text-xs font-semibold text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full">1 yr old</span>
-                  </div>
-                  <p className="text-sm text-slate-500 leading-relaxed">Energetic, curious, playful — and always finding new ways to cause mischief.</p>
-                </div>
-                <div className="bg-white rounded-2xl p-5 border border-pink-100 shadow-sm">
-                  <div className="flex items-center gap-2.5 mb-2">
-                    <span className="text-xl">🐱</span>
-                    <p className="font-black text-slate-800">Lucky's Sister</p>
-                    <span className="text-xs font-semibold text-pink-700 bg-pink-100 px-2.5 py-0.5 rounded-full">7 yrs old</span>
-                  </div>
-                  <p className="text-sm text-slate-500 leading-relaxed">Calm, experienced, observant — the wise elder who inspired this whole service.</p>
-                </div>
-                <p className="text-xs text-slate-400 italic pl-1">
-                  "We built Paw And Whisker because every pet parent deserves instant, trustworthy answers."
-                </p>
-              </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-center mb-3 tracking-tight">
+              Paw & Whisker vs. ChatGPT
+            </h2>
+            <p className="text-center text-slate-500 text-sm mb-10">Both are AI chat tools and both can make mistakes. Here are the factual differences.</p>
+            <div className="max-w-2xl mx-auto overflow-x-auto rounded-2xl border border-slate-200 bg-white text-sm">
+              <table className="w-full text-left">
+                <caption className="sr-only">ChatGPT and Paw &amp; Whisker feature comparison</caption>
+                <thead className="bg-slate-100 font-bold text-xs uppercase tracking-wider text-slate-500">
+                  <tr>
+                    <th scope="col" className="p-3">Feature</th>
+                    <th scope="col" className="p-3">ChatGPT</th>
+                    <th scope="col" className="p-3 text-purple-700">Paw &amp; Whisker</th>
+                  </tr>
+                </thead>
+                <tbody>
+              {[
+                ["Built for", "General topics", "Pet owners, puppies first"],
+                ["Free to try", "Yes, with limits", "2 free questions, no signup"],
+                ["Paid plan", "Varies by plan", "$4.99/month"],
+                ["Photo upload", "Yes", "Yes"],
+                ["Replaces a vet", "No", "No"],
+              ].map(([label, a, b]) => (
+                <tr key={label} className="border-t border-slate-100">
+                  <th scope="row" className="p-3 font-semibold text-slate-700">{label}</th>
+                  <td className="p-3 text-slate-500">{a}</td>
+                  <td className="p-3 text-slate-800">{b}</td>
+                </tr>
+              ))}
+                </tbody>
+              </table>
             </div>
+            <p className="text-center text-xs text-slate-400 mt-4">ChatGPT details can change; check OpenAI's site for current plans.</p>
           </div>
         </section>
 
         {/* PRICING */}
         <section className="max-w-lg mx-auto px-5 py-16 text-center">
-          <h2 className="text-2xl sm:text-3xl font-black mb-2 tracking-tight">Simple pricing</h2>
-          <p className="text-slate-400 text-sm mb-10">No hidden fees. No surprises.</p>
+          <h2 className="text-2xl sm:text-3xl font-black mb-2 tracking-tight">Free first. Upgrade if it helps.</h2>
+          <p className="text-slate-400 text-sm mb-10">The chat preview and symptom check cost nothing.</p>
           <div className="bg-white border-2 border-purple-200 rounded-3xl p-8 shadow-lg">
+            <p className="text-xs font-bold text-purple-600 uppercase tracking-widest mb-2">Optional</p>
             <div className="mb-6">
               <span className="text-5xl font-black text-slate-800">$4.99</span>
               <span className="text-slate-400 text-lg font-medium">/month</span>
             </div>
             <ul className="space-y-3 mb-8 text-left">
               {[
-                "Unlimited questions — ask as much as you need",
-                "Photo analysis — send images for instant feedback",
-                "All pets supported — cats, dogs & more",
-                "Available 24 hours a day, 7 days a week",
+                "Unlimited chat questions",
+                "Photo upload in chat",
+                "Puppies, dogs, cats and more",
                 "Cancel anytime",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm text-slate-600">
@@ -1124,27 +1124,43 @@ export default function Landing() {
                 </li>
               ))}
             </ul>
-            <CtaButton className="w-full justify-center text-base py-4 rounded-xl" label="Get unlimited answers — $4.99/month" source="pricing_card" />
-            <p className="mt-3 text-xs text-slate-400">Secure checkout via Stripe</p>
+            <FreeChatBtn source="pricing_card" className="w-full text-base py-3.5 rounded-xl mb-3" />
+            <CtaButton
+              className="w-full justify-center text-sm py-3 rounded-xl !bg-none !bg-white !text-purple-700 border-2 border-purple-300 !shadow-none"
+              label="Subscribe for $4.99/month"
+              source="pricing_card"
+            />
+            <p className="mt-3 text-xs text-slate-400">Checkout via Stripe</p>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="max-w-2xl mx-auto px-5 pb-20" id="faq">
+          <h2 className="text-2xl sm:text-3xl font-black text-center mb-8 tracking-tight">Quick questions</h2>
+          <div className="space-y-3">
+            {FAQS.map((f, i) => (
+              <details key={f.q} data-testid={`faq-item-${i}`} className="group bg-white border border-purple-100 rounded-2xl px-5 py-4 shadow-sm open:border-purple-300">
+                <summary className="cursor-pointer font-bold text-slate-800 list-none flex items-center justify-between gap-3">
+                  {f.q}
+                  <span aria-hidden="true" className="text-purple-500 transition-transform group-open:rotate-45 text-xl leading-none">+</span>
+                </summary>
+                <p className="text-sm text-slate-600 leading-relaxed mt-3">
+                  {f.a.includes("paul@pawandwhisker.net") ? (
+                    <>
+                      {f.a.split("paul@pawandwhisker.net")[0]}
+                      <a href="mailto:paul@pawandwhisker.net" className="text-purple-700 font-semibold underline">paul@pawandwhisker.net</a>
+                      {f.a.split("paul@pawandwhisker.net")[1]}
+                    </>
+                  ) : (
+                    f.a
+                  )}
+                </p>
+              </details>
+            ))}
           </div>
         </section>
 
       </main>
-
-      <footer className="bg-slate-900 text-slate-400 py-8 px-5">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl overflow-hidden">
-              <img src="/app-logo.png" alt="" className="w-full h-full object-cover" style={{ transform: "scale(1.42)", transformOrigin: "center" }} />
-            </div>
-            <span className="font-bold text-white text-sm">Paw And Whisker</span>
-          </div>
-          <p className="text-xs text-slate-500 text-center max-w-sm">
-            Paw &amp; Whisker AI provides guidance, not veterinary diagnosis. Always consult a licensed vet for serious issues. · © 2026
-          </p>
-        </div>
-      </footer>
-
     </div>
   );
 }

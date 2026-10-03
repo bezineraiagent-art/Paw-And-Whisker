@@ -19,12 +19,12 @@ run = "pnpm --filter @workspace/paw-and-whisker run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/paw-and-whisker", "run", "build" ]
-publicDir = "artifacts/paw-and-whisker/dist/public"
-serve = "static"
+[services.production.run]
+args = [ "node", "artifacts/paw-and-whisker/server.mjs" ]
 
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+[services.production.run.env]
+NODE_ENV = "production"
+PORT = "21283"
 
 [services.env]
 PORT = "21283"

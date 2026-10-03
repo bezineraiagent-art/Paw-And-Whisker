@@ -10,8 +10,7 @@ import {
   getGetOpenaiConversationQueryKey,
 } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
-
-const STRIPE_LINK = "https://buy.stripe.com/3cI6oG32021Bedm1Xkgw002";
+import { STRIPE_PAYMENT_LINK as STRIPE_LINK } from "@/content/site";
 const FREE_LIMIT = 2;
 const FREE_COUNT_KEY = "paw_free_count";
 const SUBSCRIBED_KEY = "paw_subscribed";

@@ -1,0 +1,1 @@
+- [Production content foundations](production-content-foundations.md) — puppy guides were recovered from the owner's live site; preserve that copy rather than treating it as placeholders.
