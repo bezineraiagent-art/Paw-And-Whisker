@@ -1,1 +1,2 @@
 - [Production content foundations](production-content-foundations.md) — puppy guides were recovered from the owner's live site; preserve that copy rather than treating it as placeholders.
+- [Veterinary claims](veterinary-claims.md) — never claim vet review or input; About alone has the approved coming-soon statement.

@@ -3,12 +3,14 @@ import analyticsRouter from "./analytics";
 import healthRouter from "./health";
 import openaiRouter from "./openai/index";
 import subscribersRouter from "./subscribers";
+import companionRouter from "./companion";
 
 const router: IRouter = Router();
 
 router.use(healthRouter);
 router.use("/openai", openaiRouter);
 router.use(subscribersRouter);
+router.use(companionRouter);
 router.use(analyticsRouter);
 
 export default router;

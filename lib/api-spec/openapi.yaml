@@ -49,7 +49,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateOpenaiConversationBody"
+              $ref: "#/components/schemas/OpenaiConversationInput"
       responses:
         "201":
           description: Created conversation
@@ -135,14 +135,126 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SendOpenaiMessageBody"
+              $ref: "#/components/schemas/OpenaiMessageInput"
       responses:
         "200":
           description: SSE stream of assistant text chunks
           content:
             text/event-stream: {}
+  /subscribers:
+    post:
+      operationId: capturePdfEmail
+      summary: Save an email and unlock the free symptom PDF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubscriberInput"
+      responses:
+        "201":
+          description: Email saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PdfAccess"
+        "400":
+          description: Invalid email
+        "500":
+          description: Storage unavailable
+  /companion/usage:
+    get:
+      operationId: getCompanionUsage
+      summary: Get anonymous daily chat allowance
+      responses:
+        "200":
+          description: Current allowance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanionUsage"
+  /companion/message:
+    post:
+      operationId: askCompanion
+      summary: Ask a general pet question within the daily allowance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanionInput"
+      responses:
+        "200":
+          description: Answer and remaining allowance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanionAnswer"
+        "400":
+          description: Invalid question
+        "429":
+          description: Daily cap reached
+        "503":
+          description: AI unavailable
 components:
   schemas:
+    SubscriberInput:
+      type: object
+      required: [email]
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+    PdfAccess:
+      type: object
+      required: [success, downloadUrl]
+      properties:
+        success:
+          type: boolean
+        downloadUrl:
+          type: string
+    CompanionInput:
+      type: object
+      required: [question]
+      properties:
+        question:
+          type: string
+          minLength: 1
+          maxLength: 3000
+        petName:
+          type: string
+          maxLength: 60
+        species:
+          type: string
+          enum: [puppy, dog, cat]
+        age:
+          type: string
+          maxLength: 40
+    CompanionUsage:
+      type: object
+      required: [remaining, limit, resetsAt]
+      properties:
+        remaining:
+          type: integer
+        limit:
+          type: integer
+        resetsAt:
+          type: string
+          format: date-time
+    CompanionAnswer:
+      type: object
+      required: [answer, remaining, limit, resetsAt]
+      properties:
+        answer:
+          type: string
+        remaining:
+          type: integer
+        limit:
+          type: integer
+        resetsAt:
+          type: string
+          format: date-time
     HealthStatus:
       type: object
       properties:
@@ -184,14 +296,14 @@ components:
         - role
         - content
         - createdAt
-    CreateOpenaiConversationBody:
+    OpenaiConversationInput:
       type: object
       properties:
         title:
           type: string
       required:
         - title
-    SendOpenaiMessageBody:
+    OpenaiMessageInput:
       type: object
       properties:
         content:

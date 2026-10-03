@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import "./content/content.css";
 import { setSessionId } from "@workspace/api-client-react";
 
 function getOrCreateSessionId(): string {

@@ -16,12 +16,12 @@ export default function seoPlugin(): Plugin {
         if (pathname.startsWith("/api") || pathname.startsWith("/src/") || pathname.startsWith("/@") || pathname.startsWith("/node_modules/") || pathname.startsWith("/__")) return next();
         if (pathname === "/robots.txt") {
           res.setHeader("Content-Type", "text/plain");
-          res.end(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+          res.end(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api\nDisallow: /chat\nDisallow: /success\nSitemap: ${SITE_URL}/sitemap.xml\n`);
           return;
         }
         if (pathname === "/sitemap.xml") {
           res.setHeader("Content-Type", "application/xml");
-          res.end(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.filter(p => !p.noindex).map(p => `<url><loc>${SITE_URL}${p.path}</loc></url>`).join("")}</urlset>`);
+          res.end(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages.filter(p => !p.noindex).map(p => `<url><loc>${SITE_URL}${p.path}</loc><lastmod>${p.updated}</lastmod></url>`).join("")}</urlset>`);
           return;
         }
         const normalized = normalizePath(pathname);

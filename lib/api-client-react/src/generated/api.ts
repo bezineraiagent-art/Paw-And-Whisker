@@ -17,13 +17,18 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
-  CreateOpenaiConversationBody,
+  CompanionAnswer,
+  CompanionInput,
+  CompanionUsage,
   HealthStatus,
   OpenaiConversation,
+  OpenaiConversationInput,
   OpenaiConversationWithMessages,
   OpenaiError,
   OpenaiMessage,
-  SendOpenaiMessageBody,
+  OpenaiMessageInput,
+  PdfAccess,
+  SubscriberInput,
 } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
@@ -195,14 +200,14 @@ export const getCreateOpenaiConversationUrl = () => {
 };
 
 export const createOpenaiConversation = async (
-  createOpenaiConversationBody: CreateOpenaiConversationBody,
+  openaiConversationInput: OpenaiConversationInput,
   options?: RequestInit,
 ): Promise<OpenaiConversation> => {
   return customFetch<OpenaiConversation>(getCreateOpenaiConversationUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(createOpenaiConversationBody),
+    body: JSON.stringify(openaiConversationInput),
   });
 };
 
@@ -213,14 +218,14 @@ export const getCreateOpenaiConversationMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof createOpenaiConversation>>,
     TError,
-    { data: BodyType<CreateOpenaiConversationBody> },
+    { data: BodyType<OpenaiConversationInput> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof createOpenaiConversation>>,
   TError,
-  { data: BodyType<CreateOpenaiConversationBody> },
+  { data: BodyType<OpenaiConversationInput> },
   TContext
 > => {
   const mutationKey = ["createOpenaiConversation"];
@@ -234,7 +239,7 @@ export const getCreateOpenaiConversationMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof createOpenaiConversation>>,
-    { data: BodyType<CreateOpenaiConversationBody> }
+    { data: BodyType<OpenaiConversationInput> }
   > = (props) => {
     const { data } = props ?? {};
 
@@ -248,7 +253,7 @@ export type CreateOpenaiConversationMutationResult = NonNullable<
   Awaited<ReturnType<typeof createOpenaiConversation>>
 >;
 export type CreateOpenaiConversationMutationBody =
-  BodyType<CreateOpenaiConversationBody>;
+  BodyType<OpenaiConversationInput>;
 export type CreateOpenaiConversationMutationError = ErrorType<unknown>;
 
 /**
@@ -261,14 +266,14 @@ export const useCreateOpenaiConversation = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof createOpenaiConversation>>,
     TError,
-    { data: BodyType<CreateOpenaiConversationBody> },
+    { data: BodyType<OpenaiConversationInput> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
   Awaited<ReturnType<typeof createOpenaiConversation>>,
   TError,
-  { data: BodyType<CreateOpenaiConversationBody> },
+  { data: BodyType<OpenaiConversationInput> },
   TContext
 > => {
   return useMutation(getCreateOpenaiConversationMutationOptions(options));
@@ -545,14 +550,14 @@ export const getSendOpenaiMessageUrl = (id: number) => {
 
 export const sendOpenaiMessage = async (
   id: number,
-  sendOpenaiMessageBody: SendOpenaiMessageBody,
+  openaiMessageInput: OpenaiMessageInput,
   options?: RequestInit,
 ): Promise<unknown> => {
   return customFetch<unknown>(getSendOpenaiMessageUrl(id), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(sendOpenaiMessageBody),
+    body: JSON.stringify(openaiMessageInput),
   });
 };
 
@@ -563,14 +568,14 @@ export const getSendOpenaiMessageMutationOptions = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof sendOpenaiMessage>>,
     TError,
-    { id: number; data: BodyType<SendOpenaiMessageBody> },
+    { id: number; data: BodyType<OpenaiMessageInput> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
   Awaited<ReturnType<typeof sendOpenaiMessage>>,
   TError,
-  { id: number; data: BodyType<SendOpenaiMessageBody> },
+  { id: number; data: BodyType<OpenaiMessageInput> },
   TContext
 > => {
   const mutationKey = ["sendOpenaiMessage"];
@@ -584,7 +589,7 @@ export const getSendOpenaiMessageMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof sendOpenaiMessage>>,
-    { id: number; data: BodyType<SendOpenaiMessageBody> }
+    { id: number; data: BodyType<OpenaiMessageInput> }
   > = (props) => {
     const { id, data } = props ?? {};
 
@@ -597,7 +602,7 @@ export const getSendOpenaiMessageMutationOptions = <
 export type SendOpenaiMessageMutationResult = NonNullable<
   Awaited<ReturnType<typeof sendOpenaiMessage>>
 >;
-export type SendOpenaiMessageMutationBody = BodyType<SendOpenaiMessageBody>;
+export type SendOpenaiMessageMutationBody = BodyType<OpenaiMessageInput>;
 export type SendOpenaiMessageMutationError = ErrorType<unknown>;
 
 /**
@@ -610,15 +615,262 @@ export const useSendOpenaiMessage = <
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof sendOpenaiMessage>>,
     TError,
-    { id: number; data: BodyType<SendOpenaiMessageBody> },
+    { id: number; data: BodyType<OpenaiMessageInput> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
   Awaited<ReturnType<typeof sendOpenaiMessage>>,
   TError,
-  { id: number; data: BodyType<SendOpenaiMessageBody> },
+  { id: number; data: BodyType<OpenaiMessageInput> },
   TContext
 > => {
   return useMutation(getSendOpenaiMessageMutationOptions(options));
+};
+
+/**
+ * @summary Save an email and unlock the free symptom PDF
+ */
+export const getCapturePdfEmailUrl = () => {
+  return `/api/subscribers`;
+};
+
+export const capturePdfEmail = async (
+  subscriberInput: SubscriberInput,
+  options?: RequestInit,
+): Promise<PdfAccess> => {
+  return customFetch<PdfAccess>(getCapturePdfEmailUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(subscriberInput),
+  });
+};
+
+export const getCapturePdfEmailMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof capturePdfEmail>>,
+    TError,
+    { data: BodyType<SubscriberInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof capturePdfEmail>>,
+  TError,
+  { data: BodyType<SubscriberInput> },
+  TContext
+> => {
+  const mutationKey = ["capturePdfEmail"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof capturePdfEmail>>,
+    { data: BodyType<SubscriberInput> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return capturePdfEmail(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CapturePdfEmailMutationResult = NonNullable<
+  Awaited<ReturnType<typeof capturePdfEmail>>
+>;
+export type CapturePdfEmailMutationBody = BodyType<SubscriberInput>;
+export type CapturePdfEmailMutationError = ErrorType<void>;
+
+/**
+ * @summary Save an email and unlock the free symptom PDF
+ */
+export const useCapturePdfEmail = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof capturePdfEmail>>,
+    TError,
+    { data: BodyType<SubscriberInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof capturePdfEmail>>,
+  TError,
+  { data: BodyType<SubscriberInput> },
+  TContext
+> => {
+  return useMutation(getCapturePdfEmailMutationOptions(options));
+};
+
+/**
+ * @summary Get anonymous daily chat allowance
+ */
+export const getGetCompanionUsageUrl = () => {
+  return `/api/companion/usage`;
+};
+
+export const getCompanionUsage = async (
+  options?: RequestInit,
+): Promise<CompanionUsage> => {
+  return customFetch<CompanionUsage>(getGetCompanionUsageUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetCompanionUsageQueryKey = () => {
+  return [`/api/companion/usage`] as const;
+};
+
+export const getGetCompanionUsageQueryOptions = <
+  TData = Awaited<ReturnType<typeof getCompanionUsage>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getCompanionUsage>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetCompanionUsageQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getCompanionUsage>>
+  > = ({ signal }) => getCompanionUsage({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getCompanionUsage>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetCompanionUsageQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getCompanionUsage>>
+>;
+export type GetCompanionUsageQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get anonymous daily chat allowance
+ */
+
+export function useGetCompanionUsage<
+  TData = Awaited<ReturnType<typeof getCompanionUsage>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getCompanionUsage>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetCompanionUsageQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Ask a general pet question within the daily allowance
+ */
+export const getAskCompanionUrl = () => {
+  return `/api/companion/message`;
+};
+
+export const askCompanion = async (
+  companionInput: CompanionInput,
+  options?: RequestInit,
+): Promise<CompanionAnswer> => {
+  return customFetch<CompanionAnswer>(getAskCompanionUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(companionInput),
+  });
+};
+
+export const getAskCompanionMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof askCompanion>>,
+    TError,
+    { data: BodyType<CompanionInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof askCompanion>>,
+  TError,
+  { data: BodyType<CompanionInput> },
+  TContext
+> => {
+  const mutationKey = ["askCompanion"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof askCompanion>>,
+    { data: BodyType<CompanionInput> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return askCompanion(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type AskCompanionMutationResult = NonNullable<
+  Awaited<ReturnType<typeof askCompanion>>
+>;
+export type AskCompanionMutationBody = BodyType<CompanionInput>;
+export type AskCompanionMutationError = ErrorType<void>;
+
+/**
+ * @summary Ask a general pet question within the daily allowance
+ */
+export const useAskCompanion = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof askCompanion>>,
+    TError,
+    { data: BodyType<CompanionInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof askCompanion>>,
+  TError,
+  { data: BodyType<CompanionInput> },
+  TContext
+> => {
+  return useMutation(getAskCompanionMutationOptions(options));
 };

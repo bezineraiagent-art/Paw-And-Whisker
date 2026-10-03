@@ -6,10 +6,16 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from "./createOpenaiConversationBody";
+export * from "./companionAnswer";
+export * from "./companionInput";
+export * from "./companionInputSpecies";
+export * from "./companionUsage";
 export * from "./healthStatus";
 export * from "./openaiConversation";
+export * from "./openaiConversationInput";
 export * from "./openaiConversationWithMessages";
 export * from "./openaiError";
 export * from "./openaiMessage";
-export * from "./sendOpenaiMessageBody";
+export * from "./openaiMessageInput";
+export * from "./pdfAccess";
+export * from "./subscriberInput";

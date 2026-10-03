@@ -91,3 +91,44 @@ export const SendOpenaiMessageParams = zod.object({
 export const SendOpenaiMessageBody = zod.object({
   content: zod.string(),
 });
+
+/**
+ * @summary Save an email and unlock the free symptom PDF
+ */
+export const capturePdfEmailBodyEmailMax = 254;
+
+export const CapturePdfEmailBody = zod.object({
+  email: zod.string().email().max(capturePdfEmailBodyEmailMax),
+});
+
+/**
+ * @summary Get anonymous daily chat allowance
+ */
+export const GetCompanionUsageResponse = zod.object({
+  remaining: zod.number(),
+  limit: zod.number(),
+  resetsAt: zod.coerce.date(),
+});
+
+/**
+ * @summary Ask a general pet question within the daily allowance
+ */
+export const askCompanionBodyQuestionMax = 3000;
+
+export const askCompanionBodyPetNameMax = 60;
+
+export const askCompanionBodyAgeMax = 40;
+
+export const AskCompanionBody = zod.object({
+  question: zod.string().min(1).max(askCompanionBodyQuestionMax),
+  petName: zod.string().max(askCompanionBodyPetNameMax).optional(),
+  species: zod.enum(["puppy", "dog", "cat"]).optional(),
+  age: zod.string().max(askCompanionBodyAgeMax).optional(),
+});
+
+export const AskCompanionResponse = zod.object({
+  answer: zod.string(),
+  remaining: zod.number(),
+  limit: zod.number(),
+  resetsAt: zod.coerce.date(),
+});

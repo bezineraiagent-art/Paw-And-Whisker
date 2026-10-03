@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { getPage, SITE_URL } from "@/content/site";
+import { structuredData } from "@/content/structured-data";
 
 export default function PageSeo() {
   const [location] = useLocation();
@@ -36,6 +37,9 @@ export default function PageSeo() {
       document.head.appendChild(link);
     }
     link.href = canonical;
+    let schema = document.head.querySelector<HTMLScriptElement>("#page-schema");
+    if (!schema) { schema = document.createElement("script"); schema.id = "page-schema"; schema.type = "application/ld+json"; document.head.appendChild(schema); }
+    schema.textContent = JSON.stringify(structuredData(page.path));
   }, [location]);
   return null;
 }

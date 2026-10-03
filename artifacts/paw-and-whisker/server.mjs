@@ -7,7 +7,7 @@ const publicRoot = path.resolve(fileURLToPath(new URL("./dist/public/", import.m
 const manifest = JSON.parse(await readFile(path.join(publicRoot, "routes.json"), "utf8"));
 const port = Number(process.env.PORT);
 if (!Number.isInteger(port) || port <= 0) throw new Error("A valid PORT is required.");
-const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json", ".xml": "application/xml; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2" };
+const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json", ".xml": "application/xml; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".pdf": "application/pdf" };
 
 // Importable handler so verification can exercise the actual production server.
 export async function handleRequest(req, res) {

@@ -5,6 +5,51 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface SubscriberInput {
+  /** @maxLength 254 */
+  email: string;
+}
+
+export interface PdfAccess {
+  success: boolean;
+  downloadUrl: string;
+}
+
+export type CompanionInputSpecies =
+  (typeof CompanionInputSpecies)[keyof typeof CompanionInputSpecies];
+
+export const CompanionInputSpecies = {
+  puppy: "puppy",
+  dog: "dog",
+  cat: "cat",
+} as const;
+
+export interface CompanionInput {
+  /**
+   * @minLength 1
+   * @maxLength 3000
+   */
+  question: string;
+  /** @maxLength 60 */
+  petName?: string;
+  species?: CompanionInputSpecies;
+  /** @maxLength 40 */
+  age?: string;
+}
+
+export interface CompanionUsage {
+  remaining: number;
+  limit: number;
+  resetsAt: string;
+}
+
+export interface CompanionAnswer {
+  answer: string;
+  remaining: number;
+  limit: number;
+  resetsAt: string;
+}
+
 export interface HealthStatus {
   status: string;
 }
@@ -23,11 +68,11 @@ export interface OpenaiMessage {
   createdAt: string;
 }
 
-export interface CreateOpenaiConversationBody {
+export interface OpenaiConversationInput {
   title: string;
 }
 
-export interface SendOpenaiMessageBody {
+export interface OpenaiMessageInput {
   content: string;
 }
 

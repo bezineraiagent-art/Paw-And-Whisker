@@ -18,6 +18,6 @@ for (const page of pages) {
 }
 await writeFile(path.join(root, "404.html"), documentFor("/404"));
 await writeFile(path.join(root, "routes.json"), JSON.stringify({ routeFiles, guideRedirects, privatePaths: pages.filter(p => p.noindex).map(p => p.path) }, null, 2));
-await writeFile(path.join(root, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api\nSitemap: ${SITE_URL}/sitemap.xml\n`);
-await writeFile(path.join(root, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter(p => !p.noindex).map(p => `  <url><loc>${SITE_URL}${p.path}</loc></url>`).join("\n")}\n</urlset>\n`);
+await writeFile(path.join(root, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api\nDisallow: /chat\nDisallow: /success\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+await writeFile(path.join(root, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter(p => !p.noindex).map(p => `  <url><loc>${SITE_URL}${p.path}</loc><lastmod>${p.updated}</lastmod></url>`).join("\n")}\n</urlset>\n`);
 console.info(`Generated ${pages.length} route documents, a friendly 404, robots.txt and sitemap.xml.`);

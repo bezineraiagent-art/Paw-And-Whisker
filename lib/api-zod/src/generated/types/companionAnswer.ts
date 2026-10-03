@@ -6,6 +6,9 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface SendOpenaiMessageBody {
-  content: string;
+export interface CompanionAnswer {
+  answer: string;
+  remaining: number;
+  limit: number;
+  resetsAt: Date;
 }

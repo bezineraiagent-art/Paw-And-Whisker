@@ -1,0 +1,66 @@
+.pw .tool-main { max-width: 1120px; margin: auto; padding: 44px 24px 80px; }
+.pw .tool-main h1 { font-family: "Fraunces", Georgia, serif; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.1; margin: 18px 0 24px; max-width: 850px; color: #1f4d3a; }
+.pw .tool-main > p { max-width: 780px; margin: 20px 0; font-size: 1.1rem; line-height: 1.7; }
+.pw .tool-main nav { font-size: .88rem; margin-bottom: 28px; }
+.pw .emergency-notice { border: 1px solid #ce8d75; border-left: 5px solid #ad422b; background: #fff0e9; border-radius: 12px; padding: 22px; margin: 28px 0; color: #702d21; line-height: 1.7; }
+.pw .emergency-notice strong { font-size: 1.12rem; }
+.pw .emergency-notice p { margin: 8px 0; }
+.pw .tool-filters, .pw .pet-profile-form { display: flex; align-items: end; flex-wrap: wrap; gap: 18px; margin: 24px 0; }
+.pw .tool-filters label, .pw .pet-profile-form label { flex: 1; min-width: 170px; }
+.pw label { display: block; font-weight: 600; }
+.pw input:not([type=checkbox]):not([type=radio]), .pw select, .pw textarea { display: block; width: 100%; border: 1px solid #bac8b6; border-radius: 10px; padding: 12px 14px; background: #fffdf6; font: inherit; color: #1e372b; margin-top: 8px; }
+.pw textarea { min-height: 110px; resize: vertical; }
+.pw input:focus-visible, .pw select:focus-visible, .pw textarea:focus-visible, .pw button:focus-visible { outline: 3px solid #d49a2a; outline-offset: 3px; }
+.pw .food-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 26px 0 50px; }
+.pw .food-card { display: flex; flex-direction: column; background: #fffdf5; border: 1px solid #d5dccb; padding: 24px; border-radius: 16px; color: #253e30; text-decoration: none; transition: border-color .2s, transform .2s; }
+.pw .food-card:hover { border-color: #346044; transform: translateY(-3px); }
+.pw .food-card h2 { font: 600 1.5rem "Fraunces", Georgia, serif; margin: 18px 0 12px; }
+.pw .food-card p { line-height: 1.7; margin: 0 0 22px; }
+.pw .food-card > span:last-child { margin-top: auto; font-weight: 600; }
+.pw .food-status { display: inline-block; font-size: .8rem; padding: 7px 10px; border-radius: 8px; line-height: 1.4; align-self: start; }
+.pw .food-status-toxic { background: #ffe2d7; color: #8b2e1b; }
+.pw .food-status-avoid { background: #ffedc0; color: #715117; }
+.pw .food-status-plain { background: #dcecd8; color: #275336; }
+.pw .tool-empty { padding: 30px; border: 1px dashed #8b9d81; border-radius: 16px; }
+.pw .symptom-main { max-width: 880px; }
+.pw .symptom-form fieldset { margin: 32px 0; border: 0; padding: 0; }
+.pw .symptom-form legend { font: 600 1.5rem "Fraunces", Georgia, serif; margin-bottom: 18px; }
+.pw .symptom-form legend span { display: block; font: 500 .82rem "Figtree", sans-serif; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .07em; }
+.pw .symptom-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.pw .symptom-options label { display: flex; gap: 12px; align-items: center; padding: 18px; border: 1px solid #d0d9c5; background: #fffdf5; border-radius: 12px; cursor: pointer; }
+.pw .symptom-options label.selected { background: #dcecd8; border-color: #1f4d3a; }
+.pw input[type=radio], .pw input[type=checkbox] { accent-color: #1f4d3a; width: 18px; height: 18px; flex-shrink: 0; }
+.pw .symptom-result, .pw .free-companion, .pw .email-capture { padding: 30px; border: 1px solid #c8d5bd; border-radius: 20px; background: #fffdf5; margin: 30px 0; }
+.pw .symptom-result.emergency { border: 2px solid #ad422b; background: #fff0e9; }
+.pw .symptom-result h2, .pw .free-companion h3, .pw .email-capture h3 { font: 600 1.75rem "Fraunces", Georgia, serif; margin-bottom: 18px; }
+.pw .symptom-result p, .pw .email-capture p { line-height: 1.7; margin: 14px 0; }
+.pw .symptom-result dl > div { border-top: 1px solid #d9dfd0; padding: 14px 0; }
+.pw .symptom-result dt { font-weight: 600; }
+.pw .symptom-result dd { margin-top: 6px; }
+.pw .chat-question-form button, .pw .email-capture button { margin: 16px 0; }
+.pw .chat-history { max-height: 540px; overflow: auto; margin-bottom: 22px; }
+.pw .chat-question { background: #dcecd8; border-radius: 12px; padding: 16px; margin: 18px 0; }
+.pw .chat-answer { padding: 0 16px 18px; line-height: 1.7; }
+.pw .chat-answer ul { list-style: disc; padding-left: 24px; }
+.pw .small-print { font-size: .82rem; line-height: 1.6; color: #53634d; margin: 10px 0; }
+.pw .form-error { color: #912e20; margin: 14px 0; }
+.pw .checkbox-label { display: flex; align-items: start; flex-wrap: wrap; gap: 8px; margin-top: 16px; font-size: .86rem; line-height: 1.6; font-weight: 400; }
+.pw button:disabled { opacity: .6; cursor: not-allowed; }
+.pw .content-eyebrow { color: #53634b; font-size: .8rem; text-transform: uppercase; letter-spacing: .09em; font-weight: 700; }
+.pw .content-button { display: inline-flex; align-items: center; justify-content: center; background: #1f4d3a; color: #fffdf5; border: 2px solid #1f4d3a; padding: 12px 22px; border-radius: 999px; text-decoration: none; font-weight: 600; cursor: pointer; }
+.pw .content-button:hover:not(:disabled) { background: #2f6b50; }
+.pw .content-secondary { display: inline-flex; border: 1px solid #84997b; padding: 10px 16px; border-radius: 10px; cursor: pointer; }
+.pw .guide-list { display: grid; gap: 18px; margin: 28px 0; }
+.pw .guide-list > a { padding: 24px; border-radius: 16px; background: #fffdf5; border: 1px solid #cbd6bd; text-decoration: none; color: inherit; }
+.pw .guide-list h2 { margin: 0 0 14px; font-size: 1.5rem; }
+.pw .guide-list p { margin: 0; }
+.pw .draft-notice { background: #fff0ce; border-left: 4px solid #aa751c; padding: 18px; border-radius: 8px; }
+.pw .content-copy ul { list-style: disc; padding-left: 24px; }
+.pw .content-copy ol { list-style: decimal; padding-left: 24px; }
+.pw .tool-main .content-copy h2 { font-size: 1.8rem; margin: 30px 0 16px; }
+.pw .tool-main .content-copy h3 { font-size: 1.3rem; margin: 22px 0 12px; }
+.pw .tool-main .content-copy p { margin: 14px 0; line-height: 1.75; }
+.pw .tool-main .content-copy li { margin: 8px 0; }
+@media(max-width: 850px) { .pw .food-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 560px) { .pw .food-grid, .pw .symptom-options { grid-template-columns: 1fr; } .pw .tool-main { padding: 28px 18px 60px; } .pw .symptom-result, .pw .free-companion, .pw .email-capture { padding: 22px; } }
+@media(prefers-reduced-motion: reduce) { .pw .food-card { transition: none; } .pw .food-card:hover { transform: none; } }

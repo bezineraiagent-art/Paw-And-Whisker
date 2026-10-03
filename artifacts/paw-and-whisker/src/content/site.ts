@@ -1,4 +1,9 @@
 import recoveredGuides from "./recovered-guides.json";
+import { foodPages } from "./foods";
+import { comparisonPages } from "./comparisons";
+import { costGuide } from "./guide-cost";
+import { sleepGuide } from "./guide-sleep";
+import { vaccinationGuide } from "./guide-vaccines";
 
 export const SITE_URL = "https://pawandwhisker.net";
 export const SUBSCRIPTION_PRICE = "$4.99/month";
@@ -12,15 +17,27 @@ export type SitePage = {
   html?: string;
   kind?: string;
   noindex?: boolean;
+  updated?: string;
 };
 
 const contact = '<a href="mailto:paul@pawandwhisker.net">paul@pawandwhisker.net</a>';
 const medical = `<p>Paw &amp; Whisker provides general pet information, not veterinary advice, diagnosis or treatment. AI can make mistakes. It never replaces a licensed veterinarian.</p><p>If your pet has trouble breathing, collapses, has seizures, is bleeding heavily, may have eaten poison, or has other urgent signs, go to an emergency vet immediately. Do not wait for an AI response.</p>`;
 
-export const pages: SitePage[] = [
-  { path: "/", title: "Free Puppy Care Help & AI Pet Chat | Paw & Whisker", heading: "Free puppy care help", description: "Start with free puppy guides, two free AI pet questions and a free symptom check. Get general pet information for your puppy's first days at home." },
+const basePages: SitePage[] = [
+  { path: "/", title: "Free Puppy Care & AI Pet Help | Paw & Whisker", heading: "A calmer start to life with your pet", description: "Free puppy guides, daily AI pet chat, a symptom check and a toxic-food checker. Practical help for puppy, dog and cat families. Not veterinary advice.", kind: "home" },
+  { path: "/about", title: "About Paul, Lucky & Paw & Whisker", heading: "Made by a pet parent, for pet parents", description: "Meet Paul and the cats who inspired Paw & Whisker. Learn what this free-first pet companion does, where its limits are and why your vet still matters.", kind: "about" },
   { path: "/guides", title: "Free Puppy Care Guides & Checklists | Paw & Whisker", heading: "Free guides for your puppy's first days", description: "Read our new puppy checklist, first 30 days plan and toxic foods guide. Practical, free information to help you prepare for life with your puppy.", kind: "guides" },
   ...recoveredGuides,
+  costGuide,
+  sleepGuide,
+  vaccinationGuide,
+  ...comparisonPages,
+  { path: "/tools", title: "Free Puppy, Dog & Cat Care Tools | Paw & Whisker", heading: "A useful place to start — always free", description: "Check food hazards for puppies, dogs and cats, organize a symptom call and ask daily-capped AI questions. Free tools, with clear limits and no diagnosis.", kind: "tools",
+    html: `<p>Small questions deserve clear next steps. These tools provide general information, not diagnosis, treatment or a veterinary consultation.</p><div class="guide-list"><a href="/tools/toxic-food-checker"><h2>Toxic-food checker</h2><p>Search common foods and open puppy, dog or cat guidance. Learn about ingredient hazards and plain preparation.</p></a><a href="/tools/symptom-check"><h2>Five-question symptom check</h2><p>Answer the migrated original quiz questions to organize a veterinary call. Your result is free, with no email gate.</p></a><a href="/#free-chat"><h2>Free AI companion</h2><p>One browser-saved pet profile and two general AI questions per day. Resets at midnight UTC.</p></a></div><h2>Before using any tool</h2><p>Breathing difficulty, collapse, seizures, severe pain, major bleeding, a cat unable to pass urine, or suspected poisoning require immediate professional help. Do not wait for a search result or chatbot response.</p><p><a href="/guides">Prefer to read? Browse free puppy guides</a>.</p>` },
+  { path: "/tools/toxic-food-checker", kind: "food-checker", title: "Toxic-Food Checker for Dogs & Cats | Paw & Whisker", heading: "Can my pet eat this?", description: "Search common food hazards for puppies, dogs and cats. Read source-linked warnings, preparation cautions and next steps after a possible exposure." },
+  { path: "/tools/symptom-check", kind: "symptom-check", title: "Free Five-Question Pet Symptom Check | Paw & Whisker", heading: "What should you check when your pet acts differently?", description: "Answer five questions about your pet's symptoms and organize your next steps. Free educational guidance, not diagnosis. Emergency signs mean a vet now." },
+  { path: "/tools/symptom-check/results", kind: "symptom-results", title: "Pet Symptom-Check Results & Next Steps | Paw & Whisker", heading: "Understanding your symptom-check results", description: "Understand symptom-check guidance, what to tell your vet and when to seek immediate help. Results do not diagnose your pet or confirm that waiting is safe." },
+  ...foodPages(),
   { path: "/pricing", title: "Free Pet Chat & Subscription Pricing | Paw & Whisker", heading: "Start free. Upgrade only if you want to.", description: "Try your first two AI pet questions free, browse free puppy guides or take the free symptom check. The optional paid plan is $4.99 per month.", kind: "pricing",
     html: `<h2>Free to start</h2><ul><li>Your first two questions in the AI chat are free.</li><li>Our puppy guides are free to read.</li><li>The symptom check is free.</li></ul><p><a class="content-button" href="/#free-chat">Try the free AI chat</a> <a href="https://quiz.pawandwhisker.net">Take the free symptom check →</a></p><h2>Optional subscription: ${SUBSCRIPTION_PRICE}</h2><p>The app's advertised monthly plan includes unlimited questions and image analysis. Subscriptions are billed through Stripe and can be cancelled anytime. Cancellation stops future renewals; request a refund within 7 days of a charge.</p><p><a class="content-secondary" href="${STRIPE_PAYMENT_LINK}">See the paid plan on Stripe →</a></p><h2>Puppy Survival Kit</h2><p>The printable Puppy Survival Kit is a separate, one-time purchase, not included in the chat subscription. <a href="https://pawandwhisker.net/puppy-kit/">Explore the Puppy Kit</a>.</p>${medical}` },
   { path: "/puppy-kit/", title: "New Puppy Survival Kit: 7 Printable Guides | Paw & Whisker", heading: "The New Puppy Survival Kit", description: "A printable plan for your puppy's first 30 days: schedule, shopping checklist, housetraining tracker, health record and emergency sheet. One-time $12.", kind: "kit",
@@ -37,6 +54,13 @@ export const pages: SitePage[] = [
   { path: "/success", title: "Subscription Next Steps | Paw & Whisker", heading: "Subscription next steps", description: "Continue to your Paw & Whisker pet chat and find support after checkout. For billing or cancellation questions, contact Paw & Whisker support.", noindex: true },
   { path: "/admin/analytics", title: "Private Analytics Dashboard | Paw & Whisker", heading: "Analytics", description: "Private Paw & Whisker analytics dashboard for authorized administrators. This page is not intended for public search results.", noindex: true },
 ];
+
+const recoveredTitles: Record<string, string> = {
+  "/guides/new-puppy-checklist": "New Puppy Checklist: Before Day One | Paw & Whisker",
+  "/guides/puppy-first-30-days": "Your Puppy's First 30 Days | Paw & Whisker",
+  "/guides/toxic-foods-for-puppies": "Toxic Foods for Puppies: A Fridge List | Paw & Whisker",
+};
+export const pages: SitePage[] = basePages.map(page => ({ ...page, title: recoveredTitles[page.path] ?? page.title, updated: "2026-10-03" }));
 
 export const notFoundPage: SitePage = { path: "/404", title: "Page Not Found | Paw & Whisker", heading: "We couldn't find that page", description: "This page may have moved or no longer exist. Find free puppy guides and general pet-care help on Paw & Whisker.", noindex: true, kind: "404" };
 

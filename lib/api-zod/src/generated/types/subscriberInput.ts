@@ -6,6 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface CreateOpenaiConversationBody {
-  title: string;
+export interface SubscriberInput {
+  /** @maxLength 254 */
+  email: string;
 }
