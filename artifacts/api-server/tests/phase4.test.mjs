@@ -83,7 +83,8 @@ test("distance sorting, radius bounds, emergency/24-hour and open-now filtering"
 test("OSM normalization is honest about missing fields and rejects unsafe websites", () => {
   const clinic = osmClinic({ type: "way", id: 12, center: { lat: 51.5, lon: -0.12 }, tags: { opening_hours: "24/7", website: "javascript:alert(1)" } });
   assert.equal(clinic.id, "osm-way-12");
-  assert.match(clinic.name, /not recorded/);
+  assert.equal(clinic.name, "Veterinary clinic");
+  assert.equal(clinic.hasName, false);
   assert.match(clinic.address, /not recorded/);
   assert.equal(clinic.website, undefined);
   assert.equal(clinic.emergency, false, "24/7 does not invent emergency capabilities");

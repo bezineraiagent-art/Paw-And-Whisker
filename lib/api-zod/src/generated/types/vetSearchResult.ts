@@ -12,6 +12,10 @@ export interface VetSearchResult {
   latitude: number;
   longitude: number;
   area: string;
+  countryCode?: string;
+  countryDetected?: boolean;
+  geocodingSource?: string;
+  radiusExpanded?: boolean;
   urgent: boolean;
   source: string;
   attribution: string;

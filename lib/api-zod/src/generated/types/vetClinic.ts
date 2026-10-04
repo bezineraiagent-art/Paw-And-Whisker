@@ -20,4 +20,5 @@ export interface VetClinic {
   openingStatus: VetClinicOpeningStatus;
   emergency: boolean;
   sponsored: boolean;
+  hasName?: boolean;
 }

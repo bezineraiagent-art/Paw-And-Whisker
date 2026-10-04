@@ -204,12 +204,26 @@ export interface HealthStatus {
   status: string;
 }
 
+export type VetSearchInputCountry =
+  (typeof VetSearchInputCountry)[keyof typeof VetSearchInputCountry];
+
+export const VetSearchInputCountry = {
+  us: "us",
+  ca: "ca",
+  gb: "gb",
+  au: "au",
+  anywhere: "anywhere",
+} as const;
+
 export interface VetSearchInput {
   /**
    * @minLength 2
    * @maxLength 120
    */
   query?: string;
+  country?: VetSearchInputCountry;
+  /** Detect postcode country only while the country selector remains at its default US choice. */
+  autoDetectCountry?: boolean;
   /**
    * @minimum -85
    * @maximum 85
@@ -247,6 +261,7 @@ export interface VetClinic {
   openingStatus: VetClinicOpeningStatus;
   emergency: boolean;
   sponsored: boolean;
+  hasName?: boolean;
 }
 
 export interface VetSearchResult {
@@ -254,6 +269,10 @@ export interface VetSearchResult {
   latitude: number;
   longitude: number;
   area: string;
+  countryCode?: string;
+  countryDetected?: boolean;
+  geocodingSource?: string;
+  radiusExpanded?: boolean;
   urgent: boolean;
   source: string;
   attribution: string;

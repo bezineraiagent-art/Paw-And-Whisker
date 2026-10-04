@@ -39,5 +39,6 @@ export * from "./vetClinic";
 export * from "./vetClinicOpeningStatus";
 export * from "./vetReviewerApplicationInput";
 export * from "./vetSearchInput";
+export * from "./vetSearchInputCountry";
 export * from "./vetSearchResult";
 export * from "./waitlistInput";

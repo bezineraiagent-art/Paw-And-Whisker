@@ -16,6 +16,8 @@ export default function FindVet() {
   const [search, setSearch] = useState<{ data?: VetSearchResult; error: Error | null; isPending: boolean }>({ error: null, isPending: false });
   const searchRef = useRef(0);
   const [query, setQuery] = useState("");
+  const [country, setCountry] = useState<NonNullable<VetSearchInput["country"]>>("us");
+  const [autoDetectCountry, setAutoDetectCountry] = useState(true);
   const [urgent, setUrgent] = useState(false);
   const [openNow, setOpenNow] = useState(false);
   const [emergencyOnly, setEmergencyOnly] = useState(false);
@@ -26,18 +28,20 @@ export default function FindVet() {
   useEffect(() => setMounted(true), []);
 
   // Last place searched lives only in this ref (never storage, URL or analytics).
-  const lastRef = useRef<Pick<VetSearchInput, "query" | "latitude" | "longitude"> | null>(null);
+  const lastRef = useRef<Pick<VetSearchInput, "query" | "latitude" | "longitude" | "country" | "autoDetectCountry"> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   useEffect(() => { if (new URLSearchParams(window.location.search).get("urgent") === "1") setUrgent(true); }, []);
   useEffect(() => () => abortRef.current?.abort(), []);
 
   function run(place: NonNullable<typeof lastRef.current>) {
+    setLocating(false);
     lastRef.current = place;
     setSelected(null);
     abortRef.current?.abort();
     const ctl = new AbortController();
     abortRef.current = ctl;
-    const timer = setTimeout(() => ctl.abort(), 30000);
+    // Up to two geocoder calls, a postal lookup and one bounded map query.
+    const timer = setTimeout(() => ctl.abort(), 115000);
     const id = ++searchRef.current;
     setSearch(prev => ({ data: prev.data, error: null, isPending: true }));
     searchVets({ ...place, urgent, openNow, emergencyOnly }, { signal: ctl.signal })
@@ -55,15 +59,18 @@ export default function FindVet() {
     e.preventDefault();
     const q = query.trim();
     if (q.length < 2) { setGeoMsg("Enter a city or postcode, or use your location."); return; }
-    setGeoMsg(""); run({ query: q });
+    setGeoMsg(""); run({ query: q, country, autoDetectCountry });
   }
   function locate() {
     setGeoMsg("");
     if (!navigator.geolocation) { setGeoMsg("Your browser can't share a location. Search by city or postcode instead."); return; }
+    abortRef.current?.abort();
+    const ticket = ++searchRef.current;
+    setSearch({ error: null, isPending: false });
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
-      p => { setLocating(false); run({ latitude: p.coords.latitude, longitude: p.coords.longitude }); },
-      err => { setLocating(false); setGeoMsg(err.code === 1 ? "Location permission was denied. You can still search by city or postcode." : err.code === 3 ? "Finding your location timed out. Try again or search by city or postcode." : "Your location is unavailable right now. Search by city or postcode instead."); },
+      p => { if (ticket === searchRef.current) { setLocating(false); run({ latitude: p.coords.latitude, longitude: p.coords.longitude }); } },
+      err => { if (ticket === searchRef.current) { setLocating(false); setGeoMsg(err.code === 1 ? "Location permission was denied. You can still search by city or postcode." : err.code === 3 ? "Finding your location timed out. Try again or search by city or postcode." : "Your location is unavailable right now. Search by city or postcode instead."); } },
       { timeout: 10000, maximumAge: 0 },
     );
   }
@@ -97,7 +104,22 @@ export default function FindVet() {
         <section className="pw-section">
           <div className="pw-wrap">
             <form className="pw-form pw-vetform" onSubmit={submit} data-testid="form-vet-search">
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "end" }}>
               <label>City or postcode<input value={query} onChange={e => setQuery(e.target.value)} maxLength={120} autoComplete="off" placeholder="e.g. Leeds or 90210" data-testid="input-vet-query" /></label>
+              <label>Country<select value={country} data-testid="select-vet-country" onChange={e => {
+                const next = e.target.value as NonNullable<VetSearchInput["country"]>;
+                setCountry(next); setAutoDetectCountry(false);
+                // Never relabel stale results as if they used the new country.
+                abortRef.current?.abort(); searchRef.current++; lastRef.current = null;
+                setLocating(false); setGeoMsg("");
+                setSearch({ error: null, isPending: false }); setSelected(null);
+              }}>
+                <option value="us">United States</option><option value="ca">Canada</option>
+                <option value="gb">United Kingdom</option><option value="au">Australia</option>
+                <option value="anywhere">Anywhere</option>
+              </select></label>
+              </div>
+              <p className="pw-disc">{autoDetectCountry ? "US ZIPs, Canadian, UK and Australian postcodes are detected automatically while the country is left at its default." : "Your selected country restricts the search. Anywhere still restricts recognized postcodes to their country."}</p>
               <div className="pw-checks">
                 <label><input type="checkbox" checked={urgent} onChange={e => setUrgent(e.target.checked)} data-testid="check-urgent" /> My pet may be in danger: nearest first</label>
                 <label><input type="checkbox" checked={openNow} onChange={e => setOpenNow(e.target.checked)} /> Open now</label>
@@ -109,18 +131,22 @@ export default function FindVet() {
               </div>
               {geoMsg && <p role="alert" className="form-error">{geoMsg}</p>}
             </form>
-            <p className="pw-disc">Your location is only requested when you tap the button. Map services process an approximate search area, and your browser loads map tiles from OpenStreetMap, which reveals the area you view. We don't store your search or location in your browser, in analytics or in the page address. <a href="/privacy">Privacy</a></p>
+            <p className="pw-disc">Your location is only requested when you tap the button. Nominatim processes place searches; Zippopotam.us / GeoNames supplies US postal areas. Map services process an approximate search area, and your browser loads map tiles from OpenStreetMap, which reveals the area you view. We don't store your search or location in your browser, in analytics or in the page address. <a href="/privacy">Privacy</a></p>
 
             {search.isPending && <div className="pw-skel" role="status" aria-label="Searching for clinics"><i /><i /><i /></div>}
-            {err && !search.isPending && <div className="pw-state" role="alert"><h2>We couldn't search just now</h2><p>{err.status === 404 || err.status === 400 ? "We couldn't find that place. Check the spelling or try a nearby city or postcode." : "The map data service didn't respond in time or is unavailable. Please try again. If this is urgent, call a clinic you know or search your phone's maps."}</p><button className="pw-btn ghost" type="button" onClick={() => setSearch({ error: null, isPending: false })}>Dismiss</button></div>}
+            {err && !search.isPending && <div className="pw-state" role="alert"><h2>We couldn't search just now</h2><p>{err.status === 404 || err.status === 400 ? "We couldn't verify that place in the selected or detected country. Check the country selection. Not the right place? Add your city or state, or share your location." : "The map data service didn't respond in time or is unavailable. Please try again. If this is urgent, call a clinic you know or search your phone's maps."}</p><button className="pw-btn ghost" type="button" onClick={() => setSearch({ error: null, isPending: false })}>Dismiss</button></div>}
 
             {result && !search.isPending && (
               <div className="pw-results" data-testid="vet-results">
+                <p role="status" data-testid="vet-resolved-area"><strong>Showing vets near: {result.area}</strong>{result.countryDetected && " (postcode country detected automatically)"}</p>
+                <p>Not the right place? Add your city or state</p>
                 <h2>{clinics.length ? `${clinics.length} clinic${clinics.length === 1 ? "" : "s"} near ${result.area}` : `No clinics to show near ${result.area}`}</h2>
+                {result.radiusExpanded && <p role="status">Search widened automatically to {result.radiusKm} km because no clinics matched within the smaller radius.</p>}
+                {result.geocodingSource && <p className="pw-disc">Resolved area source: {result.geocodingSource}. Postal locations are approximate, including ZIP+4 searches.</p>}
                 <p className="pw-disc">Within about {result.radiusKm} km. Distances are straight-line estimates, not driving distances. {result.notice} Source: {result.source}. {result.attribution}</p>
                 {showUrgent && <p className="pw-note-box">Urgent mode: sorted strictly by distance. No featured or sponsored listings are shown.</p>}
                 {!clinics.length ? (
-                  <div className="pw-state"><p>{openNow || emergencyOnly ? "Nothing matched those filters. Open-now is conservative, so clinics with unclear hours are left out. Try turning a filter off, and call ahead." : "No clinics were found in this area in the public map data. That doesn't mean there are none. Try a wider place name, or call local directory services."}</p></div>
+                  <div className="pw-state"><p>{openNow || emergencyOnly ? "Nothing matched those filters. Open-now is conservative, so clinics with unclear hours are left out. Try turning a filter off, and call ahead." : `No clinics were found within ${result.radiusKm} km in the public map data. That doesn't mean there are none.`} Try the city name or use “Use my location”.</p></div>
                 ) : (
                   <>
                     {mounted && <Suspense fallback={<div className="pw-map pw-skel-block" aria-hidden="true" />}><VetMap result={mapResult!} selected={selected} onSelect={setSelected} /></Suspense>}

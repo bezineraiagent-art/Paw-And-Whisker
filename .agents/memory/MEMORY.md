@@ -6,3 +6,4 @@
 - [Content build boundaries](content-build-boundaries.md) — Node-loaded SEO content cannot use Vite-only glob macros; keep article bodies out of homepage client imports.
 - [Workspace tooling](workspace-tooling.md) — runtime capability errors override stale skill examples; scope package additions to their artifact.
 - [Inbox consent boundaries](inbox-consent-boundaries.md) — review-only access; outreach and deletion need separate approval; PDF signups are not marketing consent.
+- [Postal geocoding](postal-geocoding.md) — unrestricted ZIP results and administrative city labels can mislead; keep live evidence distinct from fixtures.

@@ -3,18 +3,18 @@ import tzLookup from "tz-lookup";
 import { db } from "@workspace/db";
 import { sql } from "drizzle-orm";
 import type { VetClinic, VetSearchInput, VetSearchResult } from "@workspace/api-zod";
+import { geocodeIntent, resolveGeocode, type GeocodeOptions } from "./vet-geocoding";
+import { DirectoryError } from "./vet-errors";
+export { DirectoryError } from "./vet-errors";
 
 export type Origin = { latitude: number; longitude: number };
-export type Place = Origin & { area: string };
+export type Place = Origin & { area: string; countryCode?: string; countryDetected?: boolean; geocodingSource?: string };
 export type ClinicListing = Omit<VetClinic, "distanceKm" | "openingStatus" | "sponsored">;
 export interface VetDirectoryProvider {
   readonly name: string;
   readonly attribution: string;
-  resolvePlace(query: string): Promise<Place>;
-  findClinics(origin: Origin): Promise<ClinicListing[]>;
-}
-export class DirectoryError extends Error {
-  constructor(message: string, public status = 503) { super(message); }
+  resolvePlace(query: string, options?: GeocodeOptions): Promise<Place>;
+  findClinics(origin: Origin, radiusKm?: number): Promise<ClinicListing[]>;
 }
 const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 export function distanceKm(a: Origin, b: Origin) {
@@ -114,7 +114,8 @@ class Throttle {
 const userAgent = "PawAndWhisker/1.0 (+https://pawandwhisker.net; contact: paul@pawandwhisker.net)";
 const nominThrottle = new Throttle(1100);
 const overpassThrottle = new Throttle(1100);
-async function upstream<T>(service: "nominatim" | "overpass", job: () => Promise<T>): Promise<T> {
+const postalThrottle = new Throttle(1100);
+async function upstream<T>(service: "nominatim" | "overpass" | "postal", job: () => Promise<T>): Promise<T> {
   // The database lock also covers multiple API processes. Waiting under this
   // shared lock enforces the application's 1 request/second policy, not 1 per user.
   return db.transaction(async tx => {
@@ -128,6 +129,7 @@ async function fetchJson(url: string, init?: RequestInit) {
   const response = await fetch(url, { ...init, signal: AbortSignal.timeout(22_000), headers: {
     Accept: "application/json", "User-Agent": userAgent, ...init?.headers,
   } });
+  if (response.status === 404) return null;
   if (!response.ok) throw new DirectoryError("The public map service is unavailable or busy. Please try again shortly; call a clinic directly for urgent care.");
   return response.json();
 }
@@ -146,8 +148,10 @@ export function osmClinic(element: OsmElement): ClinicListing | null {
   const value = (key: string) => typeof tags[key] === "string" ? tags[key].slice(0, 2048) : undefined;
   const hours = value("opening_hours");
   const street = [value("addr:housenumber"), value("addr:street")].filter(Boolean).join(" ");
+  const actualName = value("name")?.trim();
+  const location = street || value("addr:suburb") || value("addr:city");
   return {
-    id: `osm-${element.type}-${element.id}`, name: value("name") || "Veterinary clinic (name not recorded)",
+    id: `osm-${element.type}-${element.id}`, name: actualName || `Veterinary clinic${location ? ` — ${location}` : ""}`, hasName: !!actualName,
     latitude: latitude!, longitude: longitude!,
     address: [street, value("addr:city"), value("addr:postcode"), value("addr:country")].filter(Boolean).join(", ") || "Address not recorded — use the map and call ahead",
     phone: value("contact:phone") ?? value("phone"), website: safeUrl(value("contact:website") ?? value("website")),
@@ -160,50 +164,62 @@ export class OpenStreetMapProvider implements VetDirectoryProvider {
   readonly attribution = "© OpenStreetMap contributors · ODbL";
   private places = new BoundedCache<Place>();
   private clinics = new BoundedCache<ClinicListing[]>();
-  async resolvePlace(query: string): Promise<Place> {
-    const key = createHash("sha256").update(query.trim().toLowerCase()).digest("hex");
-    return this.places.get(key, 6 * 3600_000, () => nominThrottle.run(() => upstream("nominatim", async () => {
-      const url = new URL("/search", process.env.VET_NOMINATIM_URL ?? "https://nominatim.openstreetmap.org");
-      url.search = new URLSearchParams({ q: query, format: "jsonv2", limit: "1", addressdetails: "1" }).toString();
-      const results = await fetchJson(url.href);
-      const item = Array.isArray(results) ? results[0] : undefined;
-      if (!item || !Number.isFinite(Number(item.lat)) || !Number.isFinite(Number(item.lon))) throw new DirectoryError("We couldn't find that city or postcode. Try adding the region or country.", 404);
-      // City/postcode centroids are approximate, not a visitor's exact position.
-      const address = item.address ?? {};
-      const area = [address.city ?? address.town ?? address.village ?? address.county ?? "Search area", address.state, address.country].filter(x => typeof x === "string").join(", ").slice(0, 200);
-      return { latitude: Math.round(Number(item.lat) * 100) / 100, longitude: Math.round(Number(item.lon) * 100) / 100, area };
-    })));
+  // Injectable transport/scheduler for deterministic HTTP-contract and cache tests.
+  constructor(private request = fetchJson, private schedule = upstream) {}
+  private read(service: "nominatim" | "postal" | "overpass", url: string, init?: RequestInit) {
+    const throttle = service === "nominatim" ? nominThrottle : service === "postal" ? postalThrottle : overpassThrottle;
+    return throttle.run(() => this.schedule(service, () => this.request(url, init)));
   }
-  async findClinics(origin: Origin): Promise<ClinicListing[]> {
+  async resolvePlace(query: string, options: GeocodeOptions = {}): Promise<Place> {
+    const intent = geocodeIntent(query, options);
+    const key = createHash("sha256").update(JSON.stringify(intent)).digest("hex");
+    return this.places.get(key, 6 * 3600_000, () => resolveGeocode(query, options, (service, url) => this.read(service, url)));
+  }
+  async findClinics(origin: Origin, radiusKm = 25): Promise<ClinicListing[]> {
+    if (![10, 25, 50].includes(radiusKm)) throw new DirectoryError("Unsupported search radius.", 400);
     // Query/cache a ~5km region, not the visitor's coordinates. OSM clinic coordinates are public data.
     const lat = Math.round(origin.latitude * 20) / 20, lon = Math.round(origin.longitude * 20) / 20;
-    return this.clinics.get(`${lat}:${lon}`, 6 * 3600_000, () => overpassThrottle.run(() => upstream("overpass", async () => {
-      const query = `[out:json][timeout:18];(nwr["amenity"="veterinary"](around:30000,${lat},${lon});nwr["healthcare"="veterinary"](around:30000,${lat},${lon}););out center 600;`;
-      const raw = await fetchJson(process.env.VET_OVERPASS_URL ?? "https://overpass-api.de/api/interpreter", {
+    return this.clinics.get(`${lat}:${lon}:${radiusKm}`, 6 * 3600_000, async () => {
+      // 5km margin covers the diagonal displacement of the coarse grid centre.
+      const radius = (radiusKm + 5) * 1000;
+      const query = `[out:json][timeout:18];(nwr["amenity"="veterinary"](around:${radius},${lat},${lon});nwr["healthcare"="veterinary"](around:${radius},${lat},${lon}););out center 600;`;
+      const raw = await this.read("overpass", process.env.VET_OVERPASS_URL ?? "https://overpass-api.de/api/interpreter", {
         method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ data: query }),
       });
       const data = raw && typeof raw === "object" ? raw as { elements?: unknown; remark?: unknown } : {};
       if (!Array.isArray(data.elements) || data.remark) throw new DirectoryError("The public clinic search couldn't finish. Please try again shortly or contact a clinic directly.");
       return (data.elements as OsmElement[]).map(osmClinic).filter((item): item is ClinicListing => !!item);
-    })));
+    });
   }
 }
 // Inject another provider (for example Google Places) here without changing the public UI contract.
 export function createVetDirectory(provider: VetDirectoryProvider) {
   return async (input: VetSearchInput, now = new Date()): Promise<VetSearchResult> => {
+    const postcode = input.query ? !!geocodeIntent(input.query, input).postalcode : false;
     const place: Place = input.query
-      ? await provider.resolvePlace(input.query.trim())
+      ? await provider.resolvePlace(input.query.trim(), input)
       : { latitude: input.latitude!, longitude: input.longitude!, area: "Near your chosen location" };
-    const source = await provider.findClinics(place);
+    // One bounded coverage request supports local 10 → 25 → 50 km expansion,
+    // avoiding three sequential Overpass requests in an urgent search.
+    const source = await provider.findClinics(place, postcode ? 50 : 25);
     const deduplicated = [...new Map(source.map(item => [item.id, item])).values()];
-    const clinics = deduplicated.map(clinic => {
+    const eligible = deduplicated.map(clinic => {
       let status: VetClinic["openingStatus"] = "unknown";
       try { status = openingStatus(clinic.openingHours, tzLookup(clinic.latitude, clinic.longitude), now); } catch { /* Never guess the clinic's timezone. */ }
       return { ...clinic, distanceKm: distanceKm(place, clinic), openingStatus: status, sponsored: false };
-    }).filter(clinic => clinic.distanceKm <= 25 && (!input.openNow || clinic.openingStatus === "open") && (!input.emergencyOnly || clinic.emergency || clinic.openingHours?.trim() === "24/7"))
-      .sort((a, b) => a.distanceKm - b.distanceKm || a.id.localeCompare(b.id)).slice(0, 50);
+    }).filter(clinic => (!input.openNow || clinic.openingStatus === "open") && (!input.emergencyOnly || clinic.emergency || clinic.openingHours?.trim() === "24/7"));
+    const radii = postcode ? [10, 25, 50] : [25];
+    const radiusKm = radii.find(radius => eligible.some(c => c.distanceKm <= radius)) ?? radii[radii.length - 1];
+    const clinics = eligible.filter(c => c.distanceKm <= radiusKm).sort((a, b) => {
+      if (input.urgent) return a.distanceKm - b.distanceKm || a.id.localeCompare(b.id);
+      // Fixed 500m bands are transitive; pairwise "similar distance" comparisons aren't.
+      return Math.floor(a.distanceKm / 0.5) - Math.floor(b.distanceKm / 0.5)
+        || Number(b.hasName ?? true) - Number(a.hasName ?? true)
+        || a.distanceKm - b.distanceKm || a.id.localeCompare(b.id);
+    }).slice(0, 50);
     return { clinics, latitude: place.latitude, longitude: place.longitude, area: place.area, urgent: !!input.urgent,
-      source: provider.name, attribution: provider.attribution, radiusKm: 25,
+      source: provider.name, attribution: provider.attribution, radiusKm, radiusExpanded: postcode && radiusKm > 10,
+      countryCode: place.countryCode, countryDetected: place.countryDetected, geocodingSource: place.geocodingSource,
       mapTilesUrl: process.env.VET_MAP_TILES_URL ?? "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       mapAttribution: process.env.VET_MAP_ATTRIBUTION ?? '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       notice: "This list may be incomplete. Distances are straight-line estimates, not driving distances. Hours and emergency tags may be missing or outdated. Unknown hours are excluded from Open now. Call ahead; no listing confirms a clinic can treat your pet. Urgent results are always sorted by distance with no sponsored placement." };

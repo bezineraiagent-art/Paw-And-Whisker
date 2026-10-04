@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { VetSearchInputCountry } from "./vetSearchInputCountry";
 
 export interface VetSearchInput {
   /**
@@ -12,6 +13,9 @@ export interface VetSearchInput {
    * @maxLength 120
    */
   query?: string;
+  country?: VetSearchInputCountry;
+  /** Detect postcode country only while the country selector remains at its default US choice. */
+  autoDetectCountry?: boolean;
   /**
    * @minimum -85
    * @maximum 85

@@ -442,6 +442,8 @@ components:
       type: object
       properties:
         query: { type: string, minLength: 2, maxLength: 120 }
+        country: { type: string, enum: [us, ca, gb, au, anywhere], default: us }
+        autoDetectCountry: { type: boolean, default: true, description: Detect postcode country only while the country selector remains at its default US choice. }
         latitude: { type: number, minimum: -85, maximum: 85 }
         longitude: { type: number, minimum: -180, maximum: 180 }
         urgent: { type: boolean, default: false }
@@ -463,6 +465,7 @@ components:
         openingStatus: { type: string, enum: [open, closed, unknown] }
         emergency: { type: boolean }
         sponsored: { type: boolean }
+        hasName: { type: boolean }
     VetSearchResult:
       type: object
       required: [clinics, latitude, longitude, area, urgent, source, attribution, notice, radiusKm]
@@ -474,6 +477,10 @@ components:
         latitude: { type: number }
         longitude: { type: number }
         area: { type: string }
+        countryCode: { type: string }
+        countryDetected: { type: boolean }
+        geocodingSource: { type: string }
+        radiusExpanded: { type: boolean }
         urgent: { type: boolean }
         source: { type: string }
         attribution: { type: string }

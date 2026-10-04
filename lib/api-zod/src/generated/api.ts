@@ -182,6 +182,8 @@ export const AskCompanionResponse = zod.object({
 export const searchVetsBodyQueryMin = 2;
 export const searchVetsBodyQueryMax = 120;
 
+export const searchVetsBodyCountryDefault = `us`;
+export const searchVetsBodyAutoDetectCountryDefault = true;
 export const searchVetsBodyLatitudeMin = -85;
 export const searchVetsBodyLatitudeMax = 85;
 
@@ -198,6 +200,15 @@ export const SearchVetsBody = zod.object({
     .min(searchVetsBodyQueryMin)
     .max(searchVetsBodyQueryMax)
     .optional(),
+  country: zod
+    .enum(["us", "ca", "gb", "au", "anywhere"])
+    .default(searchVetsBodyCountryDefault),
+  autoDetectCountry: zod
+    .boolean()
+    .default(searchVetsBodyAutoDetectCountryDefault)
+    .describe(
+      "Detect postcode country only while the country selector remains at its default US choice.",
+    ),
   latitude: zod
     .number()
     .min(searchVetsBodyLatitudeMin)
@@ -228,11 +239,16 @@ export const SearchVetsResponse = zod.object({
       openingStatus: zod.enum(["open", "closed", "unknown"]),
       emergency: zod.boolean(),
       sponsored: zod.boolean(),
+      hasName: zod.boolean().optional(),
     }),
   ),
   latitude: zod.number(),
   longitude: zod.number(),
   area: zod.string(),
+  countryCode: zod.string().optional(),
+  countryDetected: zod.boolean().optional(),
+  geocodingSource: zod.string().optional(),
+  radiusExpanded: zod.boolean().optional(),
   urgent: zod.boolean(),
   source: zod.string(),
   attribution: zod.string(),
