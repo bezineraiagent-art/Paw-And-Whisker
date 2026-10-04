@@ -1,5 +1,4 @@
-import { OptionalPhoto } from "@/components/Art";
-import { photoSlots } from "@/content/slots";
+import SceneIllustration from "@/components/SceneIllustration";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { LocateFixed, Phone, Globe, Navigation, Search } from "lucide-react";
 import { searchVets, type VetClinic, type VetSearchInput, type VetSearchResult } from "@workspace/api-client-react";
@@ -93,7 +92,7 @@ export default function FindVet() {
           </div>
         </section>
         <section className="pw-section">
-          <div className="pw-wrap"><OptionalPhoto {...photoSlots.vet} fallback="cat" /></div>
+          <div className="pw-wrap"><SceneIllustration scene="vet" /></div>
         </section>
         <section className="pw-section">
           <div className="pw-wrap">

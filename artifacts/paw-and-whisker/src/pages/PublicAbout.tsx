@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/SiteHeader";
 import { getPage } from "@/content/site";
+import ReviewerStatus from "@/components/ReviewerStatus";
 
 export default function PublicAbout() {
   return (
@@ -18,6 +19,7 @@ export default function PublicAbout() {
         </section>
         <section className="pw-section">
           <div className="pw-wrap pw-narrow">
+            <ReviewerStatus />
             <article className="content-copy" dangerouslySetInnerHTML={{ __html: getPage("/about").html ?? "" }} />
             <p><a className="pw-btn" href="/#free-chat">Start free</a> <a className="pw-btn ghost" href="/guides">Read the guides</a> <a className="pw-btn ghost" href="/how-it-works">How it works</a></p>
           </div>

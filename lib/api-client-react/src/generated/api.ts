@@ -29,6 +29,7 @@ import type {
   PromotionReceipt,
   SubmissionReceipt,
   SubscriberInput,
+  VetReviewerApplicationInput,
   VetSearchInput,
   VetSearchResult,
   WaitlistInput,
@@ -42,6 +43,93 @@ type AwaitedInput<T> = PromiseLike<T> | T;
 type Awaited<O> = O extends AwaitedInput<infer T> ? T : never;
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+/**
+ * @summary Apply to review educational pet guides; nothing publishes automatically
+ */
+export const getSubmitVetReviewerApplicationUrl = () => {
+  return `/api/vet-reviewer-applications`;
+};
+
+export const submitVetReviewerApplication = async (
+  vetReviewerApplicationInput: VetReviewerApplicationInput,
+  options?: RequestInit,
+): Promise<SubmissionReceipt> => {
+  return customFetch<SubmissionReceipt>(getSubmitVetReviewerApplicationUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(vetReviewerApplicationInput),
+  });
+};
+
+export const getSubmitVetReviewerApplicationMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitVetReviewerApplication>>,
+    TError,
+    { data: BodyType<VetReviewerApplicationInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof submitVetReviewerApplication>>,
+  TError,
+  { data: BodyType<VetReviewerApplicationInput> },
+  TContext
+> => {
+  const mutationKey = ["submitVetReviewerApplication"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof submitVetReviewerApplication>>,
+    { data: BodyType<VetReviewerApplicationInput> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return submitVetReviewerApplication(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type SubmitVetReviewerApplicationMutationResult = NonNullable<
+  Awaited<ReturnType<typeof submitVetReviewerApplication>>
+>;
+export type SubmitVetReviewerApplicationMutationBody =
+  BodyType<VetReviewerApplicationInput>;
+export type SubmitVetReviewerApplicationMutationError = ErrorType<void>;
+
+/**
+ * @summary Apply to review educational pet guides; nothing publishes automatically
+ */
+export const useSubmitVetReviewerApplication = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof submitVetReviewerApplication>>,
+    TError,
+    { data: BodyType<VetReviewerApplicationInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof submitVetReviewerApplication>>,
+  TError,
+  { data: BodyType<VetReviewerApplicationInput> },
+  TContext
+> => {
+  return useMutation(getSubmitVetReviewerApplicationMutationOptions(options));
+};
 
 /**
  * Returns server health status

@@ -7,6 +7,7 @@ process.env.PORT ||= "21283";
 const { handleRequest } = await import("../server.mjs");
 const { routeFiles, guideRedirects, privatePaths } = JSON.parse(await readFile(new URL("../dist/public/routes.json", import.meta.url), "utf8"));
 const { pages, foods, riskFor, symptomResult, symptomQuestions } = await import("../dist/server/prerender.js");
+const { verifiedReviewer, reviewerSchema, renderReviewerStatus } = await import("../dist/server/prerender.js");
 let server;
 let base;
 before(async () => {
@@ -15,6 +16,56 @@ before(async () => {
   base = `http://127.0.0.1:${server.address().port}`;
 });
 after(() => new Promise(resolve => server.close(resolve)));
+
+test("Phase 6 scene assets, captions, alt text, lazy loading and 1200x630 share images", async () => {
+  for (const [path, scene] of [["/", "home"], ["/guides", "guides"], ["/tools/toxic-food-checker", "food"], ["/find-a-vet", "vet"]]) {
+    const html = await (await fetch(base + path)).text();
+    assert.ok(html.includes(`/scenes/${scene}-scene.svg`), path);
+    assert.ok(/loading="lazy"/.test(html) && html.includes("Illustration:"), path);
+    const svg = await (await fetch(base + `/scenes/${scene}-scene.svg`)).text();
+    assert.ok(svg.includes('viewBox="0 0 1200 630"'));
+    assert.ok(!/<(?:text|image|script)\b/i.test(svg), "Text, bitmap or script in art");
+    assert.ok(html.includes(`og:image" content="https://pawandwhisker.net/og/${scene}-scene.png"`));
+    const png = Buffer.from(await (await fetch(base + `/og/${scene}-scene.png`)).arrayBuffer());
+    assert.equal(png.readUInt32BE(16), 1200);
+    assert.equal(png.readUInt32BE(20), 630);
+  }
+  const home = await (await fetch(base + "/")).text();
+  assert.ok(home.includes('src="/cats.jpg"'), "Real hero photo was lost");
+});
+
+test("single reviewer config defaults to unreviewed and renders genuine supplied details without claiming AI review", async () => {
+  assert.equal(verifiedReviewer(), null);
+  assert.deepEqual(reviewerSchema(), {});
+  for (const path of ["/about", "/how-it-works", "/guides", "/guides/puppy-first-30-days", "/tools/toxic-food-checker", "/tools/toxic-food-checker/blueberries"]) {
+    const html = await (await fetch(base + path)).text();
+    assert.ok(html.includes("Not yet reviewed by a veterinarian"), path);
+    assert.ok(!html.includes('"reviewedBy"'), path);
+    assert.ok(!html.includes("Reviewed by a licensed veterinarian: coming soon"), path);
+  }
+  const fixture = { name: "Fixture reviewer", credentials: "Fixture credentials", clinic: "Fixture clinic", reviewDate: "2025-05-10" };
+  const byline = renderReviewerStatus(fixture);
+  for (const value of Object.values(fixture)) assert.ok(byline.includes(value));
+  assert.ok(!byline.includes("Not yet reviewed"));
+  assert.ok(byline.includes("not individual AI answers"));
+  assert.equal(reviewerSchema(fixture).reviewedBy.name, fixture.name);
+  assert.equal(reviewerSchema(fixture).reviewedBy.affiliation.name, fixture.clinic);
+  assert.equal(reviewerSchema(fixture).lastReviewed, fixture.reviewDate);
+  assert.throws(() => verifiedReviewer({ ...fixture, reviewDate: "2025-02-30" }));
+  assert.throws(() => verifiedReviewer({ ...fixture, name: "" }));
+});
+
+test("reviewer invitation is prerendered, discoverable and has a real application contract", async () => {
+  const res = await fetch(base + "/vet-reviewers");
+  assert.equal(res.status, 200);
+  const html = await res.text();
+  for (const value of ["form-vet-reviewer", "registrationNumber", "registrationBody", "No email is sent automatically", "manually"]) assert.ok(html.includes(value), value);
+  assert.match(html, /30(?:[–-]| to )60/);
+  assert.ok(!html.includes("noindex"));
+  const sitemap = await (await fetch(base + "/sitemap.xml")).text();
+  assert.ok(sitemap.includes("https://pawandwhisker.net/vet-reviewers"));
+  assert.ok((await (await fetch(base + "/")).text()).includes('href="/vet-reviewers"'));
+});
 
 test("every actual route has unique server-visible SEO and private pages are noindex", async () => {
   const titles = new Set();
@@ -283,7 +334,7 @@ test("how-it-works is a public route with urgency definitions, report form and h
   assert.ok(routeFiles["/how-it-works"]);
   const html = await (await fetch(base + "/how-it-works")).text();
   for (const label of ["Monitor at home", "Call a vet today", "Urgent: go now", "Emergency: go immediately"]) assert.ok(html.includes(label), label);
-  assert.ok(html.includes("report-wrong-answer") && html.includes("No licensed veterinarian has reviewed"));
+  assert.ok(html.includes("report-wrong-answer") && html.includes("Not yet reviewed by a veterinarian"));
   assert.ok(/black female aged 1/.test(html) && /brown tabby female aged 7/.test(html));
   for (const path of ["/", "/about"]) assert.ok((await (await fetch(base + path)).text()).includes('href="/how-it-works"'), path);
   assert.ok(!privatePaths.includes("/how-it-works"));

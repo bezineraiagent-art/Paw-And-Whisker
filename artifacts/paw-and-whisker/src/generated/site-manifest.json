@@ -1,5 +1,13 @@
 [
   {
+    "path": "/vet-reviewers",
+    "kind": "vet-reviewers",
+    "title": "Veterinary Guide Reviewers: Apply | Paw & Whisker",
+    "heading": "Help make pet guidance more useful",
+    "description": "Licensed veterinarians can apply to review our educational pet guides. See the scope, time involved, reviewer credit and how private applications are handled.",
+    "updated": "2026-10-03"
+  },
+  {
     "path": "/",
     "title": "Free Puppy Care & AI Pet Help | Paw & Whisker",
     "heading": "A calmer start to life with your pet",
@@ -580,7 +588,7 @@
     "kind": "how-it-works",
     "title": "How Paw & Whisker Works: AI, Limits & Safety",
     "heading": "How Paw & Whisker works",
-    "description": "How our AI answers are made, what the four urgency labels mean, when to go to a vet, and what the AI never does. No licensed vet has reviewed it yet.",
+    "description": "How AI answers are made, four urgency labels, emergency escalation and limitations. See educational review status, sources and how to report a wrong answer.",
     "updated": "2026-10-03"
   },
   {

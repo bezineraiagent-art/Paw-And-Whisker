@@ -28,3 +28,17 @@ mtime_ms = 1791068679810
 storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:ae8d0c6f-615f-405f-9a53-a5b4b902be1d/b49c3659-041d-446e-be7e-b6ef330ee215/6650dcbc-fee9-47e3-b42e-c946631f8161"
 storage_version_token = "1791068706804648"
 content_type = "text/html"
+
+[[outputs]]
+id = "cTtjPQdlscx2je1KAs9A_"
+uri = "file://.local/reports/phase6-verification.html"
+type = "html"
+title = "Phase 6 verification report"
+description = "Completed features, build warnings, test results, and desktop/390px screenshots. Preview only; no publishing or Stripe changes."
+logical_id = "438f12c2-5599-4233-9b9e-0ac7e2dd4685"
+content_hash = "sha256:44010f25de7fd4b5feac7ee33af46913228a381bc90f793f432b75ddc07e7538"
+size = 1224655
+mtime_ms = 1791078171976
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:ae8d0c6f-615f-405f-9a53-a5b4b902be1d/438f12c2-5599-4233-9b9e-0ac7e2dd4685/36133b04-a644-426b-a7d1-2a0ae9899cdc"
+storage_version_token = "1791078182943882"
+content_type = "text/html"

@@ -21,6 +21,7 @@ const Success = lazy(() => import("@/pages/Success"));
 const AdminAnalytics = lazy(() => import("@/pages/AdminAnalytics"));
 const ContentPage = lazy(() => import("@/pages/ContentPage"));
 const HowItWorks = lazy(() => import("@/pages/HowItWorks"));
+const VetReviewers = lazy(() => import("@/pages/VetReviewers"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function LegacyChat() {
@@ -35,6 +36,7 @@ function Router() {
     <Switch>
       <Route path="/" component={PublicHome} />
       <Route path="/how-it-works" component={HowItWorks} />
+      <Route path="/vet-reviewers" component={VetReviewers} />
       <Route path="/pricing" component={PublicPricing} />
       <Route path="/about" component={PublicAbout} />
       <Route path="/tools/toxic-food-checker" component={FoodChecker} />

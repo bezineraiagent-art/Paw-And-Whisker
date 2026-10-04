@@ -242,3 +242,6 @@ body .site-footer .site-wordmark{color:#fff!important;font-size:1.4rem}
 .pw .pw-sky :focus-visible{outline-color:#ffe08a}
 .pw .pw-fs-species button:focus-visible{outline:3px solid var(--pw-focus);outline-offset:2px}
 .dark .pw-urgency.u-emergency{background:var(--pw-danger);color:#1a0d12}
+.pw-scene{margin:0;display:grid;gap:.6rem;max-width:720px}
+.pw-scene img{width:100%;height:auto;aspect-ratio:1200/630;border-radius:24px;display:block;background:var(--pw-mist)}
+.pw-scene figcaption{font-size:.9rem;color:var(--pw-muted)}

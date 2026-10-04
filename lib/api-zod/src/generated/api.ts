@@ -8,6 +8,66 @@
 import * as zod from "zod";
 
 /**
+ * @summary Apply to review educational pet guides; nothing publishes automatically
+ */
+export const submitVetReviewerApplicationBodyNameMin = 2;
+export const submitVetReviewerApplicationBodyNameMax = 120;
+
+export const submitVetReviewerApplicationBodyEmailMax = 254;
+
+export const submitVetReviewerApplicationBodyCredentialsMin = 2;
+export const submitVetReviewerApplicationBodyCredentialsMax = 120;
+
+export const submitVetReviewerApplicationBodyRegistrationBodyMin = 2;
+export const submitVetReviewerApplicationBodyRegistrationBodyMax = 180;
+
+export const submitVetReviewerApplicationBodyRegistrationNumberMin = 2;
+export const submitVetReviewerApplicationBodyRegistrationNumberMax = 100;
+
+export const submitVetReviewerApplicationBodyClinicMax = 180;
+
+export const submitVetReviewerApplicationBodyClinicWebsiteMax = 2048;
+
+export const submitVetReviewerApplicationBodyMessageMin = 10;
+export const submitVetReviewerApplicationBodyMessageMax = 3000;
+
+export const submitVetReviewerApplicationBodyFaxMax = 0;
+
+export const SubmitVetReviewerApplicationBody = zod.object({
+  name: zod
+    .string()
+    .min(submitVetReviewerApplicationBodyNameMin)
+    .max(submitVetReviewerApplicationBodyNameMax),
+  email: zod.string().email().max(submitVetReviewerApplicationBodyEmailMax),
+  credentials: zod
+    .string()
+    .min(submitVetReviewerApplicationBodyCredentialsMin)
+    .max(submitVetReviewerApplicationBodyCredentialsMax),
+  registrationBody: zod
+    .string()
+    .min(submitVetReviewerApplicationBodyRegistrationBodyMin)
+    .max(submitVetReviewerApplicationBodyRegistrationBodyMax),
+  registrationNumber: zod
+    .string()
+    .min(submitVetReviewerApplicationBodyRegistrationNumberMin)
+    .max(submitVetReviewerApplicationBodyRegistrationNumberMax),
+  clinic: zod
+    .string()
+    .max(submitVetReviewerApplicationBodyClinicMax)
+    .optional(),
+  clinicWebsite: zod
+    .string()
+    .max(submitVetReviewerApplicationBodyClinicWebsiteMax)
+    .optional(),
+  message: zod
+    .string()
+    .min(submitVetReviewerApplicationBodyMessageMin)
+    .max(submitVetReviewerApplicationBodyMessageMax),
+  consent: zod.boolean(),
+  fax: zod.string().max(submitVetReviewerApplicationBodyFaxMax).optional(),
+});
+
+/**
  * Returns server health status
  * @summary Health check
  */

@@ -28,6 +28,7 @@ export * from "./submissionReceipt";
 export * from "./subscriberInput";
 export * from "./vetClinic";
 export * from "./vetClinicOpeningStatus";
+export * from "./vetReviewerApplicationInput";
 export * from "./vetSearchInput";
 export * from "./vetSearchResult";
 export * from "./waitlistInput";

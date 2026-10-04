@@ -4,9 +4,9 @@ import FreeCompanion from "@/components/FreeCompanion";
 import EmailCapture from "@/components/EmailCapture";
 import FoodSearch from "@/components/FoodSearch";
 import Faq from "@/components/Faq";
-import { Bowl, Cat, Doorframe, Moon, OptionalPhoto, Paw, Puppy, Stars } from "@/components/Art";
+import { Bowl, Cat, Doorframe, Moon, Paw, Puppy, Stars } from "@/components/Art";
+import SceneIllustration from "@/components/SceneIllustration";
 import WaitlistForm from "@/components/WaitlistForm";
-import { photoSlots } from "@/content/slots";
 
 const steps = [
   { when: "Day 1", t: "One quiet room", d: "Water, a bed, a place to settle. Keep the first day boring on purpose." },
@@ -138,7 +138,7 @@ export default function PublicHome() {
             <p className="pw-eyebrow">Why it exists</p>
             <h2>Built by a pet parent, not a vet</h2>
             <p>I'm Paul. I made this after living with my cats, Lucky and Sugar, and learning how fast small worries turn big when you have no one to ask. <a href="/about">Read more about Paul and the cats</a>.</p><p>An earlier version of this site helped once. I sent it a photo of a problem on Lucky, it told me to see a vet quickly, and I took her in. She had a bad infection and was treated. That is one owner's experience, not a diagnosis or a promise. AI cannot diagnose, results vary, and when in doubt, call a vet.</p>
-            <OptionalPhoto {...photoSlots.home} fallback="cat" />
+            <SceneIllustration scene="home" />
             <EmailCapture />
           </div>
         </section>

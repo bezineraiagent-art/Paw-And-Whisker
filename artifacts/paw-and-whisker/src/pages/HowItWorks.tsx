@@ -1,3 +1,4 @@
+import ReviewerStatus from "@/components/ReviewerStatus";
 import SiteHeader from "@/components/SiteHeader";
 import WrongAnswerForm from "@/components/WrongAnswerForm";
 import UrgencyBadge from "@/components/UrgencyBadge";
@@ -66,7 +67,8 @@ export default function HowItWorks() {
               <li>It does not replace an examination, tests or your own vet.</li>
             </ul>
             <h2>Review status</h2>
-            <p>No licensed veterinarian has reviewed this site or its AI answers yet. Licensed veterinary review is coming soon, and we will say so plainly here when it has happened. Until then, read everything as general information.</p>
+            <ReviewerStatus />
+            <p>Reviewer credit applies only to educational content. Individual AI answers are not reviewed by a veterinarian and remain general information, not clinical advice.</p>
             <h2>Why I built it</h2>
             <p>I'm Paul, and I'm a pet parent, not a vet. I live with two cats: Lucky, a black female aged 1, and Sugar, a brown tabby female aged 7. I once uploaded a photo of a problem on Lucky to an earlier version of this site. It suggested taking her to a vet quickly. I did, and she had a bad infection and was treated. That is one owner's experience, not proof that it works: AI cannot diagnose, results vary, and when in doubt I call a vet. <a href="/about">More about Paul and the cats</a>.</p>
           </div>

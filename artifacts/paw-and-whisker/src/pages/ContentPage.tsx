@@ -2,8 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { getPage, pages, type SitePage } from "@/content/site";
 import SiteHeader from "@/components/SiteHeader";
-import { Bowl, Cat, Doorframe, NightScene, OptionalPhoto, Puppy } from "@/components/Art";
-import { photoSlots } from "@/content/slots";
+import { Bowl, Cat, Doorframe, NightScene, Puppy } from "@/components/Art";
+import SceneIllustration from "@/components/SceneIllustration";
+import ReviewerStatus from "@/components/ReviewerStatus";
+import { hasReviewerStatus } from "@/content/reviewer";
 
 const BYLINE_KINDS = ["guide", "comparison", "food"];
 
@@ -73,6 +75,8 @@ export function ContentDocument({ page }: { page: SitePage }) {
             </div>
             <Hero page={page} />
           </div>
+          {hasReviewerStatus(page) && <ReviewerStatus />}
+          {page.path === "/guides/puppy-first-30-days" && <SceneIllustration scene="guides" />}
           {page.kind === "guides" ? (
             <>
               <p className="pw-lede">Practical reading for new puppy parents. Start here, for free.</p>
@@ -85,7 +89,7 @@ export function ContentDocument({ page }: { page: SitePage }) {
                 ))}
               </div>
               <p className="guide-callout" style={{ marginTop: "2rem" }}>These guides are general information, not veterinary advice. Contact an emergency vet immediately for urgent signs.</p>
-              <div style={{ marginTop: "2.5rem" }}><OptionalPhoto {...photoSlots.puppy} fallback="puppy" /></div>
+              <div style={{ marginTop: "2.5rem" }}><SceneIllustration scene="guides" /></div>
             </>
           ) : page.kind === "404" ? (
             <>

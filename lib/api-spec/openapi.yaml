@@ -13,6 +13,29 @@ tags:
   - name: openai
     description: OpenAI AI chat, image, and audio operations
 paths:
+  /vet-reviewer-applications:
+    post:
+      operationId: submitVetReviewerApplication
+      summary: Apply to review educational pet guides; nothing publishes automatically
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VetReviewerApplicationInput"
+      responses:
+        "201":
+          description: Application saved for manual review; no email sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubmissionReceipt"
+        "400":
+          description: Invalid input or missing consent
+        "429":
+          description: Too many applications
+        "503":
+          description: Storage unavailable
   /healthz:
     get:
       operationId: healthCheck
@@ -188,6 +211,20 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    VetReviewerApplicationInput:
+      type: object
+      required: [name, email, credentials, registrationBody, registrationNumber, message, consent]
+      properties:
+        name: { type: string, minLength: 2, maxLength: 120 }
+        email: { type: string, format: email, maxLength: 254 }
+        credentials: { type: string, minLength: 2, maxLength: 120 }
+        registrationBody: { type: string, minLength: 2, maxLength: 180 }
+        registrationNumber: { type: string, minLength: 2, maxLength: 100 }
+        clinic: { type: string, maxLength: 180 }
+        clinicWebsite: { type: string, maxLength: 2048 }
+        message: { type: string, minLength: 10, maxLength: 3000 }
+        consent: { type: boolean }
+        fax: { type: string, maxLength: 0 }
     SubmissionReceipt:
       type: object
       required: [success, message]

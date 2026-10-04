@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { getPage, SITE_URL } from "@/content/metadata";
+import { shareImage } from "@/content/share-images";
 
 export default function PageSeo() {
   const [location] = useLocation();
@@ -24,11 +25,13 @@ export default function PageSeo() {
       const attribute = prefix === "og" ? "property" : "name";
       setMeta(attribute, `${prefix}:title`, page.title);
       setMeta(attribute, `${prefix}:description`, page.description);
-      setMeta(attribute, `${prefix}:image`, `${SITE_URL}/opengraph.jpg`);
+      setMeta(attribute, `${prefix}:image`, shareImage(page.path));
       setMeta(attribute, `${prefix}:url`, canonical);
     }
     setMeta("property", "og:type", page.kind === "guide" ? "article" : "website");
     setMeta("property", "og:site_name", "Paw & Whisker");
+    setMeta("property", "og:image:width", "1200");
+    setMeta("property", "og:image:height", "630");
     setMeta("name", "twitter:card", "summary_large_image");
     let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!link) {

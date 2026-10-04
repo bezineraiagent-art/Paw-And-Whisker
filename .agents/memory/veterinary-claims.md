@@ -7,6 +7,8 @@ Do not claim actual vet review anywhere while no review has occurred. The owner 
 
 The optional configuration may contain a reviewer name, credentials, clinic and review date. When genuine review details are supplied, pages should show the reviewer byline and include reviewedBy in structured data. Never invent a reviewer or populate these fields merely to make the site appear reviewed.
 
+Reviewer credit applies to educational content, not individual AI answers or a blanket endorsement. Applying to review does not itself verify a licence or permit public credit.
+
 **Why:** The user explicitly required this restriction; professional review must not be represented as already having happened.
 
 **How to apply:** Preserve this distinction in public copy, guides, comparison articles, structured data, PDFs and AI instructions. Citing a veterinary organization's public information is not a claim that the organization reviewed this product.

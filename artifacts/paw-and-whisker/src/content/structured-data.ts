@@ -1,5 +1,6 @@
 import { getPage, SITE_URL } from "./site";
 import { faqs as homeFaqs } from "../components/faqData";
+import { hasReviewerStatus, reviewerSchema } from "./reviewer";
 
 const text = (html: string) => html.replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&#(?:39|x27);/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
 export function structuredData(path: string) {
@@ -19,7 +20,7 @@ export function structuredData(path: string) {
     crumbs.push({ name: page.heading, path: page.path });
   }
   schema.push({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: SITE_URL + c.path })) });
-  schema.push({ "@context": "https://schema.org", "@type": ["guide", "food", "comparison"].includes(page.kind ?? "") ? "Article" : "WebPage", name: page.title, headline: page.heading, description: page.description, url: canonical, mainEntityOfPage: canonical, author, publisher, dateModified: page.updated });
+  schema.push({ "@context": "https://schema.org", "@type": ["guide", "food", "comparison"].includes(page.kind ?? "") ? "Article" : "WebPage", name: page.title, headline: page.heading, description: page.description, url: canonical, mainEntityOfPage: canonical, author, publisher, dateModified: page.updated, ...(hasReviewerStatus(page) ? reviewerSchema() : {}) });
   if (page.path === "/") {
     schema.push({ "@context": "https://schema.org", "@type": "WebSite", name: "Paw & Whisker", url: SITE_URL, publisher });
     schema.push({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Paw & Whisker", applicationCategory: "LifestyleApplication", operatingSystem: "Web", url: SITE_URL, description: "Educational pet information, free daily-capped AI chat and pet-care reference tools. Not veterinary care.", offers: [{ "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD" }] });

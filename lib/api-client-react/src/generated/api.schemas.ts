@@ -5,6 +5,43 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface VetReviewerApplicationInput {
+  /**
+   * @minLength 2
+   * @maxLength 120
+   */
+  name: string;
+  /** @maxLength 254 */
+  email: string;
+  /**
+   * @minLength 2
+   * @maxLength 120
+   */
+  credentials: string;
+  /**
+   * @minLength 2
+   * @maxLength 180
+   */
+  registrationBody: string;
+  /**
+   * @minLength 2
+   * @maxLength 100
+   */
+  registrationNumber: string;
+  /** @maxLength 180 */
+  clinic?: string;
+  /** @maxLength 2048 */
+  clinicWebsite?: string;
+  /**
+   * @minLength 10
+   * @maxLength 3000
+   */
+  message: string;
+  consent: boolean;
+  /** @maxLength 0 */
+  fax?: string;
+}
+
 export interface SubmissionReceipt {
   success: boolean;
   message: string;
