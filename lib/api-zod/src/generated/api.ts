@@ -464,3 +464,83 @@ export const GetPromotionLeadsResponse = zod.object({
   clinicTotal: zod.number(),
   advertiserTotal: zod.number(),
 });
+
+export const getAdminWaitlistQueryOffsetDefault = 0;
+export const getAdminWaitlistQueryOffsetMin = 0;
+export const getAdminWaitlistQueryOffsetMax = 1000000;
+
+export const getAdminWaitlistQueryLimitDefault = 25;
+export const getAdminWaitlistQueryLimitMax = 100;
+
+export const GetAdminWaitlistQueryParams = zod.object({
+  offset: zod.coerce
+    .number()
+    .min(getAdminWaitlistQueryOffsetMin)
+    .max(getAdminWaitlistQueryOffsetMax)
+    .default(getAdminWaitlistQueryOffsetDefault),
+  limit: zod.coerce
+    .number()
+    .min(1)
+    .max(getAdminWaitlistQueryLimitMax)
+    .default(getAdminWaitlistQueryLimitDefault),
+});
+
+export const GetAdminWaitlistHeader = zod.object({
+  "x-admin-token": zod.string(),
+});
+
+export const GetAdminWaitlistResponse = zod.object({
+  records: zod.array(
+    zod.object({
+      id: zod.number(),
+      email: zod.string(),
+      createdAt: zod.coerce.date(),
+    }),
+  ),
+  total: zod.number(),
+  offset: zod.number(),
+  limit: zod.number(),
+});
+
+export const getAdminAnswerReportsQueryOffsetDefault = 0;
+export const getAdminAnswerReportsQueryOffsetMin = 0;
+export const getAdminAnswerReportsQueryOffsetMax = 1000000;
+
+export const getAdminAnswerReportsQueryLimitDefault = 25;
+export const getAdminAnswerReportsQueryLimitMax = 100;
+
+export const GetAdminAnswerReportsQueryParams = zod.object({
+  offset: zod.coerce
+    .number()
+    .min(getAdminAnswerReportsQueryOffsetMin)
+    .max(getAdminAnswerReportsQueryOffsetMax)
+    .default(getAdminAnswerReportsQueryOffsetDefault),
+  limit: zod.coerce
+    .number()
+    .min(1)
+    .max(getAdminAnswerReportsQueryLimitMax)
+    .default(getAdminAnswerReportsQueryLimitDefault),
+});
+
+export const GetAdminAnswerReportsHeader = zod.object({
+  "x-admin-token": zod.string(),
+});
+
+export const GetAdminAnswerReportsResponse = zod.object({
+  records: zod.array(
+    zod
+      .object({
+        id: zod.number(),
+        email: zod.string(),
+        createdAt: zod.coerce.date(),
+      })
+      .and(
+        zod.object({
+          message: zod.string(),
+        }),
+      ),
+  ),
+  total: zod.number(),
+  offset: zod.number(),
+  limit: zod.number(),
+});

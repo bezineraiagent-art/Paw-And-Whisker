@@ -632,6 +632,14 @@
     "updated": "2026-10-03"
   },
   {
+    "path": "/admin/inbox",
+    "title": "Private Inbox | Paw & Whisker",
+    "heading": "Private inbox",
+    "description": "Private, read-only Paw & Whisker inbox for authorized administrators to review waitlist signups and wrong-answer reports. Not intended for public search results.",
+    "noindex": true,
+    "updated": "2026-10-03"
+  },
+  {
     "path": "/success",
     "title": "Thanks for Visiting | Paw & Whisker",
     "heading": "Thanks for visiting",

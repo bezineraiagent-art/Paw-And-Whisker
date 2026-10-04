@@ -5,6 +5,30 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export interface AdminWaitlistRecord {
+  id: number;
+  email: string;
+  createdAt: string;
+}
+
+export type AdminAnswerReport = AdminWaitlistRecord & {
+  message: string;
+};
+
+export interface AdminWaitlistPage {
+  records: AdminWaitlistRecord[];
+  total: number;
+  offset: number;
+  limit: number;
+}
+
+export interface AdminAnswerReportsPage {
+  records: AdminAnswerReport[];
+  total: number;
+  offset: number;
+  limit: number;
+}
+
 export interface VetReviewerApplicationInput {
   /**
    * @minLength 2
@@ -310,3 +334,29 @@ export interface PromotionLeads {
   clinicTotal: number;
   advertiserTotal: number;
 }
+
+export type GetAdminWaitlistParams = {
+  /**
+   * @minimum 0
+   * @maximum 1000000
+   */
+  offset?: number;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+};
+
+export type GetAdminAnswerReportsParams = {
+  /**
+   * @minimum 0
+   * @maximum 1000000
+   */
+  offset?: number;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+};

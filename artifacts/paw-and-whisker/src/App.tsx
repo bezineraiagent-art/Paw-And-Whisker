@@ -17,6 +17,7 @@ const ForVets = lazy(() => import("@/pages/ForVets"));
 const Advertise = lazy(() => import("@/pages/Advertise"));
 const SponsorshipPolicy = lazy(() => import("@/pages/SponsorshipPolicy"));
 const AdminPromotions = lazy(() => import("@/pages/AdminPromotions"));
+const AdminInbox = lazy(() => import("@/pages/AdminInbox"));
 const Success = lazy(() => import("@/pages/Success"));
 const AdminAnalytics = lazy(() => import("@/pages/AdminAnalytics"));
 const ContentPage = lazy(() => import("@/pages/ContentPage"));
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/advertise" component={Advertise} />
       <Route path="/sponsorship-policy" component={SponsorshipPolicy} />
       <Route path="/admin/promotions" component={AdminPromotions} />
+      <Route path="/admin/inbox" component={AdminInbox} />
       <Route path="/success" component={Success} />
       <Route path="/chat">{() => <LegacyChat />}</Route>
       <Route path="/admin/analytics" component={AdminAnalytics} />

@@ -7,6 +7,7 @@ import vetsRouter from "./vets";
 import promotionRouter from "./promotion";
 import { retiredLegacyChat } from "../lib/retired-chat";
 import vetReviewersRouter from "./vet-reviewers";
+import adminInboxRouter from "./admin-inbox";
 
 const router: IRouter = Router();
 
@@ -19,5 +20,6 @@ router.use(companionRouter);
 router.use(vetsRouter);
 router.use(promotionRouter);
 router.use(analyticsRouter);
+router.use(adminInboxRouter);
 
 export default router;

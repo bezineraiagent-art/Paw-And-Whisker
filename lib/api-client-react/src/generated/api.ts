@@ -17,12 +17,16 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
+  AdminAnswerReportsPage,
+  AdminWaitlistPage,
   AdvertiserInquiryInput,
   AnswerReportInput,
   ClinicApplicationInput,
   CompanionAnswer,
   CompanionInput,
   CompanionUsage,
+  GetAdminAnswerReportsParams,
+  GetAdminWaitlistParams,
   HealthStatus,
   PdfAccess,
   PromotionLeads,
@@ -922,6 +926,192 @@ export function useGetPromotionLeads<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getGetPromotionLeadsQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+export const getGetAdminWaitlistUrl = (params?: GetAdminWaitlistParams) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/waitlist?${stringifiedParams}`
+    : `/api/admin/waitlist`;
+};
+
+export const getAdminWaitlist = async (
+  params?: GetAdminWaitlistParams,
+  options?: RequestInit,
+): Promise<AdminWaitlistPage> => {
+  return customFetch<AdminWaitlistPage>(getGetAdminWaitlistUrl(params), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAdminWaitlistQueryKey = (
+  params?: GetAdminWaitlistParams,
+) => {
+  return [`/api/admin/waitlist`, ...(params ? [params] : [])] as const;
+};
+
+export const getGetAdminWaitlistQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAdminWaitlist>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetAdminWaitlistParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getAdminWaitlist>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetAdminWaitlistQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAdminWaitlist>>
+  > = ({ signal }) => getAdminWaitlist(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAdminWaitlist>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAdminWaitlistQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAdminWaitlist>>
+>;
+export type GetAdminWaitlistQueryError = ErrorType<void>;
+
+export function useGetAdminWaitlist<
+  TData = Awaited<ReturnType<typeof getAdminWaitlist>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetAdminWaitlistParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getAdminWaitlist>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAdminWaitlistQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+export const getGetAdminAnswerReportsUrl = (
+  params?: GetAdminAnswerReportsParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/answer-reports?${stringifiedParams}`
+    : `/api/admin/answer-reports`;
+};
+
+export const getAdminAnswerReports = async (
+  params?: GetAdminAnswerReportsParams,
+  options?: RequestInit,
+): Promise<AdminAnswerReportsPage> => {
+  return customFetch<AdminAnswerReportsPage>(
+    getGetAdminAnswerReportsUrl(params),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export const getGetAdminAnswerReportsQueryKey = (
+  params?: GetAdminAnswerReportsParams,
+) => {
+  return [`/api/admin/answer-reports`, ...(params ? [params] : [])] as const;
+};
+
+export const getGetAdminAnswerReportsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAdminAnswerReports>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetAdminAnswerReportsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getAdminAnswerReports>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetAdminAnswerReportsQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAdminAnswerReports>>
+  > = ({ signal }) =>
+    getAdminAnswerReports(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAdminAnswerReports>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAdminAnswerReportsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAdminAnswerReports>>
+>;
+export type GetAdminAnswerReportsQueryError = ErrorType<void>;
+
+export function useGetAdminAnswerReports<
+  TData = Awaited<ReturnType<typeof getAdminAnswerReports>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetAdminAnswerReportsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getAdminAnswerReports>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAdminAnswerReportsQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

@@ -6,6 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./adminAnswerReport";
+export * from "./adminAnswerReportsPage";
+export * from "./adminWaitlistPage";
+export * from "./adminWaitlistRecord";
 export * from "./advertiserInquiry";
 export * from "./advertiserInquiryInput";
 export * from "./advertiserInquiryInputPlacementsItem";
@@ -18,6 +22,8 @@ export * from "./companionAnswerUrgency";
 export * from "./companionInput";
 export * from "./companionInputSpecies";
 export * from "./companionUsage";
+export * from "./getAdminAnswerReportsParams";
+export * from "./getAdminWaitlistParams";
 export * from "./healthStatus";
 export * from "./pdfAccess";
 export * from "./petProfile";
