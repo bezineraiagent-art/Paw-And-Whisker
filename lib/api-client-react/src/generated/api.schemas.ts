@@ -11,6 +11,26 @@ export interface AdminWaitlistRecord {
   createdAt: string;
 }
 
+export type AdminVetReviewerApplication = AdminWaitlistRecord & {
+  name: string;
+  credentials: string;
+  registrationBody: string;
+  registrationNumber: string;
+  /** @nullable */
+  clinic: string | null;
+  /** @nullable */
+  clinicWebsite: string | null;
+  message: string;
+  consent: boolean;
+};
+
+export interface AdminVetReviewerApplicationsPage {
+  records: AdminVetReviewerApplication[];
+  total: number;
+  offset: number;
+  limit: number;
+}
+
 export type AdminAnswerReport = AdminWaitlistRecord & {
   message: string;
 };
@@ -349,6 +369,19 @@ export type GetAdminWaitlistParams = {
 };
 
 export type GetAdminAnswerReportsParams = {
+  /**
+   * @minimum 0
+   * @maximum 1000000
+   */
+  offset?: number;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+};
+
+export type GetAdminVetReviewerApplicationsParams = {
   /**
    * @minimum 0
    * @maximum 1000000

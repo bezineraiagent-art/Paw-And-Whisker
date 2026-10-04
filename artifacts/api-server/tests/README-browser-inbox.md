@@ -32,6 +32,11 @@ fixture origin. Screenshots and the JSON check summary are written to
 `.local/reports/inbox-*`; these outputs are local test artifacts, not published
 or committed app data.
 
+The fixture also owns 26 synthetic veterinary reviewer applications; no real
+application is changed or removed. Veterinary checks cover 25/1 pagination,
+self-reported registration details, optional fields, inert website text, escaped
+messages, and empty/error/retry and late-response privacy states.
+
 The script checks unauthenticated/wrong-token API protection, locked and
 authenticated UI states, counts/dates/fixture records, PDF exclusion,
 independent pagination, refresh, Lock/reload and token storage, responsive

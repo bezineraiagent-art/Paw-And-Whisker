@@ -82,7 +82,7 @@ try {
   await cmd("Page.enable"); await cmd("Runtime.enable"); await cmd("Network.enable");
   await go();
   // API must not disclose either totals or records without the isolated fixture token.
-  const protectedApi = await evaluate(`Promise.all(['/api/admin/waitlist','/api/admin/answer-reports'].flatMap(p=>[{}, {'x-admin-token':'wrong-token'}].map(async h=>{const r=await fetch(p,{headers:h});return {status:r.status,body:await r.json(),robots:r.headers.get('x-robots-tag')}})))`);
+  const protectedApi = await evaluate(`Promise.all(['/api/admin/waitlist','/api/admin/answer-reports','/api/admin/vet-reviewer-applications'].flatMap(p=>[{}, {'x-admin-token':'wrong-token'}].map(async h=>{const r=await fetch(p,{headers:h});return {status:r.status,body:await r.json(),robots:r.headers.get('x-robots-tag')}})))`);
   for (const r of protectedApi) {
     assert.equal(r.status, 401); assert.deepEqual(Object.keys(r.body), ["error"]);
     assert.equal(r.robots, "noindex, nofollow");
@@ -101,6 +101,16 @@ try {
   await wait(`document.querySelector('[data-testid=status-inbox-auth]')`);
   assert.equal(await evaluate("document.querySelectorAll('.pw-leads').length"), 0);
   await go(1440); await openInbox();
+  assert.equal(await evaluate("document.querySelectorAll('[data-testid^=\"row-vets-\"]').length"), 25);
+  assert.ok(await evaluate("document.querySelector('[data-testid^=\"row-vets-\"]').innerText.includes('Fixture Board')"));
+  assert.equal(await evaluate("document.querySelector('[data-testid^=\"row-vets-\"] script, [data-testid^=\"row-vets-\"] a')"), null);
+  assert.ok(await evaluate("document.querySelector('[data-testid^=\"row-vets-\"]').innerText.includes(\"<script>alert('unsafe')</script>\")"));
+  await click("button-next-vets");
+  await wait(`document.querySelector('[data-testid=text-vets-count]')?.textContent.includes('26–26')`);
+  assert.equal(await evaluate("document.querySelectorAll('[data-testid^=\"row-vets-\"]').length"), 1);
+  assert.ok(await evaluate("document.querySelector('[data-testid^=\"row-vets-\"]').innerText.includes(\"javascript:alert('unsafe')\")"));
+  await click("button-prev-vets");
+  await wait(`document.querySelectorAll('[data-testid^=\"row-vets-\"]').length===25`);
   assert.match(await evaluate("document.querySelector('[data-testid=text-waitlist-count]').textContent"), /Showing 1–25 of 26 total/);
   assert.match(await evaluate("document.querySelector('[data-testid=text-reports-count]').textContent"), /Showing 1–1 of 1 total/);
   assert.equal(await evaluate("document.querySelectorAll('[data-testid^=\"row-waitlist-\"]').length"), 25);
@@ -143,37 +153,38 @@ try {
   // Route synthetic responses without assuming request ordering.
   const drain = async handler => {
     const end = Date.now() + 5000;
-    while (Date.now() < end && paused.length < 2) await sleep(25);
+    while (Date.now() < end && paused.length < 3) await sleep(25);
     const requests = paused.splice(0);
     for (const p of requests) await handler(p);
     return requests;
   };
   const emptyRequests = await drain(p => fulfill(p.requestId, 200, { records: [], total: 0, offset: 0, limit: 25 }));
-  assert.equal(emptyRequests.length, 2, "synthetic empty state: two list requests intercepted");
+  assert.equal(emptyRequests.length, 3, "synthetic empty state: three list requests intercepted");
+  await wait("document.querySelector('[data-testid=empty-vets]')");
   await wait("document.querySelector('[data-testid=empty-waitlist]') && document.querySelector('[data-testid=empty-reports]')");
   synthetic.push("empty response");
   await click("button-lock-inbox"); await wait("document.querySelector('[data-testid=input-inbox-token]')");
   await cmd("Fetch.disable");
   // One list 503, one success; retry the failed list with another synthetic success.
   await interceptStart(); await fill("input-inbox-token", token); await click("button-open-inbox");
-  const errorRequests = await drain(p => p.request.url.includes("/waitlist") ?
+  const errorRequests = await drain(p => p.request.url.includes("/vet-reviewer-applications") ?
     fulfill(p.requestId, 503, { error: "Synthetic failure" }) :
     fulfill(p.requestId, 200, { records: [], total: 0, offset: 0, limit: 25 }));
-  assert.equal(errorRequests.length, 2, "synthetic error state: both list requests intercepted");
-  await wait("document.querySelector('[data-testid=button-retry-waitlist]')");
+  assert.equal(errorRequests.length, 3, "synthetic error state: all list requests intercepted");
+  await wait("document.querySelector('[data-testid=button-retry-vets]')");
   synthetic.push("one-list error/retry");
-  const retryCall = click("button-retry-waitlist");
+  const retryCall = click("button-retry-vets");
   const retry = await drain(p => fulfill(p.requestId, 200, { records: [], total: 0, offset: 0, limit: 25 }));
   await retryCall; assert.equal(retry.length, 1, "synthetic retry request intercepted");
-  await wait("document.querySelector('[data-testid=empty-waitlist]')");
+  await wait("document.querySelector('[data-testid=empty-vets]')");
   await click("button-lock-inbox"); await wait("document.querySelector('[data-testid=input-inbox-token]')");
   await cmd("Fetch.disable");
 
   // A real auth rejection on one list must clear the UI before the other intercepted list resolves.
   await interceptStart(); await fill("input-inbox-token", token); await click("button-open-inbox");
   const end = Date.now() + 5000;
-  while (Date.now() < end && paused.length < 2) await sleep(25);
-  const denied = paused.find(p => p.request.url.includes("/waitlist"));
+  while (Date.now() < end && paused.length < 3) await sleep(25);
+  const denied = paused.find(p => p.request.url.includes("/vet-reviewer-applications"));
   const stalled = paused.find(p => p.request.url.includes("/answer-reports"));
   assert.ok(denied && stalled, "both requests paused for auth/stall check");
   await fulfill(denied.requestId, 401, { error: "Synthetic unauthorized" });
@@ -185,10 +196,10 @@ try {
   synthetic.push("401 clears while other list stalled");
   await cmd("Fetch.disable");
 
-  // Pause both successful requests, lock before they complete, then deliver them late.
+  // Pause all successful requests, lock before they complete, then deliver them late.
   await go(1440); await interceptStart(); await fill("input-inbox-token", token); await click("button-open-inbox");
   const delayed = await drain(async () => {});
-  assert.equal(delayed.length, 2, "delayed initial requests intercepted");
+  assert.equal(delayed.length, 3, "delayed initial requests intercepted");
   await click("button-lock-inbox-auth"); await wait("document.querySelector('[data-testid=input-inbox-token]')");
   for (const p of delayed) await fulfill(p.requestId, 200, { records: [{ id: 999998, email: "synthetic-late@example.invalid", createdAt: "2099-01-01T00:00:00Z" }], total: 1, offset: 0, limit: 25 }).catch(() => {});
   await sleep(300);
@@ -200,7 +211,7 @@ try {
   await openInbox();
   await interceptStart(); await click("button-refresh-inbox");
   const refreshRequests = await drain(async () => {});
-  assert.equal(refreshRequests.length, 2, "delayed refresh requests intercepted");
+  assert.equal(refreshRequests.length, 3, "delayed refresh requests intercepted");
   await click("button-lock-inbox"); await wait("document.querySelector('[data-testid=input-inbox-token]')");
   for (const p of refreshRequests) await fulfill(p.requestId, 200, { records: [{ id: 999997, email: "synthetic-refresh@example.invalid", createdAt: "2099-01-01T00:00:00Z" }], total: 1, offset: 0, limit: 25 }).catch(() => {});
   await sleep(300);

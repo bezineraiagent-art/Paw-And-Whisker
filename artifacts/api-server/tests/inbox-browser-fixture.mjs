@@ -19,7 +19,15 @@ await writeFile(`${temporary}/fixture.cjs`, bundled.outputFiles[0].contents);
 const { app, pool, anonymousKey } = createRequire(import.meta.url)(`${temporary}/fixture.cjs`);
 const tag = randomUUID();
 const emails = [`inbox-waitlist-${tag}@example.invalid`, `inbox-report-${tag}@example.invalid`, `inbox-pdf-${tag}@example.invalid`];
-const subscriberIds = [], reportIds = [];
+const subscriberIds = [], reportIds = [], vetIds = [];
+for (let i = 0; i < 26; i++) {
+  const { rows } = await pool.query(`INSERT INTO vet_reviewer_applications
+    (name,email,credentials,registration_body,registration_number,clinic,clinic_website,message,consent,created_at)
+    VALUES ($1,$2,'Fixture DVM','Fixture Board',$3,$4,$5,$6,true,'2099-01-01') RETURNING id`,
+    [`Fixture Vet ${i}`, `vet-${tag}@example.invalid`, `TEST-${i}`, i % 2 ? null : "Fixture Clinic",
+      i % 2 ? null : "javascript:alert('unsafe')", "<script>alert('unsafe')</script>\n" + "Long application message ".repeat(100)]);
+  vetIds.push(rows[0].id);
+}
 for (let i = 0; i < 26; i++) {
   const { rows } = await pool.query("INSERT INTO subscribers(email,source,created_at) VALUES ($1,'plus-waitlist','2099-01-01') RETURNING id", [emails[0]]);
   subscriberIds.push(rows[0].id);
@@ -36,6 +44,7 @@ async function cleanup() {
   server.close();
   await pool.query("DELETE FROM subscribers WHERE id=ANY($1::int[])", [subscriberIds]);
   await pool.query("DELETE FROM answer_reports WHERE id=ANY($1::int[])", [reportIds]);
+  await pool.query("DELETE FROM vet_reviewer_applications WHERE id=ANY($1::int[])", [vetIds]);
   await pool.query("DELETE FROM usage_counters WHERE key LIKE $1", [`inbox-admin:%:${anonymousKey("127.0.0.1")}`]);
   await pool.end(); await rm(temporary, { recursive: true }); process.exit(0);
 }

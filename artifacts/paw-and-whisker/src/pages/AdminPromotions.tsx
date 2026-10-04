@@ -32,7 +32,7 @@ export default function AdminPromotions() {
     <div className="pw"><main id="main" className="pw-section"><div className="pw-wrap">
       <p className="pw-eyebrow">Admin</p>
       <h1>Promotion leads</h1>
-      <p><a href="/admin/analytics">Open the analytics dashboard</a> · <a href="/admin/inbox" data-testid="link-admin-inbox">Open the waitlist and reports inbox</a></p>
+      <p><a href="/admin/analytics">Open the analytics dashboard</a> · <a href="/admin/inbox" data-testid="link-admin-inbox">Open reviewer applications, waitlist and reports</a></p>
       {!token ? (
         <form className="pw-form" onSubmit={signIn} data-testid="form-admin-leads">
           <label>Admin token<input type="password" value={input} onChange={e => setInput(e.target.value)} autoComplete="off" data-testid="input-leads-token" /></label>

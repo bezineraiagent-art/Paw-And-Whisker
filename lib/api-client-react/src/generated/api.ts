@@ -18,6 +18,7 @@ import type {
 
 import type {
   AdminAnswerReportsPage,
+  AdminVetReviewerApplicationsPage,
   AdminWaitlistPage,
   AdvertiserInquiryInput,
   AnswerReportInput,
@@ -26,6 +27,7 @@ import type {
   CompanionInput,
   CompanionUsage,
   GetAdminAnswerReportsParams,
+  GetAdminVetReviewerApplicationsParams,
   GetAdminWaitlistParams,
   HealthStatus,
   PdfAccess,
@@ -1112,6 +1114,109 @@ export function useGetAdminAnswerReports<
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getGetAdminAnswerReportsQueryOptions(params, options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+export const getGetAdminVetReviewerApplicationsUrl = (
+  params?: GetAdminVetReviewerApplicationsParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/admin/vet-reviewer-applications?${stringifiedParams}`
+    : `/api/admin/vet-reviewer-applications`;
+};
+
+export const getAdminVetReviewerApplications = async (
+  params?: GetAdminVetReviewerApplicationsParams,
+  options?: RequestInit,
+): Promise<AdminVetReviewerApplicationsPage> => {
+  return customFetch<AdminVetReviewerApplicationsPage>(
+    getGetAdminVetReviewerApplicationsUrl(params),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export const getGetAdminVetReviewerApplicationsQueryKey = (
+  params?: GetAdminVetReviewerApplicationsParams,
+) => {
+  return [
+    `/api/admin/vet-reviewer-applications`,
+    ...(params ? [params] : []),
+  ] as const;
+};
+
+export const getGetAdminVetReviewerApplicationsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAdminVetReviewerApplications>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetAdminVetReviewerApplicationsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getAdminVetReviewerApplications>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetAdminVetReviewerApplicationsQueryKey(params);
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAdminVetReviewerApplications>>
+  > = ({ signal }) =>
+    getAdminVetReviewerApplications(params, { signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAdminVetReviewerApplications>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAdminVetReviewerApplicationsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAdminVetReviewerApplications>>
+>;
+export type GetAdminVetReviewerApplicationsQueryError = ErrorType<void>;
+
+export function useGetAdminVetReviewerApplications<
+  TData = Awaited<ReturnType<typeof getAdminVetReviewerApplications>>,
+  TError = ErrorType<void>,
+>(
+  params?: GetAdminVetReviewerApplicationsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getAdminVetReviewerApplications>>,
+      TError,
+      TData
+    >;
+    request?: SecondParameter<typeof customFetch>;
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAdminVetReviewerApplicationsQueryOptions(
+    params,
+    options,
+  );
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

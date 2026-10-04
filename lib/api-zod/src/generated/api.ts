@@ -544,3 +544,53 @@ export const GetAdminAnswerReportsResponse = zod.object({
   offset: zod.number(),
   limit: zod.number(),
 });
+
+export const getAdminVetReviewerApplicationsQueryOffsetDefault = 0;
+export const getAdminVetReviewerApplicationsQueryOffsetMin = 0;
+export const getAdminVetReviewerApplicationsQueryOffsetMax = 1000000;
+
+export const getAdminVetReviewerApplicationsQueryLimitDefault = 25;
+export const getAdminVetReviewerApplicationsQueryLimitMax = 100;
+
+export const GetAdminVetReviewerApplicationsQueryParams = zod.object({
+  offset: zod.coerce
+    .number()
+    .min(getAdminVetReviewerApplicationsQueryOffsetMin)
+    .max(getAdminVetReviewerApplicationsQueryOffsetMax)
+    .default(getAdminVetReviewerApplicationsQueryOffsetDefault),
+  limit: zod.coerce
+    .number()
+    .min(1)
+    .max(getAdminVetReviewerApplicationsQueryLimitMax)
+    .default(getAdminVetReviewerApplicationsQueryLimitDefault),
+});
+
+export const GetAdminVetReviewerApplicationsHeader = zod.object({
+  "x-admin-token": zod.string(),
+});
+
+export const GetAdminVetReviewerApplicationsResponse = zod.object({
+  records: zod.array(
+    zod
+      .object({
+        id: zod.number(),
+        email: zod.string(),
+        createdAt: zod.coerce.date(),
+      })
+      .and(
+        zod.object({
+          name: zod.string(),
+          credentials: zod.string(),
+          registrationBody: zod.string(),
+          registrationNumber: zod.string(),
+          clinic: zod.string().nullable(),
+          clinicWebsite: zod.string().nullable(),
+          message: zod.string(),
+          consent: zod.boolean(),
+        }),
+      ),
+  ),
+  total: zod.number(),
+  offset: zod.number(),
+  limit: zod.number(),
+});

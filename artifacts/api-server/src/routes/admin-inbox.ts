@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { count, desc, eq } from "drizzle-orm";
 import type { SelectedFields } from "drizzle-orm/pg-core";
-import { db, subscribers, answerReports } from "@workspace/db";
+import { db, subscribers, answerReports, vetReviewerApplications } from "@workspace/db";
 import { requireAdminToken } from "../lib/admin-auth";
 import { requestLimit } from "../lib/request-limits";
 
 const router = Router();
 const limitRequests = requestLimit(60, 60_000, "inbox-admin");
-for (const path of ["/admin/waitlist", "/admin/answer-reports"]) {
+for (const path of ["/admin/waitlist", "/admin/answer-reports", "/admin/vet-reviewer-applications"]) {
   router.get(path, (_req, res, next) => {
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Robots-Tag", "noindex, nofollow");
@@ -22,10 +22,19 @@ for (const path of ["/admin/waitlist", "/admin/answer-reports"]) {
     }
     try {
       const isWaitlist = path === "/admin/waitlist";
-      const table = isWaitlist ? subscribers : answerReports;
+      const isVet = path === "/admin/vet-reviewer-applications";
+      const table = isWaitlist ? subscribers : isVet ? vetReviewerApplications : answerReports;
       const where = isWaitlist ? eq(subscribers.source, "plus-waitlist") : undefined;
       const fields: SelectedFields = isWaitlist
         ? { id: subscribers.id, email: subscribers.email, createdAt: subscribers.createdAt }
+        : isVet ? {
+          id: vetReviewerApplications.id, email: vetReviewerApplications.email,
+          createdAt: vetReviewerApplications.createdAt, name: vetReviewerApplications.name,
+          credentials: vetReviewerApplications.credentials, registrationBody: vetReviewerApplications.registrationBody,
+          registrationNumber: vetReviewerApplications.registrationNumber, clinic: vetReviewerApplications.clinic,
+          clinicWebsite: vetReviewerApplications.clinicWebsite, message: vetReviewerApplications.message,
+          consent: vetReviewerApplications.consent,
+        }
         : { id: answerReports.id, email: answerReports.email, createdAt: answerReports.createdAt, message: answerReports.message };
       // One snapshot keeps the count and page consistent during concurrent submissions.
       const result = await db.transaction(async tx => {
